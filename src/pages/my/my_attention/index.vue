@@ -1,5 +1,11 @@
 <template>
   <main>
+    <div class="attention_top panel panel-no_top">
+      <div>关注人</div>
+      <div>最近活动</div>
+      <div>备注</div>
+    </div>
+
     <div class="slide_cell border_line" v-for="(item,index) in list">
       <div class="slide_box"
            :style="item.style"
@@ -7,7 +13,12 @@
            @touchstart="touchS"
            @touchmove="touchM"
            @touchend="touchE">
-        <!--代码-->
+
+        <div class="attention_info" :style="index%2===0?'background-color:#e5e5e5':''">
+          <div class="info-name">张三</div>
+          <div class="info-time"> 2018-8-8 9:00</div>
+          <div class="info-desc">好玩</div>
+        </div>
 
       </div>
       <!--这里是滑动后显示的按钮----start-->
@@ -21,18 +32,26 @@
 
 <script>
   export default {
-    name: 'slide_cell',
+    name: 'index',
     data() {
       return {
-        startX: 0, // 记录触摸起始位置的X坐标
-        btnWidth: 50, // 右侧按钮区域的宽度
-        style: '', //滑动后样式
-        index: 0, //滑动项的下标
         list: [{
-          name: '1'
+          name: 1
         }, {
-          name: '2'
-        }]
+          name: 1
+        }, {
+          name: 1
+        }, {
+          name: 1
+        }, {
+          name: 1
+        }, {
+          name: 1
+        }],
+        startX: 0, // 记录触摸起始位置的X坐标
+        btnWidth: 100, // 右侧按钮区域的宽度
+        style: '', //滑动后样式
+        index: 0 //滑动项的下标
       }
     },
     methods: {
@@ -88,9 +107,10 @@
 </script>
 
 <style lang="stylus">
-  @import "../../stylus/common.styl"
+  @import "../../../stylus/common.styl";
+
   page {
-    background-color $background-color;
+    background-color $background-color
   }
 
   .slide_cell {
@@ -100,7 +120,6 @@
     .slide_box {
       transition: all .5s;
       box-sizing border-box;
-      background-color white;
       position: relative;
       left 0;
       width 100%;
@@ -119,12 +138,29 @@
         display flex;
         align-items center;
         justify-content center;
-        width 50px;
+        width 100px;
         height 100%;
         color white;
         background-color red;
         font-size 16px;
       }
     }
+  }
+
+  .attention_top {
+    padding: 15px;
+    display flex;
+    justify-content space-between;
+    align-items center
+    font-size 16px;
+  }
+
+  .attention_info {
+    padding: 15px;
+    display flex;
+    justify-content space-between;
+    align-items center;
+    font-size 16px;
+    background-color white;
   }
 </style>
