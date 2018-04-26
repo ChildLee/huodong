@@ -27,7 +27,7 @@
 }
 
 /* type */
-.btn-primary {
+.btn_color-primary {
   color: #fff;
   background-color: #4b0;
 
@@ -36,7 +36,7 @@
   }
 }
 
-.btn-warn {
+.btn_color-warn {
   color: #fff;
   background-color: #f85;
 
@@ -45,7 +45,7 @@
   }
 }
 
-.btn-danger {
+.btn_color-danger {
   color: #fff;
   background-color: #f44;
 
@@ -54,8 +54,17 @@
   }
 }
 
+.btn_color-DodgerBlue {
+  color: #fff;
+  background-color: DodgerBlue;
+
+  &::after {
+    border-color: DodgerBlue;
+  }
+}
+
 /* size */
-.btn-large {
+.btn_size-large {
   border-radius: 0;
   margin-bottom: 0;
   line-height: 50px;
@@ -63,7 +72,7 @@
   height: 50px;
 }
 
-.btn-small {
+.btn_size-small {
   display: inline-block;
   line-height: 30px;
   margin-right: 5px;
@@ -72,7 +81,7 @@
   height: 30px;
 }
 
-.btn-mini {
+.btn_size-mini {
   display: inline-block;
   padding-right: 5px;
   padding-left: 5px;

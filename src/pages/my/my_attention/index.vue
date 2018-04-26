@@ -6,7 +6,7 @@
       <div>备注</div>
     </div>
 
-    <div class="slide_cell border_line" v-for="(item,index) in list">
+    <div class="slide_cell border_line" v-for="(item,index) in list" :key="index">
       <div class="slide_box"
            :style="item.style"
            :data-index="index"
@@ -14,7 +14,7 @@
            @touchmove="touchM"
            @touchend="touchE">
 
-        <div class="attention_info" :style="index%2===0?'background-color:#e5e5e5':''">
+        <div class="attention_info" :style="index%2===0?'background-color:#F8F8F8':''">
           <div class="info-name">张三</div>
           <div class="info-time"> 2018-8-8 9:00</div>
           <div class="info-desc">好玩</div>
@@ -23,9 +23,12 @@
       </div>
       <!--这里是滑动后显示的按钮----start-->
       <div class="slide_btn">
-        <div class="del">删除</div>
+        <div class="del" @click="del">删除</div>
       </div>
       <!--这里是滑动后显示的按钮----end-->
+    </div>
+    <div class="more">
+      <div class="btn btn_size-small btn_color-DodgerBlue">关注更多</div>
     </div>
   </main>
 </template>
@@ -49,15 +52,20 @@
           name: 1
         }],
         startX: 0, // 记录触摸起始位置的X坐标
-        btnWidth: 100, // 右侧按钮区域的宽度
+        btnWidth: 160, // 右侧按钮区域的宽度,单位rpx
         style: '', //滑动后样式
         index: 0 //滑动项的下标
       }
     },
     methods: {
+      del() {
+        console.log(1)
+      },
       touchS(e) {
         // 当手指触摸屏幕时触发
         if (e.touches.length === 1) {
+          //重置展开index的数据
+          this.list[this.index].style = 'left:0'
           // 记录触摸起始位置的X坐标
           this.startX = e.clientX
         }
@@ -74,10 +82,9 @@
           //delWidth 为右侧按钮区域的宽度
           let btnWidth = this.btnWidth
           //移动距离大于0，文本层left值等于手指移动距离
-          disX > 0 ? this.style = `left:-${disX}px` : this.style = 'left:0'
+          disX > 0 ? this.style = `left:-${disX}rpx` : this.style = 'left:0'
           //控制手指移动距离最大值为删除按钮的宽度
-          disX >= btnWidth ? this.style = `left:-${btnWidth}px` : ''
-          if (this.list[this.index].selected === true && disX > 0) return
+          disX >= btnWidth ? this.style = `left:-${btnWidth}rpx` : ''
           //将拼接好的样式设置到当前item中
           this.list[this.index].style = this.style
         }
@@ -92,14 +99,9 @@
           let disX = this.startX - endX
           //触摸开始与结束，手指移动的距离
           let btnWidth = this.btnWidth
-          disX > btnWidth / 2 ? this.style = `left:-${btnWidth}px` : this.style = 'left:0'
-          if (this.list[this.index].selected === true && disX <= 0) {
-            this.list[this.index].selected = false
-            return
-          }
+          disX > btnWidth / 2 ? this.style = `left:-${btnWidth}rpx` : this.style = 'left:0'
           //将拼接好的样式设置到当前item中
           this.list[this.index].style = this.style
-          this.list[this.index].selected = true
         }
       }
     }
@@ -132,13 +134,13 @@
       top: 0;
       right 0;
       height 100%;
-      z-index -1;
+      z-index 0;
 
       .del {
         display flex;
         align-items center;
         justify-content center;
-        width 100px;
+        width 80px;
         height 100%;
         color white;
         background-color red;
@@ -162,5 +164,11 @@
     align-items center;
     font-size 16px;
     background-color white;
+  }
+
+  .more {
+    position fixed;
+    bottom: 15px;
+    right 15px;
   }
 </style>

@@ -13,7 +13,7 @@
 
     <div class="comment_filter panel">
       <div>总计：17（筛选总数）</div>
-      <div class="btn btn-small btn-warn">筛选</div>
+      <div class="btn btn_size-small btn_color-warn">筛选</div>
     </div>
 
     <div class="comment_box border_line panel">

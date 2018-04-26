@@ -22,7 +22,7 @@ wrap(App, {
 
 export default {
   config: {
-    pages: ['^pages/my/my_attention/main'],
+    pages: ['^pages/my/my_attention/attention_info/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',

@@ -1,7 +1,7 @@
 <template>
   <main>
     <!--会员页面-->
-    <div v-if="false">
+    <div v-if="true">
       <div class="my_vip">
         <div class="level_rule">等级与充值规则</div>
         <div class="my_vip_box">
@@ -77,7 +77,6 @@
   import WxCell from '@/components/cell'
   import echarts from 'echarts'
   import mpvueEcharts from 'mpvue-echarts'
-  import {mapState} from 'vuex'
 
   export default {
     name: '个人中心',
@@ -85,22 +84,16 @@
       WxCell,
       mpvueEcharts
     },
-    computed: {
-      ...mapState([
-        'count'
-      ])
-    },
     data() {
       return {
         echartsData: [1, 2, 3, 4],
-        echarts
+        echarts,
+        onInit: ''
       }
     },
     beforeMount() {
+      console.log(2)
       this.onInit = this.initChart
-    },
-    mounted() {
-      //
     },
     methods: {
       // 菱形图
@@ -110,7 +103,7 @@
           height: height
         })
         canvas.setChart(chart)
-        var option = {
+        let option = {
           color: ['#ff0000'],
           radar: {
             // radius: 40, // 放大
@@ -128,16 +121,20 @@
             },
             indicator: [{
               name: '会员等级',
-              max: 5
+              max: 5,
+              color: '#000'
             }, {
               name: '主持大咖',
-              max: 5
+              max: 5,
+              color: '#000'
             }, {
               name: '塔木德阿神',
-              max: 5
+              max: 5,
+              color: '#000'
             }, {
               name: '辅助明星',
-              max: 5
+              max: 5,
+              color: '#000'
             }]
           },
           series: [{
