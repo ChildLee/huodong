@@ -1,9 +1,6 @@
 <template>
   <main>
     <div class="attention_info panel panel-no_top panel-no_border">
-      <div class="echarts-wrap border">
-        <mpvue-echarts :echarts="echarts" :onInit="onInit" canvasId="demo-canvas"/>
-      </div>
       <div class="attention_info_box">
         <div class="info-name">王五</div>
         <div class="info-Marriage"><i class="info-Marriage_sex icon icon-men"></i>单身</div>
@@ -49,79 +46,18 @@
 
 <script>
   import WxCell from '@/components/cell'
-  import echarts from 'echarts'
-  import mpvueEcharts from 'mpvue-echarts'
 
   export default {
     name: 'attention_info',
     components: {
-      WxCell,
-      mpvueEcharts
+      WxCell
     },
     data() {
-      return {
-        echartsData: [1, 2, 3, 4],
-        echarts,
-        onInit: ''
-      }
+      return {}
     },
     beforeMount() {
-      this.onInit = this.initChart
     },
-    methods: {
-      // 菱形图
-      initChart(canvas, width, height) {
-        const chart = echarts.init(canvas, null, {
-          width: width,
-          height: height
-        })
-        canvas.setChart(chart)
-        let option = {
-          color: ['#ff0000'],
-          radar: {
-            // radius: 40, // 放大
-            startAngle: 135, // 旋转
-            axisLine: {
-              show: false
-            },
-            splitArea: {
-              show: false
-            },
-            nameGap: 0, // 指示器名称和指示器轴的距离。
-            name: {
-              show: true
-              // fontSize: 16,
-              // padding: 10
-            },
-            indicator: [{
-              name: '会员等级',
-              max: 5,
-              color: '#000'
-            }, {
-              name: '主持大咖',
-              max: 5,
-              color: '#000'
-            }, {
-              name: '塔木德阿神',
-              max: 5,
-              color: '#000'
-            }, {
-              name: '辅助明星',
-              max: 5,
-              color: '#000'
-            }]
-          },
-          series: [{
-            type: 'radar',
-            data: [{
-              value: this.echartsData
-            }]
-          }]
-        }
-        chart.setOption(option)
-        return chart
-      }
-    }
+    methods: {}
   }
 </script>
 

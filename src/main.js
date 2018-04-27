@@ -11,7 +11,7 @@ wrap(App, {
   // 开发环境
   env: 'production' | 'development',
   // api域名
-  domain: 'http://127.0.0.1',
+  domain: 'https://www.easy-mock.com/mock/5ae12ad32c146a5660f12c58/fast',
   // 使用app.logger可上报信息的API
   reportDomain: 'http://127.0.0.1',
   // 用于展示H5的页面，例如/pages/webview/webview
@@ -22,12 +22,22 @@ wrap(App, {
 
 export default {
   config: {
-    pages: ['^pages/my/my_attention/attention_info/main'],
+    pages: ['^pages/my/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      list: [
+        {
+          pagePath: 'pages/my/main',
+          text: '首页'
+        }, {
+          pagePath: 'pages/my/main',
+          text: '日志'
+        }]
     }
   }
 }

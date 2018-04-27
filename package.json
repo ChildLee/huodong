@@ -13,9 +13,7 @@
   },
   "dependencies": {
     "common-mpvue": "^0.3.7",
-    "echarts": "^4.0.4",
     "mpvue": "^1.0.9",
-    "mpvue-echarts": "^0.2.2",
     "vuex": "^2.5.0"
   },
   "devDependencies": {

@@ -5,9 +5,6 @@
       <div class="my_vip">
         <div class="level_rule">等级与充值规则</div>
         <div class="my_vip_box">
-          <div class="echarts-wrap">
-            <mpvue-echarts :echarts="echarts" :onInit="onInit" canvasId="demo-canvas"/>
-          </div>
           <div class="my_info">
             <div class="my_info_box">
               <img src="http://placehold.it/200">
@@ -75,79 +72,18 @@
 
 <script>
   import WxCell from '@/components/cell'
-  import echarts from 'echarts'
-  import mpvueEcharts from 'mpvue-echarts'
 
   export default {
     name: '个人中心',
     components: {
-      WxCell,
-      mpvueEcharts
+      WxCell
     },
     data() {
-      return {
-        echartsData: [1, 2, 3, 4],
-        echarts,
-        onInit: ''
-      }
+      return {}
     },
     beforeMount() {
-      console.log(2)
-      this.onInit = this.initChart
     },
-    methods: {
-      // 菱形图
-      initChart(canvas, width, height) {
-        const chart = echarts.init(canvas, null, {
-          width: width,
-          height: height
-        })
-        canvas.setChart(chart)
-        let option = {
-          color: ['#ff0000'],
-          radar: {
-            // radius: 40, // 放大
-            startAngle: 135, // 旋转
-            axisLine: {
-              show: false
-            },
-            splitArea: {
-              show: false
-            },
-            nameGap: 0, // 指示器名称和指示器轴的距离。
-            name: {
-              // fontSize: 16,
-              // padding: 10
-            },
-            indicator: [{
-              name: '会员等级',
-              max: 5,
-              color: '#000'
-            }, {
-              name: '主持大咖',
-              max: 5,
-              color: '#000'
-            }, {
-              name: '塔木德阿神',
-              max: 5,
-              color: '#000'
-            }, {
-              name: '辅助明星',
-              max: 5,
-              color: '#000'
-            }]
-          },
-          series: [{
-            type: 'radar',
-            data: [{
-              value: this.echartsData
-            }]
-          }]
-        }
-        chart.setOption(option)
-        return chart
-      }
-    }
+    methods: {}
   }
 </script>
 

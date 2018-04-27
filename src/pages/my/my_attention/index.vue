@@ -15,14 +15,15 @@
            @touchend="touchE">
 
         <div class="attention_info" :style="index%2===0?'background-color:#F8F8F8':''">
-          <div class="info-name">张三</div>
-          <div class="info-time"> 2018-8-8 9:00</div>
-          <div class="info-desc">好玩</div>
+          <div class="info-name">{{item.name}}</div>
+          <div class="info-time">{{item.date}}</div>
+          <div class="info-desc">{{item.desc}}</div>
         </div>
 
       </div>
       <!--这里是滑动后显示的按钮----start-->
       <div class="slide_btn">
+        <div class="invite">邀约</div>
         <div class="del" @click="del">删除</div>
       </div>
       <!--这里是滑动后显示的按钮----end-->
@@ -35,27 +36,23 @@
 
 <script>
   export default {
-    name: 'index',
+    name: 'my_attention',
     data() {
       return {
-        list: [{
-          name: 1
-        }, {
-          name: 1
-        }, {
-          name: 1
-        }, {
-          name: 1
-        }, {
-          name: 1
-        }, {
-          name: 1
-        }],
+        list: '',
         startX: 0, // 记录触摸起始位置的X坐标
-        btnWidth: 160, // 右侧按钮区域的宽度,单位rpx
+        btnWidth: 320, // 右侧按钮区域的宽度,单位rpx
         style: '', //滑动后样式
         index: 0 //滑动项的下标
       }
+    },
+    beforeMount() {
+      //查询关注人列表
+      wx.httpRequest.httpGet('/attention')
+        .then(res => {
+          this.list = res.data
+          console.log('查询关注人列表')
+        })
     },
     methods: {
       del() {
@@ -99,7 +96,7 @@
           let disX = this.startX - endX
           //触摸开始与结束，手指移动的距离
           let btnWidth = this.btnWidth
-          disX > btnWidth / 2 ? this.style = `left:-${btnWidth}rpx` : this.style = 'left:0'
+          disX > btnWidth / 4 ? this.style = `left:-${btnWidth}rpx` : this.style = 'left:0'
           //将拼接好的样式设置到当前item中
           this.list[this.index].style = this.style
         }
@@ -135,15 +132,27 @@
       right 0;
       height 100%;
       z-index 0;
+      display flex;
 
-      .del {
+      .invite {
+        background-color: $orange
         display flex;
         align-items center;
         justify-content center;
         width 80px;
         height 100%;
         color white;
+        font-size 16px;
+      }
+
+      .del {
         background-color red;
+        display flex;
+        align-items center;
+        justify-content center;
+        width 80px;
+        height 100%;
+        color white;
         font-size 16px;
       }
     }
@@ -164,6 +173,18 @@
     align-items center;
     font-size 16px;
     background-color white;
+
+    .info-name {
+      flex 1;
+    }
+
+    .info-time {
+      flex 1;
+    }
+
+    .info-desc {
+      flex 1;
+    }
   }
 
   .more {
