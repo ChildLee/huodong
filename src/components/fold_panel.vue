@@ -1,10 +1,12 @@
 <template>
-  <main class="panel">
-    <div class="fold_panel"
-         :class="selected?'fold_panel-arrow_bottom':'fold_panel-arrow_top'"
-         @click="click">{{text}}
+  <main>
+    <div class="panel">
+      <div class="fold_panel"
+           :class="fold_selected?'fold_panel-arrow_bottom':'fold_panel-arrow_top'"
+           @click="fold">{{text}}
+      </div>
+      <slot v-if="fold_selected"></slot>
     </div>
-    <slot v-if="selected"></slot>
   </main>
 </template>
 
@@ -13,16 +15,16 @@
     name: 'FoldPanel',
     props: {
       text: String,
-      selected: Boolean
+      fold_selected: Boolean
     },
     data() {
       return {
-        selected: false
+        fold_selected: false // 滑动单元格是否展开
       }
     },
     methods: {
-      click() {
-        this.selected = !this.selected
+      fold() {
+        this.fold_selected = !this.fold_selected
       }
     }
   }

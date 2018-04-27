@@ -22,7 +22,7 @@ wrap(App, {
 
 export default {
   config: {
-    pages: ['^pages/my/my_invite/main'],
+    pages: ['^pages/my/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',

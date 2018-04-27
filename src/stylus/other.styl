@@ -11,6 +11,15 @@
   }
 }
 
+.border-white {
+  position: relative;
+
+  &::after {
+    border_line($ghost-white);
+    border-width 1px;
+  }
+}
+
 .border_box_line {
   position: relative;
 
