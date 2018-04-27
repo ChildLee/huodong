@@ -22,7 +22,7 @@ wrap(App, {
 
 export default {
   config: {
-    pages: ['^pages/my/main'],
+    pages: ['^pages/my/my_love/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',

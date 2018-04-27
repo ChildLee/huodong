@@ -1,7 +1,16 @@
 import {WrapPage} from 'common-mpvue'
 import App from './index'
 
-new WrapPage(App)
+new WrapPage(App, {
+  state: {
+    list: ''
+  },
+  mutations: {
+    setList(state) {
+      state.list = [{name: 1}]
+    }
+  }
+})
 
 export default {
   config: {
