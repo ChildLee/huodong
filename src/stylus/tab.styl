@@ -1,6 +1,21 @@
 //tab
 @import "common.styl"
 
+/* tab colors */
+$tab-box-border-color = $gray-light //盒子底部颜色
+$tab-background-color = $white //盒子背景颜色
+$tab-title-color = $text-color //tab标题颜色
+$tab-selected-color = $red //选中字体颜色
+$tab-selected-border-color = $red //选中底部颜色
+
+.tab,
+.tab_box,
+.tab_item,
+.tab_title,
+.tab_title-selected,
+.tab_item-selected {
+}
+
 .tab {
   height: 45px;
 }
@@ -11,8 +26,8 @@
   display: flex;
   white-space: nowrap;
   box-sizing: border-box;
-  border-bottom: 1px solid $gray-light;
-  background: $white;
+  border-bottom: 1px solid $tab-box-border-color;
+  background: white;
 
   .tab_item {
     flex 1;
@@ -33,24 +48,29 @@
       text-overflow: ellipsis;
       word-break: keep-all;
       font-size: 14px;
-      color: $gray-darker;
+      color: $tab-title-color;
     }
 
     .tab_title-selected {
-      color: $red;
-      border-bottom: 2px solid $red;
+      color: $tab-selected-color;
+      border-bottom: 2px solid $tab-selected-border-color;
     }
   }
 
   .tab_item-selected {
-    color: $red;
-    border-bottom: 2px solid $red;
+    border-bottom: 2px solid $tab-selected-border-color;
+    .tab_title {
+      color: $tab-selected-color;
+    }
   }
+}
+
+.tab_box-no_border {
+  border: none;
 }
 
 .tab-fixed {
   position: fixed;
   top: 0;
   z-index: 1;
-
 }

@@ -1,18 +1,23 @@
-//公共样式
+/* 公共样式 */
+$white = white
+
 $red = #f44; //红色
 $orange = #f60; //橘红色
 $green = #06bf04; //浅绿色
 $DodgerBlue = DodgerBlue; //天蓝色
+$ghost-white = GhostWhite //鬼白色#F8F8FF
 $gray-light = LightGrey; //浅灰色#D3D3D3
 $silver = Silver; //银色#C0C0C0
 $gray = #999; //灰色默认是	#808080
+$text = #666;
 
 /* default colors */
-$background-color = GhostWhite; //鬼白色#F8F8FF
+$background-color = $ghost-white;
 $border-color = $gray-light;
-$text-color = $gray;
+$text-color-gray = $gray;
+$text-color = $text
 
-//边框线
+/* 边框线 */
 border_line($border_line-color = $border-color) {
   content: '';
   position: absolute;
@@ -28,7 +33,7 @@ border_line($border_line-color = $border-color) {
   border: 0 solid $border_line-color;
 }
 
-//朝右边箭头>
+/* 朝右边箭头> */
 arrow_right() {
   content: " ";
   display: inline-block;
@@ -44,7 +49,7 @@ arrow_right() {
   transform: rotateZ(45deg);
 }
 
-//朝上边箭头^
+/* 朝上边箭头^ */
 arrow_top() {
   content: " ";
   display: inline-block;
@@ -60,7 +65,7 @@ arrow_top() {
   transform: rotateZ(-45deg);
 }
 
-//朝下边箭头v
+/* 朝下边箭头v */
 arrow_bottom() {
   content: " ";
   display: inline-block;
