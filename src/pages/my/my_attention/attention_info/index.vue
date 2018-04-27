@@ -75,13 +75,6 @@
     align-items center;
   }
 
-  .echarts-wrap {
-    flex none;
-    display inline-block
-    width: 220px;
-    height: 150px;
-  }
-
   .attention_info_box {
     width 0;
     flex 1;

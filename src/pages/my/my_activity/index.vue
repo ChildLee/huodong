@@ -27,7 +27,7 @@
 
 <script>
   export default {
-    name: 'my_activities',
+    name: 'my_activity',
     data() {
       return {
         deduction: 50, // 取消活动扣取比例

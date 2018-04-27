@@ -1,25 +1,19 @@
 //公共样式
-$black = #000;
-$white = #fff;
-
-$red = #f44;
-$blue = #38f;
-$orange = #f60;
-$green = #06bf04;
-
-$gray = #c9c9c9;
-$gray-light = #e5e5e5;
-$gray-darker = #666;
-$gray-dark = #999;
+$red = #f44; //红色
+$orange = #f60; //橘红色
+$green = #06bf04; //浅绿色
+$DodgerBlue = DodgerBlue; //天蓝色
+$gray-light = LightGrey; //浅灰色#D3D3D3
+$silver = Silver; //银色#C0C0C0
+$gray = #999; //灰色默认是	#808080
 
 /* default colors */
-$text-color = #333;
-$border-color = #ccc;
-$active-color = #e8e8e8;
-$background-color = #f8f8f8;
+$background-color = GhostWhite; //鬼白色#F8F8FF
+$border-color = $gray-light;
+$text-color = $gray;
 
 //边框线
-border_line($border_line-color = $gray-light) {
+border_line($border_line-color = $border-color) {
   content: '';
   position: absolute;
   top: 0;
@@ -43,7 +37,7 @@ arrow_right() {
   right: 2px;
   border-width: 2px 2px 0 0;
   border-style: solid;
-  border-color: #c8c8c8;
+  border-color: $silver;
   height: 6px;
   width: 6px;
   margin-top: -3px;
@@ -59,7 +53,7 @@ arrow_top() {
   right: 15px;
   border-width: 2px 2px 0 0;
   border-style: solid;
-  border-color: #c8c8c8;
+  border-color: $silver;
   height: 12px;
   width: 12px;
   margin-top: -3px;
@@ -75,7 +69,7 @@ arrow_bottom() {
   right: 15px;
   border-width: 2px 2px 0 0;
   border-style: solid;
-  border-color: #c8c8c8;
+  border-color: $silver;
   height: 12px;
   width: 12px;
   margin-top: -12px;

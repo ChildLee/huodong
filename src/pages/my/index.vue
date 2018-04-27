@@ -63,6 +63,7 @@
         <wx-cell arrow text="我的邀约" imgUrl="/static/img/my/my_activities.png"></wx-cell>
         <wx-cell arrow text="我的塔木德" imgUrl="/static/img/my/my_activities.png"></wx-cell>
       </div>
+
       <div class="panel">
         <wx-cell arrow text="平台客服" imgUrl="/static/img/my/my_activities.png"></wx-cell>
       </div>
@@ -74,7 +75,7 @@
   import WxCell from '@/components/cell'
 
   export default {
-    name: '个人中心',
+    name: 'my',
     components: {
       WxCell
     },
@@ -105,15 +106,7 @@
     }
 
     .my_vip_box {
-
       display flex;
-
-      .echarts-wrap {
-        flex none;
-        display inline-block
-        width: 220px;
-        height: 150px;
-      }
 
       .my_info {
         flex 1;
