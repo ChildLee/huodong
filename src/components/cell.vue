@@ -5,17 +5,17 @@
       <img :src="imgUrl">
     </div>
     <div class="cell_left" v-if="desc">
-      <div class="cell_left-text" :style="textColor?{color:textColor}:''">
+      <div class="cell_left-text" :style="[textSize?{';font-size':textSize+'px'}:'',textColor?{';color':textColor}:'']">
         {{text?text:''}}
       </div>
       <div class="cell_left_desc" :style="descColor?{color:descColor}:''">
         {{desc?desc:''}}
       </div>
     </div>
-    <div v-else class="cell_left" :style="textColor?{color:textColor}:''">
+    <div v-else class="cell_left" :style="[textSize?{';font-size':textSize+'px'}:'',textColor?{';color':textColor}:'']">
       {{text?text:''}}
     </div>
-    <div class="cell_right " :style="infoColor?{color:infoColor}:''">
+    <div class="cell_right" :style="infoColor?{color:infoColor}:''">
       {{info?info:''}}
     </div>
   </div>
@@ -29,6 +29,7 @@
       imgUrl: String,
       text: String,
       textColor: String,
+      textSize: Number,
       desc: String,
       descColor: String,
       info: String,
