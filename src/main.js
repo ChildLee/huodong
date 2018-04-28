@@ -11,7 +11,7 @@ wrap(App, {
   // 开发环境
   env: 'production' | 'development',
   // api域名
-  domain: 'https://www.easy-mock.com/mock/5ae12ad32c146a5660f12c58/fast',
+  domain: 'https://www.easy-mock.com/mock/5ae3daf55d7eee05a132b8bc/zzl',
   // 使用app.logger可上报信息的API
   reportDomain: 'http://127.0.0.1',
   // 用于展示H5的页面，例如/pages/webview/webview
@@ -22,7 +22,7 @@ wrap(App, {
 
 export default {
   config: {
-    pages: ['^pages/my/my_love/main'],
+    pages: ['^pages/my/my_organize/organize_info/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',

@@ -5,22 +5,22 @@
 $tab-box-border-color = $gray-light //盒子底部颜色
 $tab-background-color = $white //盒子背景颜色
 $tab-title-color = $text-color //tab标题颜色
-$tab-selected-color = $red //选中字体颜色
-$tab-selected-border-color = $red //选中底部颜色
+$tab-selected-border-color = $tab-selected-color //选中底部颜色
+$tab-selected-color = DodgerBlue //选中字体颜色
 
 .tab,
-.tab_box,
-.tab_item,
-.tab_title,
-.tab_title-selected,
-.tab_item-selected {
+.tab-box,
+.tab-item,
+.tab-title,
+.tab-title-selected,
+.tab-item-selected {
 }
 
 .tab {
   height: 45px;
 }
 
-.tab_box {
+.tab-box {
   width: 100%;
   height: 45px;
   display: flex;
@@ -29,7 +29,7 @@ $tab-selected-border-color = $red //选中底部颜色
   border-bottom: 1px solid $tab-box-border-color;
   background: white;
 
-  .tab_item {
+  .tab-item {
     flex 1;
     display: inline-block;
     min-width: 80px;
@@ -38,7 +38,7 @@ $tab-selected-border-color = $red //选中底部颜色
     box-sizing: border-box;
     text-align: center;
 
-    .tab_title {
+    .tab-title {
       display: inline-block;
       max-width: 100%;
       height: 44px;
@@ -51,21 +51,21 @@ $tab-selected-border-color = $red //选中底部颜色
       color: $tab-title-color;
     }
 
-    .tab_title-selected {
+    .tab-title-selected {
       color: $tab-selected-color;
       border-bottom: 2px solid $tab-selected-border-color;
     }
   }
 
-  .tab_item-selected {
+  .tab-item-selected {
     border-bottom: 2px solid $tab-selected-border-color;
-    .tab_title {
+    .tab-title {
       color: $tab-selected-color;
     }
   }
 }
 
-.tab_box-no_border {
+.tab-box-no_border {
   border: none;
 }
 

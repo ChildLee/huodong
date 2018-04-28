@@ -50,9 +50,8 @@
           <div>规则：</div>
           <div>1.没有规则</div>
           <div>2.请看第一条</div>
-          <div>{{this.my_love.list}}</div>
-          <div>{{this.my_love}}</div>
-          <div>1</div>
+          <div>3.请看第二条</div>
+          <div>3.请看第三条</div>
         </div>
       </div>
       <div class="popup-curtain" @click="popup"></div>
@@ -62,21 +61,14 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-
   export default {
     name: 'my_love',
     data() {
       return {
-        isPopup: false,
-        my_love: ''
+        isPopup: false
       }
     },
-    computed: {
-      ...mapState(['my_love'])
-    },
     beforeMount() {
-      this.$store.commit('setList')
     },
     methods: {
       fold() {
@@ -86,7 +78,6 @@
         this.isPopup = !this.isPopup
       },
       love_invite() {
-        console.log(this.my_love)
       }
     }
   }

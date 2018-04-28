@@ -1,11 +1,18 @@
 import {WrapPage} from 'common-mpvue'
 import App from './index'
 
-new WrapPage(App)
+let store = {
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {}
+}
+
+new WrapPage(App, store)
 
 export default {
   config: {
-    navigationBarTitleText: '我的爱情'
+    navigationBarTitleText: '活动详情'
     // navigationBarTextStyle: '#fff',
     // navigationBarBackgroundColor: '#fff'
   }

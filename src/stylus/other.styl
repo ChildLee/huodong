@@ -11,7 +11,7 @@
   }
 }
 
-.border-white {
+.border-color_white {
   position: relative;
 
   &::after {
@@ -20,7 +20,25 @@
   }
 }
 
-.border_box_line {
+.border-line {
+  position: relative;
+
+  &:not(:last-child)::after {
+    border_line();
+    border-bottom-width: 1px;
+  }
+}
+
+.border-line-color_white {
+  position: relative;
+
+  &:not(:last-child)::after {
+    border_line($ghost-white);
+    border-bottom-width: 1px;
+  }
+}
+
+.border-cell_line {
   position: relative;
 
   &::after {
@@ -30,11 +48,20 @@
   }
 }
 
-.border_line {
+.border-bottom {
   position: relative;
 
-  &:not(:last-child)::after {
+  &::after {
     border_line();
+    border-bottom-width: 1px;
+  }
+}
+
+.border-bottom-color_white {
+  position: relative;
+
+  &::after {
+    border_line($ghost-white);
     border-bottom-width: 1px;
   }
 }
