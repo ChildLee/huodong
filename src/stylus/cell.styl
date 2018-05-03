@@ -88,19 +88,31 @@
 }
 
 // 表单单元格
+.field,
+.field_left,
+.field_right {
+}
+
 .field {
   width 100%;
   display flex;
+  align-items center;
   padding: 15px;
   box-sizing border-box;
   font-size 14px;
+
   .field_left {
     flex: none;
     align-self: center;
   }
+
   .field_right {
     width 0;
     flex: 1;
     word-wrap: break-word;
+
+    input {
+      padding: 0 15px;
+    }
   }
 }

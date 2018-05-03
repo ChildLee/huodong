@@ -1,4 +1,4 @@
-import {wrap} from 'common-mpvue'
+import { wrap } from 'common-mpvue'
 import App from './App'
 
 wrap(App, {
@@ -33,10 +33,10 @@ export default {
       list: [
         {
           pagePath: 'pages/my/main',
-          text: '首页'
+          text: '个人中心'
         }, {
-          pagePath: 'pages/my/main',
-          text: '日志'
+          pagePath: 'pages/talmud/main',
+          text: '塔木德'
         }]
     }
   }

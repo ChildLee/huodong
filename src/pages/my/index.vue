@@ -108,15 +108,15 @@
     components: {
       WxCell
     },
-    data() {
+    data () {
       return {
         fold_selected: false // 滑动单元格是否展开
       }
     },
-    beforeMount() {
+    beforeMount () {
     },
     methods: {
-      fold() {
+      fold () {
         this.fold_selected = !this.fold_selected
       }
     }

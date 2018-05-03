@@ -14,19 +14,47 @@
 <script>
   export default {
     name: 'popup',
-    data() {
+    data () {
       return {
         isPopup: false
       }
     },
     methods: {
-      popup() {
+      popup () {
         this.isPopup = !this.isPopup
       }
     }
   }
 </script>
 
-<style scoped>
+<style lang="stylus">
+  /* 弹窗 */
+  .popup {
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: absolute;
+      top: 30%;
+      left: 10%;
+      width 80%;
+      z-index: 3;
+      transition: all 2s;
 
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position absolute;
+      top: 0;
+      left 0;
+      width 100%;
+      height 100%;
+      z-index 2;
+    }
+  }
 </style>

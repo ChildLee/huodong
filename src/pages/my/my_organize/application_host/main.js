@@ -12,7 +12,7 @@ new WrapPage(App, store)
 
 export default {
   config: {
-    navigationBarTitleText: '我组织的'
+    navigationBarTitleText: '申请主持人'
     // navigationBarTextStyle: '#fff',
     // navigationBarBackgroundColor: '#fff'
   }

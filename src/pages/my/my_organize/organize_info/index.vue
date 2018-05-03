@@ -1,6 +1,5 @@
 <template>
   <main>
-
     <div class="organize_info panel panel-no_top">
       <wx-cell text="深圳活动汇" text-size="18"></wx-cell>
       <wx-cell text="2018-8-8~~14:00-16:00" icon="icon icon-time"></wx-cell>
@@ -20,6 +19,35 @@
       <div>活动人员</div>
     </div>
 
+    <div class="active_staff">
+      <div></div>
+      <div>男</div>
+      <div>女</div>
+    </div>
+    <div class="active_staff">
+      <div>主持人</div>
+      <div>张三</div>
+      <div></div>
+    </div>
+    <div class="active_staff">
+      <div>辅助人</div>
+      <div></div>
+      <div>李四</div>
+    </div>
+    <div class="active_staff">
+      <div>参与人</div>
+      <div class="participate">
+        <div>王五</div>
+        <div>王五</div>
+        <div>王五</div>
+        <div>王五</div>
+        <div>王五</div>
+      </div>
+      <div class="participate">
+        <div>二丫</div>
+        <div>二丫</div>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -68,5 +96,40 @@
     padding: 5px 15px;
     font-size 14px;
     color: #333;
+  }
+
+  .active_staff {
+    background-color white;
+    display flex;
+    font-size 14px;
+    box-sizing border-box;
+
+    > ._div {
+      flex 1;
+      text-align center;
+      position: relative;
+
+      &:not(.participate) {
+        padding: 15px;
+      }
+
+      &::after {
+        border_line();
+        border-width 1px;
+      }
+    }
+  }
+
+  .participate {
+    flex 1;
+
+    ._div {
+      position: relative;
+
+      &::after {
+        border_line();
+        border-bottom-width 1px;
+      }
+    }
   }
 </style>
