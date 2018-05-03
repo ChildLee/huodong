@@ -22,7 +22,7 @@ wrap(App, {
 
 export default {
   config: {
-    pages: ['^pages/activity/activity_info/main'],
+    pages: ['^pages/my/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
@@ -32,12 +32,24 @@ export default {
     tabBar: {
       list: [
         {
+          pagePath: 'pages/activity/main',
+          text: '活动',
+          iconPath: 'static/img/nav/activity.png',
+          selectedIconPath: 'static/img/nav/activity-s.png'
+        },
+        {
           pagePath: 'pages/my/main',
-          text: '个人中心'
-        }, {
+          text: '个人中心',
+          iconPath: 'static/img/nav/my.png',
+          selectedIconPath: 'static/img/nav/my-s.png'
+        },
+        {
           pagePath: 'pages/talmud/main',
-          text: '塔木德'
-        }]
+          text: '塔木德',
+          iconPath: 'static/img/nav/comment.png',
+          selectedIconPath: 'static/img/nav/comment-s.png'
+        }
+      ]
     }
   }
 }

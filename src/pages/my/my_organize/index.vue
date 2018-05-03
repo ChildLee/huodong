@@ -1,7 +1,9 @@
 <template>
   <main>
     <div>
-      <div v-if="true" class="btn-box btn btn_color-DodgerBlue">申请成为主持人</div>
+      <div v-if="true" class="btn-box btn btn_color-DodgerBlue"
+           @click="navigateTo('/pages/my/my_organize/application_host/main')">申请成为主持人
+      </div>
       <div v-else class="btn-box btn btn_color-DodgerBlue">发布活动</div>
     </div>
 
@@ -40,18 +42,18 @@
 </template>
 
 <script>
-  import {mapGetters, mapState} from 'vuex'
-
   export default {
     name: 'my_organize',
-    computed: {
-      ...mapState(['my_organize']),
-      ...mapGetters(['getWx'])
-    },
-    data() {
+    computed: {},
+    data () {
       return {}
     },
-    mounted() {
+    mounted () {
+    },
+    methods: {
+      navigateTo (nav) {
+        this.$app.nav.navigateTo(nav)
+      }
     }
   }
 </script>

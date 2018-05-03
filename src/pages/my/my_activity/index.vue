@@ -1,12 +1,12 @@
 <template>
   <main>
     <div class="tab">
-      <div class="tab_box tab-fixed">
-        <div class="tab_item" :class="currentTab==0?'tab_item-selected':''" @click="switchNav(0)">
-          <div class="tab_title">已预定</div>
+      <div class="tab-box tab-fixed">
+        <div class="tab-item" :class="currentTab==0?'tab-item-selected':''" @click="switchNav(0)">
+          <div class="tab-title">已预定</div>
         </div>
-        <div class="tab_item" :class="currentTab==1?'tab_item-selected':''" @click="switchNav(1)">
-          <div class="tab_title">已参加</div>
+        <div class="tab-item" :class="currentTab==1?'tab-item-selected':''" @click="switchNav(1)">
+          <div class="tab-title">已参加</div>
         </div>
       </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="activity_info border_line">
           <div class="activity_info_time">2018-8-8 9:00</div>
           <div class="activity_info_location">深圳高新园</div>
-          <div v-if="!currentTab" class="btn btn-mini btn-danger" @click="cancelActivity">取消活动</div>
+          <div v-if="!currentTab" class="btn btn_size-mini btn_color-danger" @click="cancelActivity">取消活动</div>
         </div>
         <div class="activity_text">这个活动666</div>
       </div>

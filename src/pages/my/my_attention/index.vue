@@ -37,7 +37,7 @@
 <script>
   export default {
     name: 'my_attention',
-    data() {
+    data () {
       return {
         list: '',
         startX: 0, // 记录触摸起始位置的X坐标
@@ -46,19 +46,11 @@
         index: 0 //滑动项的下标
       }
     },
-    beforeMount() {
-      //查询关注人列表
-      wx.httpRequest.httpGet('/attention')
-        .then(res => {
-          this.list = res.data
-          console.log('查询关注人列表')
-        })
-    },
     methods: {
-      del() {
+      del () {
         console.log(1)
       },
-      touchS(e) {
+      touchS (e) {
         // 当手指触摸屏幕时触发
         if (e.touches.length === 1) {
           //重置展开index的数据
@@ -67,7 +59,7 @@
           this.startX = e.clientX
         }
       },
-      touchM(e) {
+      touchM (e) {
         // 当手指在屏幕上滑动时连续地触发
         if (e.touches.length === 1) {
           //获取手指触摸的是哪一个item
@@ -86,7 +78,7 @@
           this.list[this.index].style = this.style
         }
       },
-      touchE(e) {
+      touchE (e) {
         // 当手指从屏幕上移开时触发
         if (e.mp.touches.length === 0) {
           //获取手指触摸的是哪一个item

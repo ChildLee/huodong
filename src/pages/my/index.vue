@@ -1,7 +1,16 @@
 <template>
   <main>
-    <div class="my-info">
+    <div class="my-info panel panel-no_top">
       <div class="my-rule" @click="popup">星级规则</div>
+      <div class="my-info-box">
+        <img class="my-info-box-img" src="http://placekitten.com/100/100">
+        <div>
+          <span>张三</span>
+          <span class="icon" v-if="true">&#xe643;</span>
+          <span class="icon" v-else>&#xe665;</span>
+        </div>
+        <div>单身</div>
+      </div>
     </div>
 
     <div class="my-price">
@@ -15,20 +24,20 @@
       </div>
     </div>
 
-    <div class="menu_list">
-      <div>
+    <div class="menu_list panel">
+      <div @click="navigateTo('/pages/my/my_activity/main')">
         <span class="tag-box">
           <span>我的活动</span>
           <span class="tag">11</span>
         </span>
       </div>
-      <div>我的评价</div>
-      <div>我的关注</div>
-      <div>我的邀约</div>
-      <div>我的爱情</div>
-      <div>我组织的</div>
-      <div>平台客服</div>
-      <div>我的塔木德</div>
+      <div @click="navigateTo('/pages/my/my_comment/main')">我的评价</div>
+      <div @click="navigateTo('/pages/my/my_attention/main')">我的关注</div>
+      <div @click="navigateTo('/pages/my/my_invite/main')">我的邀约</div>
+      <div @click="navigateTo('/pages/my/my_love/main')">我的爱情</div>
+      <div @click="navigateTo('/pages/my/my_organize/main')">我组织的</div>
+      <div @click="navigateTo('/pages/my/my_attention/main')">平台客服</div>
+      <div @click="navigateTo('/pages/my/my_attention/main')">我的塔木德</div>
     </div>
 
     <!--弹窗-->
@@ -135,6 +144,9 @@
     methods: {
       popup () {
         this.isPopup = !this.isPopup
+      },
+      navigateTo (nav) {
+        this.$app.nav.navigateTo(nav)
       }
     }
   }
@@ -193,6 +205,18 @@
       top: 5px;
       right 5px;
     }
+
+    .my-info-box {
+      display flex;
+      align-items center;
+      font-size 16px;
+
+      .my-info-box-img {
+        width 100px;
+        height 100px;
+      }
+    }
+
   }
 
   /* 弹窗 */

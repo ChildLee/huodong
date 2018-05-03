@@ -1,12 +1,12 @@
 <template>
   <main>
     <div class="tab">
-      <div class="tab_box tab-fixed">
-        <div class="tab_item" :class="currentTab==0?'tab_item-selected':''" @click="switchNav(0)">
-          <div class="tab_title">给出的评价</div>
+      <div class="tab-box tab-fixed">
+        <div class="tab-item" :class="currentTab==0?'tab-item-selected':''" @click="switchNav(0)">
+          <div class="tab-title">给出的评价</div>
         </div>
-        <div class="tab_item" :class="currentTab==1?'tab_item-selected':''" @click="switchNav(1)">
-          <div class="tab_title">收到的评价</div>
+        <div class="tab-item" :class="currentTab==1?'tab-item-selected':''" @click="switchNav(1)">
+          <div class="tab-title">收到的评价</div>
         </div>
       </div>
     </div>
