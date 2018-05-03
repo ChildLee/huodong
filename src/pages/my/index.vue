@@ -1,102 +1,119 @@
 <template>
   <main>
-    <div class="panel panel-no_top">
-      <div class="fold_panel"
-           :class="fold_selected?'fold_panel-arrow_bottom':'fold_panel-arrow_top'"
-           @click="fold">
-        <span class="fold_title">等级与充值规则</span>
+    <div class="my-info">
+      <div class="my-rule" @click="popup">星级规则</div>
+    </div>
+
+    <div class="my-price">
+      <div>
+        <span>收入￥300</span>
+        <span class="my-price-btn">转账</span>
       </div>
-      <div class="fold_panel-box" v-if="fold_selected">
-        <div>会员：</div>
-        <div>晋星（五星）规则：每期完成评价要求
-          （参与次数=参与活动次数+推荐折算次数+塔木德折算次数+主持/辅助人等级折算次数），
-        </div>
-        <div>同时：一星晋二星：参与次数达31次以上；</div>
-        <div>二星晋三星：参与次数101次</div>
-        <div>三星晋四星：参与次数301次；</div>
-        <div>四星晋五星：参与次数501次；</div>
-        <div>
-          塔木德折算（分三级别）：明星折20次，大咖折60次，阿神折180次，
-          （每次晋星可反复使用）（塔木德评定系数：回答次数、回答质量、赞数，
-          后台根据情况给与塔木德等级）；这个晋级星级的次数后台可手动修改，
-          修改需要有备注（这个次数与实际参加活动次数是两个概念并显示出来）。
-        </div>
-        <div>
-          主持/辅助人等级：最开始为初级、之后：优秀（可折算35次）、
-          明星（可折算85次）、大咖（可折算135次）、阿神（可折算185次），
-          评定系数为：主持/辅助次数、平均分、评价内容、面谈，
-          后台根据情况给与主持人/辅助人等级。
-        </div>
+      <div>
+        <span>会费￥500</span>
+        <span class="my-price-btn">充值</span>
       </div>
     </div>
 
-    <!--会员页面-->
-    <div v-if="true">
-      <div class="my_vip panel">
-        <div class="my_vip_box">
-          <div class="my_info">
-            <div class="my_info_box">
-              <img src="http://placehold.it/200">
-              <div class="my_name">王五五</div>
-              <div class="my_marry">单身</div>
+    <div class="menu_list">
+      <div>
+        <span class="tag-box">
+          <span>我的活动</span>
+          <span class="tag">11</span>
+        </span>
+      </div>
+      <div>我的评价</div>
+      <div>我的关注</div>
+      <div>我的邀约</div>
+      <div>我的爱情</div>
+      <div>我组织的</div>
+      <div>平台客服</div>
+      <div>我的塔木德</div>
+    </div>
+
+    <!--弹窗-->
+    <div class="popup" v-if="isPopup">
+      <div class="popup-box">
+        <div>
+          <!---->
+          <div class="rule_top">
+            <div>每期完成评价要求</div>
+            <div>&同时达到累计参与次数</div>
+          </div>
+          <!---->
+          <div class="upgrade">
+            <div class="upgrade-box upgrade-color">
+              <div>晋星</div>
+              <div>参与次数</div>
             </div>
-            <div class="activity_num">
-              <div>参加次数：88次</div>
-              <div>主持次数：18次</div>
-              <div>辅助次数：83次</div>
-              <div>塔木德次数：118次</div>
-              <div>评价平均分：8分</div>
-              <div>评价参与度：8分</div>
+            <div class="upgrade-box">
+              <div>I---II</div>
+              <div>31</div>
+            </div>
+            <div class="upgrade-box">
+              <div>II---III</div>
+              <div>101</div>
+            </div>
+            <div class="upgrade-box">
+              <div>II---III</div>
+              <div>101</div>
+            </div>
+            <div class="upgrade-box">
+              <div>III---IV</div>
+              <div>301</div>
+            </div>
+            <div class="upgrade-box">
+              <div>IV-V</div>
+              <div>501</div>
             </div>
           </div>
+          <!---->
+          <div class="upgrade">
+            <div class="upgrade-box upgrade-title upgrade-color">
+              <div class="upgrade-color">等级次数折算</div>
+              <div>初级</div>
+              <div>优秀</div>
+              <div>明星</div>
+              <div>大咖</div>
+              <div>阿神</div>
+            </div>
+            <div class="upgrade-box">
+              <div class="upgrade-color">主持人</div>
+              <div>0</div>
+              <div>35</div>
+              <div>85</div>
+              <div>135</div>
+              <div>185</div>
+            </div>
+            <div class="upgrade-box">
+              <div class="upgrade-color">辅助人</div>
+              <div>0</div>
+              <div>35</div>
+              <div>85</div>
+              <div>135</div>
+              <div>185</div>
+            </div>
+            <div class="upgrade-box">
+              <div class="upgrade-color">塔木德</div>
+              <div>无</div>
+              <div>无</div>
+              <div>20</div>
+              <div>60</div>
+              <div>100</div>
+            </div>
+          </div>
+          <!---->
+          <div class="rule_bottom">
+            <div>塔木德评级系数：</div>
+            <div>回答次数、赞数、回答质量</div>
+            <div>主持/辅助人评级系数：</div>
+            <div> 主持/辅助次数、平均分、评价内容、塔木德、面谈</div>
+          </div>
         </div>
-        <div class="my_vip_price">
-          <div>会费8888元</div>
-          <div>充值</div>
-          <div>收入8888元</div>
-        </div>
       </div>
-
-      <div class="panel">
-        <wx-cell arrow text="我的活动" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-        <wx-cell arrow text="我的评价" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-        <wx-cell arrow text="我的关注" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-        <wx-cell arrow text="我的邀约" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-      </div>
-      <div class="panel">
-        <wx-cell arrow text="我的爱情" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-        <wx-cell arrow text="我组织的" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-        <wx-cell arrow text="我的塔木德" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-      </div>
-      <div class="panel">
-        <wx-cell arrow text="平台客服" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-      </div>
+      <div class="popup-curtain" @click="popup"><!--幕布--></div>
     </div>
-
-    <!--非会员页面-->
-    <div v-else>
-      <div class="my_no_vip">
-        <div class="my_no_vip_info">
-          <img src="http://placehold.it/200">
-          <div class="my_name">王五五</div>
-          <div class="my_marry">单身</div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <wx-cell arrow text="我的活动" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-        <wx-cell arrow text="我的评价" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-        <wx-cell arrow text="我的关注" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-      </div>
-      <div class="panel">
-        <wx-cell arrow text="我的邀约" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-        <wx-cell arrow text="我的塔木德" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-      </div>
-
-      <div class="panel">
-        <wx-cell arrow text="平台客服" imgUrl="/static/img/my/my_activities.png"></wx-cell>
-      </div>
-    </div>
+    <!--弹窗-->
   </main>
 </template>
 
@@ -110,14 +127,14 @@
     },
     data () {
       return {
-        fold_selected: false // 滑动单元格是否展开
+        isPopup: false
       }
     },
     beforeMount () {
     },
     methods: {
-      fold () {
-        this.fold_selected = !this.fold_selected
+      popup () {
+        this.isPopup = !this.isPopup
       }
     }
   }
@@ -130,100 +147,132 @@
     background-color $background-color;
   }
 
-  .fold_title {
-    color: #999;
+  .my-price {
+    display flex;
+    justify-content space-between;
+    padding: 10px 15px;
+    background-color white;
+    color: #006600;
+    font-size 16px;
+
+    .my-price-btn {
+      margin-left 10px;
+      color: #6D5B42;
+    }
   }
 
-  .fold_panel-box {
-    padding: 15px;
-    font-size 14px;
-  }
-
-  .my_vip {
+  .menu_list {
+    font-size 16px;
+    display flex;
+    flex-wrap: wrap;
+    color: #6D5B42;
     background-color white;
 
-    .level_rule {
-      color: #009BD9;
-      font-size 12px;
-      text-align right;
-      padding: 5px 15px;
-    }
-
-    .my_vip_box {
-      display flex;
-
-      .my_info {
-        flex 1;
-        display inline-block;
-        vertical-align top;
-
-        .my_info_box {
-          display flex;
-          align-items center;
-          justify-content center;
-          font-size 14px;
-
-          img {
-            width 40px;
-            height 40px;
-            border-radius 50%;
-            flex none
-          }
-
-          .my_name {
-            margin 0 8px
-          }
-
-          .my_marry {
-            flex none;
-            color: #999
-          }
-        }
-
-        .activity_num {
-          margin-top 10px;
-          font-size 12px;
-          margin-left 30px;
-          div:nth-child(-n+3) {
-            text-indent: 1em;
-          }
-          div {
-            color: red;
-          }
-        }
-      }
-    }
-
-    .my_vip_price {
-      display flex;
-      font-size 14px;
-      padding 10px 15px;
-      justify-content space-between;
-      color: #009BD9;
-    }
-  }
-
-  .my_no_vip {
-    background-color white;
-
-    .my_no_vip_info {
-      display flex;
-      flex-direction column;
-      align-items center;
+    ._div {
+      width 50%;
+      box-sizing border-box;
+      position: relative;
+      text-align center;
       padding: 15px 0;
-      font-size 14px;
 
-      img {
-        width 100px;
-        height 100px;
-        border-radius 50%;
-      }
-
-      .my_marry {
-        color: #999;
+      &::after {
+        border_line()
+        border-width 1px;
       }
     }
   }
 
+  .my-info {
+    position: relativee;
+    padding: 15px;
 
+    .my-rule {
+      color: #1D9ED7;
+      font-size 14px;
+      position absolute;
+      top: 5px;
+      right 5px;
+    }
+  }
+
+  /* 弹窗 */
+  .popup {
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: absolute;
+      top: 5%;
+      left: 8%;
+      width 85%;
+      z-index: 3;
+      transition: all 2s;
+
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position absolute;
+      top: 0;
+      left 0;
+      width 100%;
+      height 100%;
+      z-index 2;
+    }
+  }
+
+  .rule_top {
+    color: #996600;
+    font-size 14px;
+    text-align center;
+  }
+
+  .rule_bottom {
+    color: #996600;
+    font-size 14px;
+
+    ._div:nth-child(even) {
+      text-indent 4em;
+    }
+  }
+
+  .upgrade {
+    color: #006600;
+    margin-top 10px;
+    border: 0 solid #999;
+    border-top-width 1px;
+    border-left-width 1px;
+  }
+
+  .upgrade-title ._div {
+    height 40px;
+    display flex;
+    align-items center;
+    justify-content center;
+
+  }
+
+  .upgrade-color {
+    color: #6D5B42;
+  }
+
+  .upgrade-box {
+    display flex;
+    align-items center;
+    box-sizing border-box;
+
+    ._div {
+      width 100%;
+      text-align center;
+      font-size 14px;
+      padding: 5px 0;
+      border: 0 solid #999;
+      border-right-width 1px;
+      border-bottom-width 1px;
+    }
+  }
 </style>

@@ -5,7 +5,7 @@
       <div class="popup-box">
         <div>13333333</div>
       </div>
-      <div class="popup-curtain" @click="popup"></div>
+      <div class="popup-curtain" @click="popup"><!--幕布--></div>
     </div>
     <!--弹窗-->
   </main>
