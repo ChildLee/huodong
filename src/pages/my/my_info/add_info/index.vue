@@ -1,0 +1,182 @@
+<template>
+  <main>
+    <form @submit="formSubmit">
+      <div class="info-title">必填</div>
+      <div class="info-required border-cell_line">
+        <div class="field border-line">
+          <div class="field_left">手机号：</div>
+          <div class="field_right">
+            <input value="初始值" name="phone" type="number">
+          </div>
+        </div>
+        <div class="field border-line">
+          <div class="field_left">昵称：</div>
+          <div class="field_right">
+            <input name="nick" type="text" placeholder="昵称不能重复">
+          </div>
+        </div>
+        <div class="info-table border-line">
+          <div class="field">
+            <div class="field_left">性别：</div>
+            <div class="field_right">
+              <picker name="sex" @change="sexChange" :value="sexIndex" :range="sex">
+                {{sex[sexIndex]}}
+              </picker>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field_left">常住城市：</div>
+            <div class="field_right">
+              <input name="currentCity" type="text">
+            </div>
+          </div>
+        </div>
+        <div class="field border-line">
+          <div class="field_left">关系状态：</div>
+          <div class="field_right">
+            <radio-group name="status" class="info-table" @change="radioChange">
+              <label>
+                <radio :value="0" :checked="true"/>
+                <span>单身</span>
+              </label>
+              <label>
+                <radio :value="3"/>
+                <span>已婚</span>
+              </label>
+              <label>
+                <radio :value="2"/>
+                <span>恋爱</span>
+              </label>
+            </radio-group>
+          </div>
+        </div>
+        <div class="field border-line">
+          <div class="field_left">自评：</div>
+          <div class="field_right">
+            <textarea name="selfEvaluation" maxlength="-1" placeholder="请简洁客观，言之有物"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="info-title">选填</div>
+      <div class="info-other">
+        <div class="border">
+          <span>年龄</span>
+          <span>
+          <input name="age" type="number" placeholder=" ">
+        </span>
+        </div>
+        <div class="border">
+          <span>属相</span>
+          <span>
+          <input name="zodiac" type="text" placeholder=" ">
+        </span>
+        </div>
+        <div class="border">
+          <span>星座</span>
+          <span>
+          <input name="constellation" type="text" placeholder=" ">
+        </span>
+        </div>
+      </div>
+      <div class="info-other">
+        <div class="border">
+          <span>身高</span>
+          <span>
+          <input name="height" type="number" placeholder=" ">
+        </span>
+        </div>
+        <div class="border">
+          <span>职业</span>
+          <span>
+          <input name="professional" type="text" placeholder=" ">
+        </span>
+        </div>
+        <div class="border">
+          <span>出生地</span>
+          <span>
+          <input name="birthplace" type="text" placeholder=" ">
+        </span>
+        </div>
+      </div>
+      <button class="btn-box btn btn_color-primary" formType="submit">提交</button>
+    </form>
+  </main>
+</template>
+
+<script>
+  export default {
+    name: 'index',
+    data () {
+      return {
+        sexIndex: 0,
+        sex: ['未知', '男', '女']
+      }
+    },
+    methods: {
+      sexChange (e) {
+        this.sexIndex = e.target.value
+      },
+      radioChange (e) {
+        console.log(e)
+      },
+      formSubmit (e) {
+        this.$app.api.user.checkPhone({
+          phone: '15926666666',
+          id: 1
+        }).then(res => {
+          console.log(res)
+        })
+      }
+    }
+  }
+</script>
+
+<style lang="stylus">
+  @import "../../../../stylus/common.styl"
+
+  page {
+    background-color #f2f2f2;
+  }
+
+  .info-title {
+    padding: 5px 15px;
+    font-size 16px;
+    color: #6D5B42;
+    font-weight bold;
+  }
+
+  .info-required {
+    background-color white;
+  }
+
+  .info-table {
+    display: flex;
+    align-items: center;
+    justify-content: space-around
+
+    ._span {
+      color: #009900;
+    }
+  }
+
+  .field_left {
+    color: #009900;
+  }
+
+  .info-other {
+    display flex;
+    background-color white;
+    font-size 16px;
+    text-align center;
+    color: #009900;
+
+    > ._div {
+      padding: 5px 15px;
+      flex 1;
+
+      input {
+        color: #000
+      }
+    }
+  }
+</style>

@@ -24,7 +24,7 @@
     </div>
 
     <div class="my_info_edit btn-box">
-      <div class="btn">修改</div>
+      <div class="btn" @click="navigateTo('/pages/my/my_info/add_info/main')">修改</div>
     </div>
   </main>
 </template>
@@ -36,6 +36,14 @@
     name: 'my_info',
     components: {
       WxCell
+    },
+    data () {
+      return {}
+    },
+    methods: {
+      navigateTo (nav) {
+        this.$app.nav.navigateTo(nav)
+      }
     }
   }
 </script>

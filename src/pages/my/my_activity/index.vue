@@ -16,7 +16,7 @@
         <div class="activity_info border_line">
           <div class="activity_info_time">2018-8-8 9:00</div>
           <div class="activity_info_location">深圳高新园</div>
-          <div v-if="!currentTab" class="btn btn_size-mini btn_color-danger" @click="cancelActivity">取消活动</div>
+          <div v-if="!currentTab" class="btn btn_size-mini btn_color-DodgerBlue" @click="cancelActivity">取消活动</div>
         </div>
         <div class="activity_text">这个活动666</div>
       </div>
@@ -64,10 +64,10 @@
 
     .activity_box {
       padding: 0 15px;
-      background-color pink
+      background-color #eee
       border-radius 10px;
       font-size: 14px;
-      color: #666;
+      color: #222;
 
       .activity_info {
         display flex;
@@ -88,7 +88,7 @@
       .activity_text {
         padding: 5px 0;
         font-size 16px;
-        color: #555;
+        color: #222;
       }
     }
   }

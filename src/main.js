@@ -1,5 +1,6 @@
 import { wrap } from 'common-mpvue'
 import App from './App'
+import * as api from './api'
 
 wrap(App, {
   // 小程序名称
@@ -11,12 +12,13 @@ wrap(App, {
   // 开发环境
   env: 'production' | 'development',
   // api域名
-  domain: 'https://www.easy-mock.com/mock/5ae3daf55d7eee05a132b8bc/zzl',
+  domain: 'http://192.168.1.53',
   // 使用app.logger可上报信息的API
   reportDomain: 'http://127.0.0.1',
   // 用于展示H5的页面，例如/pages/webview/webview
   webviewSchema: ''
 }, {
+  api
   // 拓展
 })
 
@@ -53,4 +55,3 @@ export default {
     }
   }
 }
-

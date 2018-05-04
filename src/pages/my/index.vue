@@ -2,7 +2,7 @@
   <main>
     <div class="my-info panel panel-no_top">
       <div class="my-rule" @click="popup">星级规则</div>
-      <div class="my-info-box">
+      <div class="my-info-box" @click="navigateTo('/pages/my/my_info/main')">
         <img class="my-info-box-img" src="http://placekitten.com/100/100">
         <div>
           <span>张三</span>
@@ -16,11 +16,11 @@
     <div class="my-price">
       <div>
         <span>收入￥300</span>
-        <span class="my-price-btn">转账</span>
+        <span class="my-price-btn btn btn_size-small btn_color-primary" @click="transfer">转账</span>
       </div>
       <div>
         <span>会费￥500</span>
-        <span class="my-price-btn">充值</span>
+        <span class="my-price-btn btn btn_size-small btn_color-primary">充值</span>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
       <div @click="navigateTo('/pages/my/my_activity/main')">
         <span class="tag-box">
           <span>我的活动</span>
-          <span class="tag">11</span>
+          <span class="tag">好的</span>
         </span>
       </div>
       <div @click="navigateTo('/pages/my/my_comment/main')">我的评价</div>
@@ -40,7 +40,7 @@
       <div @click="navigateTo('/pages/my/my_attention/main')">我的塔木德</div>
     </div>
 
-    <!--弹窗-->
+    <!--规则弹窗-->
     <div class="popup" v-if="isPopup">
       <div class="popup-box">
         <div>
@@ -122,7 +122,27 @@
       </div>
       <div class="popup-curtain" @click="popup"><!--幕布--></div>
     </div>
-    <!--弹窗-->
+    <!--规则弹窗-->
+
+    <!--转账弹窗-->
+    <div class="popup" v-if="isTransfer">
+      <div class="popup-box" style="top:30%;">
+        <div>
+          <radio-group class="transfer-box">
+            <label class="transfer">
+              <radio/>
+              <span>转会费</span>
+            </label>
+            <label class="transfer">
+              <radio/>
+              <span>提现</span>
+            </label>
+          </radio-group>
+        </div>
+      </div>
+      <div class="popup-curtain" @click="transfer"><!--幕布--></div>
+    </div>
+    <!--转账弹窗-->
   </main>
 </template>
 
@@ -136,7 +156,8 @@
     },
     data () {
       return {
-        isPopup: false
+        isPopup: false,
+        isTransfer: false
       }
     },
     beforeMount () {
@@ -144,6 +165,9 @@
     methods: {
       popup () {
         this.isPopup = !this.isPopup
+      },
+      transfer () {
+        this.isTransfer = !this.isTransfer
       },
       navigateTo (nav) {
         this.$app.nav.navigateTo(nav)
@@ -169,7 +193,6 @@
 
     .my-price-btn {
       margin-left 10px;
-      color: #6D5B42;
     }
   }
 
@@ -228,8 +251,8 @@
       background-color white;
       position: absolute;
       top: 5%;
-      left: 8%;
-      width 85%;
+      left: 7%;
+      width 86%;
       z-index: 3;
       transition: all 2s;
 
@@ -298,5 +321,14 @@
       border-right-width 1px;
       border-bottom-width 1px;
     }
+  }
+
+  .transfer-box {
+    font-size 16px;
+  }
+
+  .transfer {
+    display flex;
+    align-items center;
   }
 </style>
