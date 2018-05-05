@@ -160,7 +160,7 @@
         isTransfer: false
       }
     },
-    beforeMount () {
+    beforeCreate () {
     },
     methods: {
       popup () {

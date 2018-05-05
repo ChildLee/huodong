@@ -1,5 +1,7 @@
-import * as user from './user'
+import user from './user'
+import activity from './activity'
 
 export {
-  user
+  user,
+  activity
 }

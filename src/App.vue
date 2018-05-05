@@ -1,7 +1,9 @@
 <script>
-  export default {
-    created () {
+  import { userStore } from './store'
 
+  export default {
+    beforeCreate () {
+      userStore.dispatch('userStatus').then()
     }
   }
 </script>

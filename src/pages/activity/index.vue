@@ -1,24 +1,28 @@
 <template>
   <main>
     <div class="activity_top">
-      <div class="activity_search"><input type="text"></div>
-      <div class="activity_btn">筛选</div>
+      <div class="activity_search">
+        <input type="text" placeholder="搜索活动">
+      </div>
+      <div class="activity_btn" @click="filter">筛选</div>
     </div>
 
     <div class="activity_nav">
-      <div class="btn btn_size-small btn_color-DodgerBlue" @click="popup">优惠规则</div>
-      <div class="btn btn_size-small btn_color-DodgerBlue">活动介绍</div>
-      <div class="btn btn_size-small btn_color-DodgerBlue">往期活动</div>
+      <div class="" @click="popup">优惠规则</div>
+      <div class="">活动介绍</div>
+      <div class="">往期活动</div>
     </div>
 
     <div class="container">
-      <div class="activity_list">
+
+      <div class="activity_list" @click="navigateTo('/pages/activity/activity_info/main')">
         <div class="activity_list_info">
           <div>2018-8-18 9:00</div>
-          <div>深圳高新园</div>
+          <div class="activity_list_info-address">深圳高新园</div>
         </div>
-        <div>深圳活动汇深圳活动汇深活动汇</div>
+        <div class="activity_list_info-content">深圳活动汇深圳活动汇深活动汇</div>
       </div>
+
     </div>
 
     <!--弹窗-->
@@ -95,13 +99,37 @@
     name: 'index',
     data () {
       return {
-        isPopup: false
+        isPopup: false,
+        activityStatus: {
+          type: 1,
+          status: 1,
+          id: 0,
+          page: 0
+        }
       }
+    },
+    beforeMount () {
+      this.activityStatus.id = this.$app.storageStore.userStore.getters.getUserId
+      this.$app.api.activity.getActivitys(this.activityStatus)
     },
     methods: {
       popup () {
         this.isPopup = !this.isPopup
+      },
+      filter () {
+        wx.showActionSheet({
+          itemList: ['消息', '收藏'],
+          success: function (res) {
+            console.log(res.tapIndex)
+          }
+        })
+      },
+      navigateTo (nav) {
+        this.$app.nav.navigateTo(nav)
       }
+    },
+    onReachBottom () {
+      console.log('上拉触底刷新')
     }
   }
 </script>
@@ -147,7 +175,11 @@
 
     .activity_search {
       flex 1;
-      border: 1px solid #999;
+
+      input {
+        border: 1px solid #ccc
+        font-size 14px;
+      }
     }
     .activity_btn {
       margin-left 15px;
@@ -162,17 +194,28 @@
     padding: 0 15px;
     font-size 14px;
     margin-bottom 15px;
+    color: DodgerBlue;
+    font-weight bold;
   }
 
   .activity_list {
     padding: 15px;
-    background-color #dae4da;
+    background-color #e9e9e9;
     border-radius 10px;
     font-size 16px;
 
     .activity_list_info {
       display flex;
       color: #999;
+      font-size 14px;
+
+      .activity_list_info-address {
+        margin-left 10px;
+      }
+    }
+
+    .activity_list_info-content {
+      text-indent 2em;
     }
   }
 

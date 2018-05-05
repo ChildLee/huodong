@@ -28,20 +28,23 @@
 <script>
   export default {
     name: 'my_activity',
-    data() {
+    data () {
       return {
         deduction: 50, // 取消活动扣取比例
         currentTab: 0 // tab当下标
       }
     },
-    mounted() {
+    created () {
+    },
+    mounted () {
+
     },
     methods: {
-      switchNav(tab) {
+      switchNav (tab) {
         if (this.currentTab === tab) return false
         this.currentTab = tab
       },
-      cancelActivity() {
+      cancelActivity () {
         wx.showModal({
           title: '提示',
           content: `活动24小时以外取退全款，活动24小时以内取消扣取${this.deduction}%的名额费用`,

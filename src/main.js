@@ -1,30 +1,23 @@
 import { wrap } from 'common-mpvue'
 import App from './App'
 import * as api from './api'
+import * as storageStore from './store'
 
 wrap(App, {
-  // 小程序名称
-  name: '活动',
-  // 小程序版本
+  name: '竹芝林',
   version: 'v1.0.0',
-  // 小程序工程package.json中的name
-  pkgName: 'huodong',
-  // 开发环境
+  pkgName: 'social',
   env: 'production' | 'development',
-  // api域名
-  domain: 'http://192.168.1.53',
-  // 使用app.logger可上报信息的API
-  reportDomain: 'http://127.0.0.1',
-  // 用于展示H5的页面，例如/pages/webview/webview
-  webviewSchema: ''
+  domain: 'http://192.168.1.53'
 }, {
-  api
+  api,
+  storageStore
   // 拓展
 })
 
 export default {
   config: {
-    pages: ['^pages/my/main'],
+    pages: ['^pages/activity/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',

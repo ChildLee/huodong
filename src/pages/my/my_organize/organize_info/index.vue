@@ -19,33 +19,35 @@
       <div>活动人员</div>
     </div>
 
-    <div class="active_staff">
-      <div></div>
-      <div>男</div>
-      <div>女</div>
-    </div>
-    <div class="active_staff">
-      <div>主持人</div>
-      <div>张三</div>
-      <div></div>
-    </div>
-    <div class="active_staff">
-      <div>辅助人</div>
-      <div></div>
-      <div>李四</div>
-    </div>
-    <div class="active_staff">
-      <div>参与人</div>
-      <div class="participate">
-        <div>王五</div>
-        <div>王五</div>
-        <div>王五</div>
-        <div>王五</div>
-        <div>王五</div>
+    <div>
+      <div class="active_staff">
+        <div></div>
+        <div>男</div>
+        <div>女</div>
       </div>
-      <div class="participate">
-        <div>二丫</div>
-        <div>二丫</div>
+      <div class="active_staff">
+        <div>主持人</div>
+        <div>张三</div>
+        <div></div>
+      </div>
+      <div class="active_staff">
+        <div>辅助人</div>
+        <div></div>
+        <div>李四</div>
+      </div>
+      <div class="active_staff">
+        <div>参与人</div>
+        <div class="participate">
+          <div>王五</div>
+          <div>王五</div>
+          <div>王五</div>
+          <div>王五</div>
+          <div>王五</div>
+        </div>
+        <div class="participate">
+          <div>二丫</div>
+          <div>二丫</div>
+        </div>
       </div>
     </div>
   </main>
