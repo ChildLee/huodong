@@ -13,16 +13,16 @@
       <div class="">往期活动</div>
     </div>
 
-    <div class="container">
-
-      <div class="activity_list" @click="navigateTo('/pages/activity/activity_info/main')">
-        <div class="activity_list_info">
-          <div>2018-8-18 9:00</div>
-          <div class="activity_list_info-address">深圳高新园</div>
+    <div v-for="(item,index) in list">
+      <div class="container">
+        <div class="activity_list" @click="navigateTo('/pages/activity/activity_info/main')">
+          <div class="activity_list_info">
+            <div>{{item.time}}</div>
+            <div class="activity_list_info-address">{{item.title}}</div>
+          </div>
+          <div class="activity_list_info-content">{{item.place}}</div>
         </div>
-        <div class="activity_list_info-content">深圳活动汇深圳活动汇深活动汇</div>
       </div>
-
     </div>
 
     <!--弹窗-->
@@ -104,13 +104,21 @@
           type: 1,
           status: 1,
           id: 0,
-          page: 0
-        }
+          page: 1
+        },
+        list: [{
+          title: '',
+          time: '',
+          place: ''
+        }]
       }
     },
     beforeMount () {
+      //初始化活动信息
       this.activityStatus.id = this.$app.storageStore.userStore.getters.getUserId
-      this.$app.api.activity.getActivitys(this.activityStatus)
+      this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
+        this.list = JSON.parse(res.data.activities)
+      })
     },
     methods: {
       popup () {
@@ -129,7 +137,13 @@
       }
     },
     onReachBottom () {
-      console.log('上拉触底刷新')
+      //上拉刷新
+      this.activityStatus.page++
+      this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
+        if (res.data.page === this.activityStatus.page) {
+          this.list = this.list.concat(JSON.parse(res.data.activities))
+        }
+      })
     }
   }
 </script>
@@ -203,6 +217,7 @@
     background-color #e9e9e9;
     border-radius 10px;
     font-size 16px;
+    margin-bottom 10px;
 
     .activity_list_info {
       display flex;
