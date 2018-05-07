@@ -7,7 +7,8 @@ wrap(App, {
   name: '竹芝林',
   version: 'v1.0.0',
   pkgName: 'social',
-  env: 'production' | 'development',
+  // env: 'production' | 'development',
+  env: 'production',
   domain: 'http://192.168.1.53'
 }, {
   api,
@@ -17,7 +18,7 @@ wrap(App, {
 
 export default {
   config: {
-    pages: ['^pages/activity/main'],
+    pages: ['^pages/activity/past_activity_info/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',

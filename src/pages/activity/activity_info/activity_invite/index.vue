@@ -32,7 +32,7 @@
 
 <script>
   export default {
-    name: 'index'
+    name: 'activity_invite'
   }
 </script>
 

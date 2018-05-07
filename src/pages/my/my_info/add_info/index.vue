@@ -6,7 +6,7 @@
         <div class="field border-line">
           <div class="field_left">手机号：</div>
           <div class="field_right">
-            <input value="初始值" name="phone" type="number">
+            <input name="phone" type="number">
           </div>
         </div>
         <div class="field border-line">
@@ -34,7 +34,7 @@
         <div class="field border-line">
           <div class="field_left">关系状态：</div>
           <div class="field_right">
-            <radio-group name="status" class="info-table" @change="radioChange">
+            <radio-group name="status" class="info-table">
               <label>
                 <radio :value="0" :checked="true"/>
                 <span>单身</span>
@@ -108,24 +108,85 @@
     name: 'index',
     data () {
       return {
+        validation: false, //表单验证默认失败
+        userId: 0, //用户id
         sexIndex: 0,
         sex: ['未知', '男', '女']
       }
+    },
+    beforeMount () {
     },
     methods: {
       sexChange (e) {
         this.sexIndex = e.target.value
       },
-      radioChange (e) {
-        console.log(e)
-      },
-      formSubmit (e) {
-        this.$app.api.user.checkPhone({
-          phone: '15926666666',
-          id: 1
-        }).then(res => {
-          console.log(res)
-        })
+      async formSubmit (e) {
+        let data = e.mp.detail.value
+        if (data.phone && data.nick && data.currentCity && data.selfEvaluation) {
+          await this.$app.api.user.checkNick({
+            nick: data.nick,
+            status: 0, //status 0 第一次填写 1 多次填写
+            userId: this.$app.storageStore.userStore.getters.getUserId
+          }).then(res => {
+            if (res.state) {
+              wx.showToast({
+                title: '未知错误!',
+                icon: 'none',
+                duration: 2000
+              })
+            } else if (res.data) {
+              this.validation = true
+            } else {
+              wx.showToast({
+                title: '昵称已存在',
+                icon: 'none',
+                duration: 2000
+              })
+              this.validation = false
+            }
+          })
+        } else {
+          this.validation = false
+          wx.showToast({
+            title: '必填信息为空',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+
+        if (this.validation) {
+          this.$app.api.user.addUser({
+            userId: this.$app.storageStore.userStore.getters.getUserId, //用户id
+            phone: data.phone, //手机
+            nick: data.nick, //昵称
+            sex: data.sex, //性别
+            currentCity: data.currentCity, //常驻城市
+            status: data.status, //婚姻状态
+            selfEvaluation: data.selfEvaluation, //自评
+            age: data.age, //年龄
+            height: data.height, //身高
+            zodiac: data.zodiac, //属相
+            professional: data.professional, //职业
+            constellation: data.constellation, //星座
+            birthplace: data.birthplace //出生地
+          }).then(res => {
+            console.log(res)
+            if (res.state) {
+              wx.showToast({
+                title: '未知错误!',
+                icon: 'none',
+                duration: 2000
+              })
+            } else if (res.data) {
+              wx.reLaunch({url: '/pages/my/main'})
+              wx.showToast({
+                title: '资料保存成功!',
+                icon: 'success',
+                duration: 2000
+              })
+            }
+          })
+        }
       }
     }
   }

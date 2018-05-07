@@ -21,9 +21,12 @@
       <!--</div>-->
     </div>
 
-    <div class="organize_desc panel panel-no_border">
-      <div class="title-mark"></div>
-      <div>活动人员</div>
+    <div class="past_activity_info-box panel panel-no_border">
+      <div class="organize_desc">
+        <div class="title-mark"></div>
+        <div>参与人员</div>
+      </div>
+      <div class="assess-rule" @click="assess_rule">评价规则</div>
     </div>
 
     <div class="activity_personnel icon">
@@ -54,54 +57,14 @@
         </div>
       </div>
     </div>
-
-    <div class="footer_line"></div>
-    <div class="footer" v-if="dataStatus">
-      <div>
-        <span class="icon">&#xe607;</span>
-        <span>收藏</span>
-      </div>
-      <button class="btn-share" open-type="share">
-        <span class="icon">&#xe642;</span>
-        <span>分享</span>
-      </button>
-      <div @click="navigateTo('/pages/activity/activity_info/activity_invite/main')">
-        <span class="icon">&#xe7af;</span>
-        <span>邀约</span>
-      </div>
-      <div>
-        <span class="icon">&#xe60a;</span>
-        <span>参加</span>
-      </div>
-    </div>
-
-    <div class="footer" v-else>
-      <div @click="goData">
-        <span class="icon">&#xe607;</span>
-        <span>收藏</span>
-      </div>
-      <button class="btn-share" open-type="share">
-        <span class="icon">&#xe642;</span>
-        <span>分享</span>
-      </button>
-      <div @click="goData">
-        <span class="icon">&#xe7af;</span>
-        <span>邀约</span>
-      </div>
-      <div @click="goData">
-        <span class="icon">&#xe60a;</span>
-        <span>参加</span>
-      </div>
-    </div>
   </main>
 </template>
 
 <script>
   export default {
-    name: 'activity_info',
+    name: 'index',
     data () {
       return {
-        dataStatus: 0, //资料是否填写
         activityInfo: {
           activity: {
             title: '', //标题
@@ -119,64 +82,36 @@
     beforeMount () {
       //初始化活动信息
       this.$app.api.activity.activity({
-        id: this.$mp.query.id,
+        // id: this.$mp.query.id,
+        id: 1,
         userId: this.$app.storageStore.userStore.getters.getUserId
       }).then(res => {
         this.activityInfo.activity = JSON.parse(res.data.activity)
       })
     },
-    mounted () {
-      this.dataStatus = this.$app.storageStore.userStore.getters.getType //获取资料填写信息
-    },
     methods: {
-      goData () {
-        this.$app.nav.navigateTo('/pages/my/my_info/add_info/main')
-      },
-      navigateTo (nav) {
-        this.$app.nav.navigateTo(nav)
+      assess_rule () {
+        wx.showToast({
+          title: '对方投诉成功，评价人取消本次参与计数',
+          icon: 'none',
+          duration: 2000
+        })
       }
-    },
-    onShareAppMessage () {
     }
   }
 </script>
 
 <style lang="stylus">
   @import "../../../stylus/common.styl"
-
-  .footer_line {
-    height 52px;
-  }
-
-  .footer {
-    width 100%;
-    position: fixed;
-    bottom 0;
-    line-height 50px;
-    height 50px;
+  .past_activity_info-box {
     display flex;
-    justify-content space-between;
     align-items center;
-    font-size 16px;
-    color: #999;
-    background-color white;
-    box-sizing border-box;
-    z-index 2
-    overflow hidden;
-    border-top 1px solid #ccc;
+    justify-content space-between;
 
-    ._div {
-      flex 1;
-      text-align center;
-
-      ._span {
-        padding 0 2px;
-      }
-
-      &:last-child {
-        background-color DodgerBlue;
-        color: white;
-      }
+    .assess-rule {
+      font-size 14px;
+      margin-right 10px;
+      color: #1D9ED7;
     }
   }
 

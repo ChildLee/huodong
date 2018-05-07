@@ -18,7 +18,14 @@
 
 <script>
   export default {
-    name: 'index'
+    name: 'index',
+    data () {
+      return {}
+    },
+    beforeMount () {
+      //判断资料填了没有
+      this.$app.storageStore.userStore.getters.getType ? '' : wx.redirectTo({url: '/pages/my/my_info/add_info/main?id=1'})
+    }
   }
 </script>
 
@@ -44,7 +51,7 @@
     }
   }
 
-  .talmud_zone{
+  .talmud_zone {
     font-weight bold;
   }
 </style>

@@ -8,14 +8,14 @@
     </div>
 
     <div class="activity_nav">
-      <div class="" @click="popup">优惠规则</div>
-      <div class="">活动介绍</div>
-      <div class="">往期活动</div>
+      <div @click="popup">优惠规则</div>
+      <div>活动介绍</div>
+      <div @click="past_activities">往期活动</div>
     </div>
 
-    <div v-for="(item,index) in list">
+    <div v-for="item in list" :key="item.id">
       <div class="container">
-        <div class="activity_list" @click="navigateTo('/pages/activity/activity_info/main')">
+        <div class="activity_list" @click="activity(item.id)">
           <div class="activity_list_info">
             <div>{{item.time}}</div>
             <div class="activity_list_info-address">{{item.title}}</div>
@@ -101,12 +101,13 @@
       return {
         isPopup: false,
         activityStatus: {
-          type: 1,
+          type: 0, //type,0近期,1往期
           status: 1,
-          id: 0,
-          page: 1
+          id: 0, //用户id
+          page: 1 //页码
         },
         list: [{
+          id: 0,
           title: '',
           time: '',
           place: ''
@@ -115,7 +116,7 @@
     },
     beforeMount () {
       //初始化活动信息
-      this.activityStatus.id = this.$app.storageStore.userStore.getters.getUserId
+      this.activityStatus.id = this.$app.storageStore.userStore.getters.getUserId //获取用户id
       this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
         this.list = JSON.parse(res.data.activities)
       })
@@ -132,14 +133,20 @@
           }
         })
       },
-      navigateTo (nav) {
-        this.$app.nav.navigateTo(nav)
+      activity (id) {
+        this.$app.nav.navigateTo('/pages/activity/activity_info/main', {
+          id: id
+        })
+      },
+      past_activities () {
+        this.$app.nav.navigateTo('/pages/activity/past_activities/main')
       }
     },
     onReachBottom () {
       //上拉刷新
-      this.activityStatus.page++
+      this.activityStatus.page++ //页码加一
       this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
+        //传入的页面和服务器返回的页面是否一致,不一致则没有下一页了,不刷新
         if (res.data.page === this.activityStatus.page) {
           this.list = this.list.concat(JSON.parse(res.data.activities))
         }

@@ -160,7 +160,9 @@
         isTransfer: false
       }
     },
-    beforeCreate () {
+    beforeMount () {
+      //判断资料填了没有
+      this.$app.storageStore.userStore.getters.getType ? '' : wx.redirectTo({url: '/pages/my/my_info/add_info/main'})
     },
     methods: {
       popup () {
