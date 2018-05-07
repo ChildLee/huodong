@@ -5,6 +5,10 @@ export default {
   getUserStatus (param) {
     return wx.httpRequest.httpJsonPost('/user/getUser', param)
   },
+  //获取用户信息
+  userData (param) {
+    return wx.httpRequest.httpJsonPost('/user/userData', param)
+  },
   //填写用户资料信息
   addUser (param) {
     return wx.httpRequest.httpJsonPost('/user/addUser', param)

@@ -106,9 +106,34 @@
     name: 'index',
     data () {
       return {
+        userInfo: {
+          phone: '', //手机
+          nick: '', //昵称
+          sex: '', //性别
+          currentCity: '', //常驻城市
+          status: '', //婚姻状态
+          selfEvaluation: '', //自评
+          age: '', //年龄
+          height: '', //身高
+          zodiac: '', //属相
+          professional: '', //职业
+          constellation: '', //星座
+          birthplace: '' //出生地
+        },
         sexIndex: 0,
         sex: ['男', '女', '中性']
       }
+    },
+    beforeMount () {
+      this.$app.api.user.userData({
+        userId: this.$app.storageStore.userStore.getters.getUserId
+      }).then(res => {
+        if (res.state) {
+          wx.showToast({title: '未知错误', icon: 'none'})
+        } else if (res.data.user) {
+          console.log(JSON.parse(res.data.user))
+        }
+      })
     },
     methods: {
       sexChange (e) {

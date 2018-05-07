@@ -24,7 +24,7 @@
     </div>
 
     <div class="my_info_edit btn-box">
-      <div class="btn" @click="navigateTo('/pages/my/my_info/add_info/main')">修改</div>
+      <div class="btn" @click="navigateTo('/pages/my/my_info/edit_info/main')">修改</div>
     </div>
   </main>
 </template>
