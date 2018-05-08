@@ -19,8 +19,8 @@
           <div class="field">
             <div class="field_left">性别：</div>
             <div class="field_right">
-              <picker name="sex" @change="sexChange" :value="sexIndex" :range="sex">
-                {{sex[sexIndex]}}
+              <picker name="sex" @change="sexChange" :value="sexIndex" :range="sexBox">
+                {{sexBox[sexIndex]}}
               </picker>
             </div>
           </div>
@@ -111,7 +111,7 @@
         validation: false, //表单验证默认失败
         userId: 0, //用户id
         sexIndex: 0,
-        sex: ['未知', '男', '女']
+        sexBox: ['未知', '男', '女']
       }
     },
     beforeMount () {
@@ -170,7 +170,6 @@
             constellation: data.constellation, //星座
             birthplace: data.birthplace //出生地
           }).then(res => {
-            console.log(res)
             if (res.state) {
               wx.showToast({
                 title: '未知错误!',
@@ -178,11 +177,9 @@
                 duration: 2000
               })
             } else if (res.data) {
-              wx.reLaunch({url: '/pages/my/main'})
-              wx.showToast({
-                title: '资料保存成功!',
-                icon: 'success',
-                duration: 2000
+              this.$app.storageStore.userStore.dispatch('userStatus').then(res => {
+                wx.reLaunch({url: '/pages/activity/main'})
+                wx.showToast({title: '资料保存成功!', icon: 'success'})
               })
             }
           })

@@ -8,5 +8,9 @@ export default {
   //活动详细信息
   activity (param) {
     return wx.httpRequest.httpJsonPost('/user/activity', param)
+  },
+  //填写活动评价
+  addComment (param) {
+    return wx.httpRequest.httpJsonPost('/user/addComment', param)
   }
 }

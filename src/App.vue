@@ -3,6 +3,7 @@
 
   export default {
     beforeCreate () {
+      //$app属性还没有生成,只能引用store
       userStore.dispatch('userStatus').then()
     }
   }

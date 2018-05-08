@@ -13,6 +13,10 @@ export default {
   addUser (param) {
     return wx.httpRequest.httpJsonPost('/user/addUser', param)
   },
+  //填写用户资料信息
+  addFocus (param) {
+    return wx.httpRequest.httpJsonPost('/user/addFocus', param)
+  },
   //验证昵称是否存在
   checkNick (param) {
     return wx.httpRequest.httpJsonPost('/user/checkNick', param)
