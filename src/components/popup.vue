@@ -3,9 +3,11 @@
     <!--弹窗-->
     <div class="popup" v-if="isPopup">
       <div class="popup-box">
-        <div>13333333</div>
+        <div>
+          <!--这里填写弹窗的信息-->
+        </div>
       </div>
-      <div class="popup-curtain" @click="popup"><!--幕布--></div>
+      <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
     </div>
     <!--弹窗-->
   </main>
@@ -16,12 +18,15 @@
     name: 'popup',
     data () {
       return {
-        isPopup: false
+        isPopup: false //是否显示弹窗
       }
     },
     methods: {
+      closePopup () {
+        this.isPopup = false
+      },
       popup () {
-        this.isPopup = !this.isPopup
+        this.isPopup = true
       }
     }
   }

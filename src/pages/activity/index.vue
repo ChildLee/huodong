@@ -29,12 +29,12 @@
     <div class="popup" v-if="isPopup">
       <div class="popup-box">
         <div class="popup-content">
-          <div class="popup-content-desc">
+          <div class="popup-content-desc-1">
             <div>被邀第一次参加活动可享8折优惠</div>
             <div>会员邀请新成员参加后可获分享折扣红包</div>
           </div>
           <div class="activity_rule_box">
-            <div class="activity_rule">
+            <div class="activity_rule activity_rule-title">
               <div>会员星级</div>
               <div>参与折扣</div>
               <div>推荐异性</div>
@@ -77,7 +77,7 @@
               <div>1</div>
             </div>
           </div>
-          <div class="popup-content-desc">
+          <div class="popup-content-desc-2">
             <div>一星会员9折参与</div>
             <div>推荐新成员异性参加活动后返活动价格的4折</div>
             <div>推荐同性新成员加活动后返活动价格的1折</div>
@@ -246,9 +246,16 @@
   }
 
   .activity_rule_box {
-    margin 0 auto;
+    width 200px;
+    margin 20px auto;
     border-left: 1px solid black;
     border-top: 1px solid black;
+  }
+
+  .activity_rule-title {
+    ._div {
+      color: black !important;
+    }
   }
 
   .activity_rule {
@@ -258,16 +265,30 @@
     text-align center;
 
     ._div {
+      display flex;
+      align-items center;
+      justify-content center
       width 100%;
-      height 100%;
-      padding: 10px;
+      min-height: 40px;
       border-right: 1px solid black;
       border-bottom: 1px solid black;
+
+      &:not(:first-child) {
+        color: #009DDA;
+      }
     }
   }
 
-  .popup-content-desc {
-    color: #996600;
+  .popup-content-desc-1 {
+    font-size 14px;
+    color: black;
+    margin 10px 0;
+    text-align center;
+  }
+
+  .popup-content-desc-2 {
+    font-size 13px;
+    color: #666666;
     margin 10px 0;
   }
 </style>

@@ -12,7 +12,7 @@ new WrapPage(App, store)
 
 export default {
   config: {
-    navigationBarTitleText: '活动'
+    navigationBarTitleText: '竹芝林-温暖为你'
     // navigationBarTextStyle: '#fff',
     // navigationBarBackgroundColor: '#fff'
   }

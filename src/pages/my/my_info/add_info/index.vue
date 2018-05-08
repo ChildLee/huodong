@@ -53,7 +53,7 @@
         <div class="field border-line">
           <div class="field_left">自评：</div>
           <div class="field_right">
-            <textarea name="selfEvaluation" maxlength="-1" placeholder="请简洁客观，言之有物"></textarea>
+            <textarea name="selfEvaluation" maxlength="1000" placeholder="请简洁客观，言之有物"></textarea>
           </div>
         </div>
       </div>

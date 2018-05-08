@@ -106,6 +106,33 @@
         </div>
       </div>
     </div>
+
+    <!--弹窗-->
+    <div class="popup" v-if="isAssess">
+      <div class="popup-box">
+        <div>
+          <div class="assess_popup-title">5分是很宝贵的，请别随意给出</div>
+          <div class="assess_popup-score">
+            <div @click="clickScore(1)" :class="assess_score===1?'assess_score-selected':''">1分</div>
+            <div @click="clickScore(2)" :class="assess_score===2?'assess_score-selected':''">2分</div>
+            <div @click="clickScore(3)" :class="assess_score===3?'assess_score-selected':''">3分</div>
+            <div @click="clickScore(4)" :class="assess_score===4?'assess_score-selected':''">4分</div>
+            <div @click="clickScore(5)" :class="assess_score===5?'assess_score-selected':''">5分</div>
+          </div>
+          <div class="assess_popup-comment_box">
+            <textarea class="assess_popup-comment" maxlength="-1"
+                      placeholder="评语不只是您对他人的权利,更是您自身的体现,请注意客观和风度">
+            </textarea>
+          </div>
+          <div class="assess_popup-send">
+            <span class="send" @click="send_assess">发送</span>
+          </div>
+        </div>
+      </div>
+      <div class="popup-curtain" @click="closeAssess"><!--幕布--></div>
+    </div>
+    <!--弹窗-->
+
   </main>
 </template>
 
@@ -114,7 +141,10 @@
     name: 'index',
     data () {
       return {
-        activityId: 0, // 活动Id
+        assessId: 0, //被评价人的id
+        assess_score: 0, //评价得分
+        isAssess: false, //是否显示弹窗
+        activityId: 0, //活动Id
         activityInfo: {
           activity: {
             hostRevenue: 0, //主持人收入
@@ -144,13 +174,22 @@
         }
       }
     },
+    watch: {
+      //监听评价弹窗是否关闭
+      isAssess (param) {
+        if (!param) {
+          this.assessId = 0//清空被评价人id
+          this.assess_score = 0//清空评价
+        }
+      }
+    },
     beforeMount () {
-      this.activityId = this.$mp.query.id
-      this.init()
+      this.activityId = this.$mp.query.id//保存活动id
+      this.init()//调用初始化
     },
     methods: {
+      //初始化页面
       init () {
-        //初始化页面
         this.$app.api.activity.activity({
           // id: this.activityId, //活动id
           id: 1,
@@ -161,13 +200,15 @@
           this.activityInfo.userList = JSON.parse(res.data.userList)
         })
       },
+      //点击评价规则
       assess_rule () {
-        wx.showToast({
-          title: '对方投诉成功，评价人取消本次参与计数',
-          icon: 'none',
-          duration: 2000
-        })
+        wx.showToast({title: '对方投诉成功，评价人取消本次参与计数', icon: 'none'})
       },
+      //点击分数事件
+      clickScore (score) {
+        this.assess_score = score
+      },
+      //点击💗关注事件
       focus (item, id, attention) {
         this.$app.api.user.addFocus({
           userId: this.$app.storageStore.userStore.getters.getUserId,
@@ -179,8 +220,18 @@
           }
         })
       },
+      //关闭评价弹窗
+      closeAssess () {
+        this.isAssess = false
+      },
+      //打开评价弹窗
       assess (id) {
-        console.log(id)
+        this.assessId = id
+        this.isAssess = !this.isAssess
+      },
+      //发送评价信息
+      send_assess () {
+
       }
     }
   }
@@ -188,6 +239,63 @@
 
 <style lang="stylus">
   @import "../../../stylus/common.styl"
+
+  .assess_popup-title {
+    text-align center;
+    font-size 14px;
+    color: #999;
+  }
+
+  .assess_popup-score {
+    display flex;
+    align-items center;
+    justify-content center;
+
+    ._div {
+      flex none;
+      margin 10px 5px;
+      width 35px;
+      height 35px;
+      line-height 35px;
+      text-align center;
+      border-radius 50%;
+      border: 1px solid #ccc;
+      color: #ccc;
+      font-size 14px;
+    }
+
+    .assess_score-selected {
+      background-color: #009dda;
+      border: 1px solid #009dda;
+      color: white;
+    }
+  }
+
+  .assess_popup-comment_box {
+
+  }
+
+  .assess_popup-comment {
+    display block;
+    width 100%;
+    border: 1px solid #ccc;
+    font-size 14px;
+    border-radius 5px;
+    padding: 5px;
+    box-sizing border-box;
+  }
+
+  .assess_popup-send {
+    text-align center;
+    padding: 5px;
+
+    .send {
+      padding: 5px;
+      font-size 16px;
+      color: #1D9ED7;
+    }
+  }
+
   .operate {
     display flex;
     align-items center;
@@ -242,12 +350,12 @@
   }
 
   .activity_personnel {
-    background-color #ccc;
+    background-color #eee;
   }
 
   .activity-info {
     font-size 14px;
-    background-color #ccc;
+    background-color #eee;
   }
 
   .activity-info-content {
@@ -314,6 +422,36 @@
 
     &::after {
       border: none;
+    }
+  }
+
+  /* 弹窗 */
+  .popup {
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: absolute;
+      top: 25%;
+      left: 15%;
+      width 70%;
+      z-index: 3;
+      transition: all 2s;
+
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position absolute;
+      top: 0;
+      left 0;
+      width 100%;
+      height 100%;
+      z-index 2;
     }
   }
 </style>
