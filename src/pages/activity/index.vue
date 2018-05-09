@@ -254,6 +254,8 @@
 
   .activity_rule-title {
     ._div {
+      box-sizing border-box;
+      padding: 5px;
       color: black !important;
     }
   }
