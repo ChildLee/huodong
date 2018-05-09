@@ -45,7 +45,7 @@
               <span v-if="item.attention" style="color:red;">&#xe755;</span>
               <span v-else>&#xe613;</span>
             </div>
-            <div @click="assess(item.id)">{{item.nickName}}</div>
+            <div @click="assess(item)">{{item.nickName}}</div>
           </div>
         </div>
         <div>
@@ -54,7 +54,7 @@
               <span v-if="item.attention" style="color:red;">&#xe755;</span>
               <span v-else>&#xe613;</span>
             </div>
-            <div @click="assess(item.id)">{{item.nickName}}</div>
+            <div @click="assess(item)">{{item.nickName}}</div>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@
               <span v-if="item.attention" style="color:red;">&#xe755;</span>
               <span v-else>&#xe613;</span>
             </div>
-            <div @click="assess(item.id)">{{item.nickName}}</div>
+            <div @click="assess(item)">{{item.nickName}}</div>
           </div>
         </div>
         <div>
@@ -76,7 +76,7 @@
               <span v-if="item.attention" style="color:red;">&#xe755;</span>
               <span v-else>&#xe613;</span>
             </div>
-            <div @click="assess(item.id)">{{item.nickName}}</div>
+            <div @click="assess(item)">{{item.nickName}}</div>
           </div>
         </div>
       </div>
@@ -89,7 +89,7 @@
                 <span v-if="item.attention" style="color:red;">&#xe755;</span>
                 <span v-else>&#xe613;</span>
               </div>
-              <div @click="assess(item.id)">{{item.nickName}}</div>
+              <div @click="assess(item)">{{item.nickName}}</div>
             </div>
           </div>
         </div>
@@ -100,7 +100,7 @@
                 <span v-if="item.attention" style="color:red;">&#xe755;</span>
                 <span v-else>&#xe613;</span>
               </div>
-              <div @click="assess(item.id)">{{item.nickName}}</div>
+              <div @click="assess(item)">{{item.nickName}}</div>
             </div>
           </div>
         </div>
@@ -120,7 +120,7 @@
             <div @click="clickScore(5)" :class="assess_score===5?'assess_score-selected':''">5分</div>
           </div>
           <div class="assess_popup-comment_box">
-            <textarea class="assess_popup-comment" maxlength="-1"
+            <textarea v-model="review" class="assess_popup-comment" maxlength="1000"
                       placeholder="评语不只是您对他人的权利,更是您自身的体现,请注意客观和风度">
             </textarea>
           </div>
@@ -141,10 +141,12 @@
     name: 'index',
     data () {
       return {
-        assessId: 0, //被评价人的id
-        assess_score: 0, //评价得分
-        isAssess: false, //是否显示弹窗
         activityId: 0, //活动Id
+        assessId: 0, //被评价人的id
+        assessRole: 0, //被评价人的角色
+        assess_score: 0, //评价得分
+        review: '', //评价内容
+        isAssess: false, //是否显示弹窗
         activityInfo: {
           activity: {
             hostRevenue: 0, //主持人收入
@@ -178,21 +180,20 @@
       //监听评价弹窗是否关闭
       isAssess (param) {
         if (!param) {
-          this.assessId = 0//清空被评价人id
-          this.assess_score = 0//清空评价
+          this.assess_score = 0//清空评价得分
+          this.review = ''//清空评价
         }
       }
     },
     beforeMount () {
-      this.activityId = this.$mp.query.id//保存活动id
+      this.activityId = this.$mp.query.id//保存活动ID
       this.init()//调用初始化
     },
     methods: {
       //初始化页面
       init () {
         this.$app.api.activity.activity({
-          // id: this.activityId, //活动id
-          id: 1,
+          id: this.activityId, //活动id
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id
         }).then(res => {
           this.activityInfo = res.data
@@ -225,13 +226,31 @@
         this.isAssess = false
       },
       //打开评价弹窗
-      assess (id) {
-        this.assessId = id
+      assess (item) {
+        this.assessId = item.id //获取被评价人的id
+        this.assessRole = item.role //获取被评价人的角色
         this.isAssess = !this.isAssess
       },
       //发送评价信息
       send_assess () {
-
+        if (!this.assess_score) {
+          wx.showToast({title: '请给予评分!', icon: 'none'})
+        } else if (!this.review) {
+          wx.showToast({title: '请填写评价!', icon: 'none'})
+        } else {
+          this.$app.api.activity.addComment({
+            userId: this.$app.storageStore.userStore.getters.getUserId,
+            role: this.assessRole,
+            activityId: this.activityId,
+            reviewUserId: this.assessId,
+            review: this.review,
+            score: this.assess_score
+          }).then(res => {
+            res.state ? wx.showToast({title: res.message, icon: 'none'}) : wx.showToast({title: '评价成功!', icon: 'none'})
+          }).then(() => {
+            this.isAssess = false
+          })
+        }
       }
     }
   }

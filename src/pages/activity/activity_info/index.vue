@@ -21,9 +21,11 @@
       <!--</div>-->
     </div>
 
-    <div class="organize_desc panel panel-no_border">
-      <div class="title-mark"></div>
-      <div>活动人员</div>
+    <div class="past_activity_info-box panel panel-no_border">
+      <div class="organize_desc">
+        <div class="title-mark"></div>
+        <div>参与人员</div>
+      </div>
     </div>
 
     <div class="activity_personnel icon">
@@ -32,25 +34,73 @@
         <div>男</div>
         <div>女</div>
       </div>
-      <div class="active_staff">
+
+      <div class="active_staff" v-for="(item,index) in activityInfo.userList" v-if="item.role===2" :key="item.id">
         <div>主持人</div>
-        <div>&#xe613;张三</div>
-        <div></div>
+        <div>
+          <div class="operate" v-if="item.sex===1">
+            <div class="operate-attention">
+              <span v-if="item.attention" style="color:red;">&#xe755;</span>
+              <span v-else>&#xe613;</span>
+            </div>
+            <div>{{item.nickName}}</div>
+          </div>
+        </div>
+        <div>
+          <div class="operate" v-if="item.sex===2">
+            <div class="operate-attention">
+              <span v-if="item.attention" style="color:red;">&#xe755;</span>
+              <span v-else>&#xe613;</span>
+            </div>
+            <div>{{item.nickName}}</div>
+          </div>
+        </div>
       </div>
-      <div class="active_staff">
+
+      <div class="active_staff" v-for="item in activityInfo.userList" v-if="item.role===3" :key="item.id">
         <div>辅助人</div>
-        <div></div>
-        <div>&#xe613;李四</div>
+        <div>
+          <div class="operate" v-if="item.sex===1">
+            <div class="operate-attention">
+              <span v-if="item.attention" style="color:red;">&#xe755;</span>
+              <span v-else>&#xe613;</span>
+            </div>
+            <div>{{item.nickName}}</div>
+          </div>
+        </div>
+        <div>
+          <div class="operate" v-if="item.sex===2">
+            <div class="operate-attention">
+              <span v-if="item.attention" style="color:red;">&#xe755;</span>
+              <span v-else>&#xe613;</span>
+            </div>
+            <div>{{item.nickName}}</div>
+          </div>
+        </div>
       </div>
       <div class="active_staff">
         <div>参与人</div>
         <div class="participate">
-          <div>&#xe613;王五</div>
-          <div>&#xe613;王五</div>
+          <div v-for="item in activityInfo.userList" v-if="item.role===1" :key="item.id">
+            <div class="operate" v-if="item.sex===1">
+              <div class="operate-attention">
+                <span v-if="item.attention" style="color:red;">&#xe755;</span>
+                <span v-else>&#xe613;</span>
+              </div>
+              <div>{{item.nickName}}</div>
+            </div>
+          </div>
         </div>
         <div class="participate">
-          <div>&#xe613;二丫</div>
-          <div>&#xe613;二丫</div>
+          <div v-for="item in activityInfo.userList" v-if="item.role===1" :key="item.id">
+            <div class="operate" v-if="item.sex===2">
+              <div class="operate-attention">
+                <span v-if="item.attention" style="color:red;">&#xe755;</span>
+                <span v-else>&#xe613;</span>
+              </div>
+              <div>{{item.nickName}}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -101,9 +151,17 @@
     name: 'activity_info',
     data () {
       return {
+        activityId: 0, //活动Id
         dataStatus: 0, //资料是否填写
+        assessId: 0, //被评价人的id
+        assessRole: 0, //被评价人的角色
+        assess_score: 0, //评价得分
+        review: '', //评价内容
+        isAssess: false, //是否显示弹窗
         activityInfo: {
           activity: {
+            hostRevenue: 0, //主持人收入
+            assistantRevenue: 0, //辅助人收入
             title: '', //标题
             time: '', //时间
             place: '', //地点
@@ -112,23 +170,44 @@
             menPrice: 0, //男价格
             womenPrice: 0, //女价格
             freePlaces: 0 //免费名额
-          }
+          },
+          userList: [{
+            id: 0,
+            nickName: '', //用户名
+            maxLV: 0, //
+            star: 0, //星级
+            attention: 0, //是否关注
+            role: 0, //角色 1参与者 2主持人 3辅助人
+            sex: 0 //性别
+          }],
+          advanced: 0, //超级会员免费次数
+          ordinary: 0, //普通会员免费次数
+          integral: 0, //剩余积分
+          status: 0 //0没参加,1参加了
         }
       }
     },
     beforeMount () {
+      this.dataStatus = this.$app.storageStore.userStore.getters.getType //获取资料填写状态
+      // this.activityId = this.$mp.query.id //获取活动id
+      this.activityId = 1 //获取活动id
       //初始化活动信息
-      this.$app.api.activity.activity({
-        id: this.$mp.query.id,
-        userId: this.$app.storageStore.userStore.getters.getUserId
-      }).then(res => {
-        this.activityInfo.activity = JSON.parse(res.data.activity)
-      })
+      this.init()//调用初始化
     },
     mounted () {
-      this.dataStatus = this.$app.storageStore.userStore.getters.getType //获取资料填写信息
     },
     methods: {
+      //初始化页面
+      init () {
+        this.$app.api.activity.activity({
+          id: this.activityId, //活动id
+          userId: this.$app.storageStore.userStore.getters.getUserId //用户id
+        }).then(res => {
+          this.activityInfo = res.data
+          this.activityInfo.activity = JSON.parse(res.data.activity)
+          this.activityInfo.userList = JSON.parse(res.data.userList)
+        })
+      },
       goData () {
         this.$app.nav.navigateTo('/pages/my/my_info/add_info/main')
       },
@@ -180,6 +259,18 @@
     }
   }
 
+  .operate {
+    display flex;
+    align-items center;
+    position: relative;
+    margin-left 15px;
+
+    .operate-attention {
+      font-size 26px;
+      margin-right 10px;
+    }
+  }
+
   .activity-title {
     text-align center;
     font-weight bold;
@@ -205,12 +296,12 @@
   }
 
   .activity_personnel {
-    background-color #ccc;
+    background-color #eee;
   }
 
   .activity-info {
     font-size 14px;
-    background-color #ccc;
+    background-color #eee;
   }
 
   .activity-info-content {
@@ -245,7 +336,7 @@
     width 100%;
     padding: 0 !important;
 
-    ._div {
+    > ._div {
       position: relative;
       padding: 15px 0;
       box-sizing border-box;
