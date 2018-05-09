@@ -105,28 +105,22 @@
       </div>
     </div>
 
-    <div class="footer_line"></div>
-    <div class="footer" v-if="dataStatus">
-      <div>
-        <span class="icon">&#xe607;</span>
-        <span>收藏</span>
+    <!--弹窗-->
+    <div class="popup" v-if="isPay">
+      <div class="popup-box">
+        <div>
+          <div>支付会费188元</div>
+          <div>会费剩余100元</div>
+          <div class="border-top">确定</div>
+        </div>
       </div>
-      <button class="btn-share" open-type="share">
-        <span class="icon">&#xe642;</span>
-        <span>分享</span>
-      </button>
-      <div @click="navigateTo('/pages/activity/activity_info/activity_invite/main')">
-        <span class="icon">&#xe7af;</span>
-        <span>邀约</span>
-      </div>
-      <div>
-        <span class="icon">&#xe60a;</span>
-        <span>参加</span>
-      </div>
+      <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
     </div>
+    <!--弹窗-->
 
-    <div class="footer" v-else>
-      <div @click="goData">
+    <div class="footer_line"></div>
+    <div class="footer">
+      <div @click="collection">
         <span class="icon">&#xe607;</span>
         <span>收藏</span>
       </div>
@@ -134,11 +128,11 @@
         <span class="icon">&#xe642;</span>
         <span>分享</span>
       </button>
-      <div @click="goData">
+      <div @click="invitation">
         <span class="icon">&#xe7af;</span>
         <span>邀约</span>
       </div>
-      <div @click="goData">
+      <div @click="participate">
         <span class="icon">&#xe60a;</span>
         <span>参加</span>
       </div>
@@ -151,6 +145,7 @@
     name: 'activity_info',
     data () {
       return {
+        isPay: true, //支付弹窗
         activityId: 0, //活动Id
         dataStatus: 0, //资料是否填写
         assessId: 0, //被评价人的id
@@ -169,7 +164,8 @@
             content: '', //内容,
             menPrice: 0, //男价格
             womenPrice: 0, //女价格
-            freePlaces: 0 //免费名额
+            freePlaces: 0, //免费名额
+            surplusStatus: 0 //活动是否满员,0没满,1满员
           },
           userList: [{
             id: 0,
@@ -180,10 +176,11 @@
             role: 0, //角色 1参与者 2主持人 3辅助人
             sex: 0 //性别
           }],
-          advanced: 0, //超级会员免费次数
-          ordinary: 0, //普通会员免费次数
+          advanced: 0, //超级会员总共免费次数
+          ordinary: 0, //普通会员总共免费次数
+          status: 0, //0没参加,1参加了
           integral: 0, //剩余积分
-          status: 0 //0没参加,1参加了
+          number: 0//剩余免费参加活动次数
         }
       }
     },
@@ -203,6 +200,7 @@
           id: this.activityId, //活动id
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id
         }).then(res => {
+          console.log(res)
           this.activityInfo = res.data
           this.activityInfo.activity = JSON.parse(res.data.activity)
           this.activityInfo.userList = JSON.parse(res.data.userList)
@@ -213,10 +211,30 @@
       },
       navigateTo (nav) {
         this.$app.nav.navigateTo(nav)
+      },
+      //收藏按钮
+      collection () {
+        this.dataStatus ? `` : this.goData()
+      },
+      //邀约
+      invitation () {
+        this.dataStatus ? `` : this.goData()
+        this.activityInfo.activity.surplusStatus ? wx.showToast({
+          title: '活动人数已满!',
+          icon: 'none'
+        }) : this.navigateTo('/pages/activity/activity_info/activity_invite/main')
+      },
+      //参加
+      participate () {
+        this.dataStatus ? `` : this.goData()
+        this.activityInfo.activity.surplusStatus ? wx.showToast({title: '活动人数已满!', icon: 'none'}) : ``
+      },
+      //关闭幕布
+      closePopup () {
+        this.isPay = false
       }
     },
-    onShareAppMessage () {
-    }
+    onShareAppMessage () {}
   }
 </script>
 

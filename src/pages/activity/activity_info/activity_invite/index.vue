@@ -11,14 +11,14 @@
     </div>
 
     <div>
-      <div class="invite-list border-line">
+      <div class="invite-list border-bottom">
         <div>张三</div>
         <div>老张</div>
         <div>
           <span class="btn-no_border btn btn_size-small btn_color-DodgerBlue">邀约</span>
         </div>
       </div>
-      <div class="invite-list border-line">
+      <div class="invite-list border-bottom">
         <div>张三</div>
         <div>老张</div>
         <div>

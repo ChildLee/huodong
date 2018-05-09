@@ -1,31 +1,31 @@
 <template>
   <main>
 
-    <div class="field border-cell_line">
+    <div class="field border-cell">
       <div class="field_left">活动名称</div>
       <div class="field_right">
         <input placeholder="16字以内 英文一个字母算一个字"/>
       </div>
     </div>
-    <div class="field border-cell_line">
+    <div class="field border-cell">
       <div class="field_left">活动时间</div>
       <div class="field_right">
         <input placeholder="2018-08-08 9：00"/>
       </div>
     </div>
-    <div class="field border-cell_line">
+    <div class="field border-cell">
       <div class="field_left">活动地点</div>
       <div class="field_right">
         <input placeholder="深圳 高新园 TCL大厦 1101 室"/>
       </div>
     </div>
-    <div class="field border-cell_line">
+    <div class="field border-cell">
       <div class="field_left">会员免费名额</div>
       <div class="field_right">
         <input placeholder="10"/>
       </div>
     </div>
-    <div class="maxAndPrice border-cell_line">
+    <div class="maxAndPrice border-cell">
       <div class="field">
         <div class="field_left">男生数量上限</div>
         <div class="field_right">
@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div class="maxAndPrice border-cell_line">
+    <div class="maxAndPrice border-cell">
       <div class="field">
         <div class="field_left">女生数量上限</div>
         <div class="field_right">

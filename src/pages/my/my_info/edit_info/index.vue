@@ -2,20 +2,20 @@
   <main>
     <form @submit="formSubmit">
       <div class="info-title">必填</div>
-      <div class="info-required border-cell_line">
-        <div class="field border-line">
+      <div class="info-required border-cell">
+        <div class="field border-bottom">
           <div class="field_left">手机号：</div>
           <div class="field_right">
             <input name="phone" v-model.lazy="userInfo.phone" type="number">
           </div>
         </div>
-        <div class="field border-line">
+        <div class="field border-bottom">
           <div class="field_left">昵称：</div>
           <div class="field_right">
             <input name="nick" v-model.lazy="userInfo.nick" type="text" placeholder="昵称不能重复">
           </div>
         </div>
-        <div class="info-table border-line">
+        <div class="info-table border-bottom">
           <div class="field">
             <div class="field_left">性别：</div>
             <div class="field_right">
@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="field border-line">
+        <div class="field border-bottom">
           <div class="field_left">关系状态：</div>
           <div class="field_right">
             <radio-group name="status" class="info-table" @change="radioChange">
@@ -50,7 +50,7 @@
             </radio-group>
           </div>
         </div>
-        <div class="field border-line">
+        <div class="field border-bottom">
           <div class="field_left">自评：</div>
           <div class="field_right">
             <textarea name="selfEvaluation" v-model.lazy="userInfo.selfEvaluation" maxlength="1000"
