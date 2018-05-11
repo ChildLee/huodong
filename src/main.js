@@ -6,19 +6,19 @@ import * as storageStore from './store'
 wrap(App, {
   name: '竹芝林',
   version: 'v1.0.0',
-  pkgName: 'social',
+  pkgName: 'zzlSocial',
   // env: 'production' | 'development',
   env: 'production',
+  // domain: 'https://zzlsocial.com'
   domain: 'http://192.168.1.53'
 }, {
   api,
   storageStore
-  // 拓展
 })
 
 export default {
   config: {
-    pages: ['^pages/activity/activity_info/main'],
+    pages: ['^pages/my/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',

@@ -24,5 +24,9 @@ export default {
   //修改手机号码
   checkPhone (param) {
     return wx.httpRequest.httpJsonPost('/user/checkPhone', param)
+  },
+  //获取个人中心
+  userCenter (param) {
+    return wx.httpRequest.httpJsonPost('/user/userCenter', param)
   }
 }

@@ -108,10 +108,10 @@
     <!--弹窗-->
     <div class="popup" v-if="isPay">
       <div class="popup-box">
-        <div>
-          <div>支付会费188元</div>
-          <div>会费剩余100元</div>
-          <div class="border-top">确定</div>
+        <div class="pay-box">
+          <div class="pay-price">支付会费188元</div>
+          <div class="pay-balance">会费剩余100元</div>
+          <div class="pay-btn border-top">确定</div>
         </div>
       </div>
       <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
@@ -240,6 +240,57 @@
 
 <style lang="stylus">
   @import "../../../stylus/common.styl"
+
+  .pay-box {
+
+    .pay-price {
+      text-align center;
+      padding: 30px 0;
+      font-size 16px;
+    }
+
+    .pay-balance {
+      font-size 14px;
+      color: #999;
+      text-align right;
+    }
+
+    .pay-btn {
+      text-align center
+      padding-top 10px;
+      color: #1388BA;
+    }
+  }
+
+  /* 弹窗 */
+  .popup {
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: absolute;
+      top: 30%;
+      left: 15%;
+      width 70%;
+      z-index: 3;
+      transition: all 2s;
+
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position absolute;
+      top: 0;
+      left 0;
+      width 100%;
+      height 100%;
+      z-index 2;
+    }
+  }
 
   .footer_line {
     height 52px;

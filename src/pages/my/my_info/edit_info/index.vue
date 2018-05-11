@@ -123,7 +123,7 @@
           constellation: '', //星座
           birthplace: '' //出生地
         },
-        sexBox: ['未知', '男', '女']
+        sexBox: ['男', '女']
       }
     },
     beforeMount () {
