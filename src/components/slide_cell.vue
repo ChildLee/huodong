@@ -22,32 +22,34 @@
 <script>
   export default {
     name: 'slide_cell',
-    data() {
+    data () {
       return {
-        startX: 0, // 记录触摸起始位置的X坐标
-        btnWidth: 50, // 右侧按钮区域的宽度
-        style: '', //滑动后样式
-        index: 0, //滑动项的下标
-        list: [{
-          name: '1'
-        }, {
-          name: '2'
-        }]
+        slide: {
+          list: [{
+            style: ''
+          }],
+          startX: 0, // 记录触摸起始位置的X坐标
+          btnWidth: 160, // 右侧按钮区域的宽度,单位rpx
+          style: '', //滑动后样式
+          index: 0 //滑动项的下标
+        }
       }
     },
     methods: {
-      touchS(e) {
+      touchS (e) {
         // 当手指触摸屏幕时触发
         if (e.touches.length === 1) {
+          //重置展开index的数据
+          this.slide.list[this.slide.index].style = ''
           // 记录触摸起始位置的X坐标
           this.startX = e.clientX
         }
       },
-      touchM(e) {
+      touchM (e) {
         // 当手指在屏幕上滑动时连续地触发
         if (e.touches.length === 1) {
           //获取手指触摸的是哪一个item
-          this.index = e.currentTarget.dataset.index
+          this.slide.index = e.currentTarget.dataset.index
           //记录触摸点位置的X坐标
           let moveX = e.clientX
           //计算手指起始点的X坐标与当前触摸点的X坐标的差值
@@ -55,32 +57,26 @@
           //delWidth 为右侧按钮区域的宽度
           let btnWidth = this.btnWidth
           //移动距离大于0，文本层left值等于手指移动距离
-          disX > 0 ? this.style = `left:-${disX}px` : this.style = 'left:0'
+          disX > 0 ? this.slide.style = `left:-${disX}rpx` : this.slide.style = ''
           //控制手指移动距离最大值为删除按钮的宽度
-          disX >= btnWidth ? this.style = `left:-${btnWidth}px` : ''
-          if (this.list[this.index].selected === true && disX > 0) return
+          disX >= btnWidth ? this.slide.style = `left:-${btnWidth}rpx` : ''
           //将拼接好的样式设置到当前item中
-          this.list[this.index].style = this.style
+          this.slide.list[this.slide.index].style = this.slide.style
         }
       },
-      touchE(e) {
+      touchE (e) {
         // 当手指从屏幕上移开时触发
         if (e.mp.touches.length === 0) {
           //获取手指触摸的是哪一个item
-          this.index = e.currentTarget.dataset.index
+          this.slide.index = e.currentTarget.dataset.index
           //手指移动结束后触摸点位置的X坐标
           let endX = e.mp.changedTouches[0].clientX
           let disX = this.startX - endX
           //触摸开始与结束，手指移动的距离
-          let btnWidth = this.btnWidth
-          disX > btnWidth / 2 ? this.style = `left:-${btnWidth}px` : this.style = 'left:0'
-          if (this.list[this.index].selected === true && disX <= 0) {
-            this.list[this.index].selected = false
-            return
-          }
+          let btnWidth = this.slide.btnWidth
+          disX > btnWidth / 4 ? this.slide.style = `left:-${btnWidth}rpx` : this.slide.style = ''
           //将拼接好的样式设置到当前item中
-          this.list[this.index].style = this.style
-          this.list[this.index].selected = true
+          this.slide.list[this.slide.index].style = this.slide.style
         }
       }
     }

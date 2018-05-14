@@ -12,5 +12,8 @@ export default {
   //填写活动评价
   addComment (param) {
     return wx.httpRequest.httpJsonPost('/user/addComment', param)
+  }, //填写活动评价
+  myComment (param) {
+    return wx.httpRequest.httpJsonPost('/user/myComment', param)
   }
 }

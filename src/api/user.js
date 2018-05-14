@@ -9,11 +9,19 @@ export default {
   userData (param) {
     return wx.httpRequest.httpJsonPost('/user/userData', param)
   },
+  //保存微信头像
+  avatatUrl (param) {
+    return wx.httpRequest.httpJsonPost('/user/avatatUrl', param)
+  },
   //填写用户资料信息
   addUser (param) {
     return wx.httpRequest.httpJsonPost('/user/addUser', param)
   },
-  //填写用户资料信息
+  //我的关注
+  myFocus (param) {
+    return wx.httpRequest.httpJsonPost('/user/myFocus', param)
+  },
+  //添加/删除关注人
   addFocus (param) {
     return wx.httpRequest.httpJsonPost('/user/addFocus', param)
   },

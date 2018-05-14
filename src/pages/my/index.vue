@@ -3,7 +3,7 @@
     <div class="my-info panel panel-no_top">
       <div class="my-rule" @click="popup">星级规则</div>
       <div class="my-info-box" @click="navigateTo('/pages/my/my_info/main')">
-        <img class="my-info-box-img" :src="userInfo.avatat_url?userInfo.avatat_url:'http://placekitten.com/100/100'">
+        <img class="my-info-box-img" :src="!!userInfo.avatatUrl?userInfo.avatatUrl:'http://placekitten.com/100/100'">
         <div class="my-info-box-text">
           <div>
             <span>{{userInfo.nick}}</span>
@@ -252,7 +252,7 @@
         withdraw: '', //提现金额
         transfer_sel: 0, //选择转账还是提现
         userInfo: {
-          avatat_url: '',
+          avatatUrl: '',
           assistantLevel: 0, //辅助人等级
           assistantNumber: 0, //辅助次数
           gold: 0, //收入
@@ -303,7 +303,14 @@
     },
     methods: {
       getUserInfo (e) {
-        console.log(JSON.parse(e.target.rawData))
+        let img = JSON.parse(e.target.rawData).avatarUrl
+        this.$app.api.user.avatatUrl({
+          url: img,
+          userId: this.$app.storageStore.userStore.getters.getUserId
+        }).then(res => {
+          wx.showToast({title: '更新成功!', icon: 'none'})
+          this.userInfo.avatatUrl = img
+        })
       },
       popup () {
         this.isPopup = !this.isPopup
@@ -327,6 +334,8 @@
           }).then(res => {
             this.isTransfer = false
             wx.showToast({title: '转会费成功!', icon: 'none'})
+          }).catch(err => {
+            wx.showToast({title: '未知错误!', icon: 'none'})
           })
         } else if (this.transfer_sel === '1') { //提现
           if (!this.withdraw) return wx.showToast({title: '请填写金额!', icon: 'none'})
@@ -337,6 +346,8 @@
           }).then(res => {
             this.isTransfer = false
             wx.showToast({title: '提现成功!', icon: 'none'})
+          }).catch(err => {
+            wx.showToast({title: '未知错误!', icon: 'none'})
           })
         }
       }
