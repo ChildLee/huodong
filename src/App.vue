@@ -12,6 +12,10 @@
 <style lang="stylus">
   @import "stylus/index.styl"
 
+  page {
+    font-size 16px;
+  }
+
   /*radio默认样式重置*/
   radio .wx-radio-input {
     border-radius: 0;

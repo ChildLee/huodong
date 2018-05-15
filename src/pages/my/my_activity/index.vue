@@ -21,7 +21,6 @@
         <div class="activity_text">这个活动666</div>
       </div>
     </div>
-
   </main>
 </template>
 
