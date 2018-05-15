@@ -67,7 +67,7 @@
         </div>
         <div>
           <span>评价参与度：</span>
-          <span>{{userInfo.reviewNumber}}</span>
+          <span>0</span>
         </div>
         <div>
           <span>评价平均分：</span>
@@ -81,7 +81,7 @@
       <div>
         <div>
           <span>建议奖：</span>
-          <span>{{userInfo.suggest}}</span>
+          <span>0</span>
         </div>
         <div>
           <span>主持次数：</span>
@@ -93,7 +93,7 @@
         </div>
         <div>
           <span>特殊贡献奖：</span>
-          <span>{{userInfo.specialContribution}}</span>
+          <span>0</span>
         </div>
       </div>
     </div>
@@ -114,7 +114,7 @@
       <div @click="navigateTo('/pages/my/my_activity/main')">
         <span class="tag-box">
           <span>我的活动</span>
-          <span class="tag">好的</span>
+          <span class="tag"></span>
         </span>
       </div>
       <div @click="navigateTo('/pages/my/my_comment/main')">我的评价</div>

@@ -1,13 +1,11 @@
-namespace vue {
-  export const $app: {
-    storageStore: storageStore;
-  };
+import APP from 'app'
 
-  export interface storageStore {
-    userStore: userStore;
-  }
+//UMD module
+export as namespace WXAPPCommon;
 
-  export interface userStore {
-    getUserId: any
-  }
+//兼容CommonJs、AMD
+export = WXAPPCommon;
+
+declare namespace WXAPPCommon {
+  export var $app: APP
 }

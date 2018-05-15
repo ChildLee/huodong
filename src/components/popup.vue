@@ -1,5 +1,6 @@
 <template>
   <main>
+
     <!--弹窗-->
     <div class="popup" v-if="isPopup">
       <div class="popup-box">
@@ -10,6 +11,7 @@
       <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
     </div>
     <!--弹窗-->
+
   </main>
 </template>
 
