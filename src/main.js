@@ -18,7 +18,7 @@ wrap(App, {
 
 export default {
   config: {
-    pages: ['^pages/my/my_love/main'],
+    pages: ['^pages/my/my_organize/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',

@@ -37,8 +37,6 @@
 </script>
 
 <style lang="stylus">
-  @import "../../../../stylus/common.styl"
-
   page {
     /*background-color #e4e4e4;*/
   }

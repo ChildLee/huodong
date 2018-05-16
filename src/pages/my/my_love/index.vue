@@ -9,32 +9,8 @@
     </div>
 
     <div class="love_info">
-      <div>2018-08-08 08：20 您与二 丫进入准备恋爱阶段。</div>
-      <div>2018-08-08 08：20 您与二 丫进入准备恋爱阶段。</div>
-    </div>
-
-    <div class="love_msg">
-      <div class="love_msg-title">
-        <div class=" border-white">活动</div>
-        <div class=" border-white">给二丫的信</div>
-        <div class=" border-white">二丫给我的信</div>
-      </div>
-
-      <div class="love_msg-box" v-for="item in 5" :key="index">
-        <div class="border-white">游玩</div>
-        <div class="border-white">好玩</div>
-        <div class="border-white">不好玩</div>
-      </div>
-    </div>
-
-    <div class="love_contact border-white">
-      <div class="love_contact-msg">您与XXX在______-______期间尝试交往</div>
-      <div class="love_contact-btn btn btn_size-small btn_color-DodgerBlue">备注</div>
-    </div>
-
-    <div class="love_info">
-      <div>2018-08-08 08：20 您与二 丫进入准备恋爱阶段。</div>
-      <div>2018-08-08 08：20 您与二 丫进入准备恋爱阶段。</div>
+      <div class="border-bottom-white" @click="">2018-08-08 08：20 您与二 丫进入准备恋爱阶段。</div>
+      <div class="border-bottom-white" @click="">2018-08-08 08：20 您与二 丫进入准备恋爱阶段。</div>
     </div>
 
     <div class="love_btn">
@@ -48,13 +24,12 @@
       <div class="popup-box">
         <div class="popup-msg">
           <div>规则：</div>
-          <div>1.没有规则</div>
-          <div>2.请看第一条</div>
-          <div>3.请看第二条</div>
-          <div>3.请看第三条</div>
+          <div>1.</div>
+          <div>2.</div>
+          <div>3.</div>
         </div>
       </div>
-      <div class="popup-curtain" @click="popup"></div>
+      <div class="popup-curtain" @click="closePopup"></div>
     </div>
     <!--弹窗-->
   </main>
@@ -74,8 +49,11 @@
       fold() {
         this.fold_selected = !this.fold_selected
       },
+      closePopup() {
+        this.isPopup = false;
+      },
       popup() {
-        this.isPopup = !this.isPopup
+        this.isPopup = true
       },
       love_invite() {
       }
@@ -123,6 +101,10 @@
   .love_info {
     font-size 14px;
     padding: 15px;
+
+    ._div {
+      line-height: 40px;
+    }
   }
 
   .love_msg-title {
@@ -171,5 +153,35 @@
     display flex;
     justify-content space-around;
     align-items center;
+  }
+
+  /* 弹窗 */
+  .popup {
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: absolute;
+      top: 30%;
+      left: 10%;
+      width 80%;
+      z-index: 3;
+      transition: all 2s;
+
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position absolute;
+      top: 0;
+      left 0;
+      width 100%;
+      height 100%;
+      z-index 2;
+    }
   }
 </style>
