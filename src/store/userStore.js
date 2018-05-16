@@ -1,5 +1,5 @@
-import { PersistStore } from 'common-mpvue'
-import { user } from '../api'
+import {PersistStore} from 'common-mpvue'
+import {user} from '../api'
 
 const userStore = new PersistStore('userStatus', {
   state: {
@@ -10,25 +10,25 @@ const userStore = new PersistStore('userStatus', {
     }
   },
   getters: {
-    getUserId (state) {
+    getUserId(state) {
       return state.userStatus.id
     },
-    getMember (state) {
+    getMember(state) {
       return state.userStatus.member
     },
-    getType (state) {
+    getType(state) {
       return state.userStatus.type
     }
   },
   mutations: {
-    setUserStatus (state, userStatus) {
+    setUserStatus(state, userStatus) {
       state.userStatus.id = userStatus.id
       state.userStatus.member = userStatus.member
       state.userStatus.type = userStatus.type
     }
   },
   actions: {
-    userStatus (store) {
+    userStatus(store) {
       wx.login({
         success: res => {
           user.getUserStatus({

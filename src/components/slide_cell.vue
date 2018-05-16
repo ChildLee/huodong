@@ -22,7 +22,7 @@
 <script>
   export default {
     name: 'slide_cell',
-    data () {
+    data() {
       return {
         list: [{
           style: ''
@@ -34,7 +34,7 @@
       }
     },
     methods: {
-      touchS (e) {
+      touchS(e) {
         // 当手指触摸屏幕时触发
         if (e.touches.length === 1) {
           //重置展开index的数据
@@ -43,7 +43,7 @@
           this.startX = e.clientX
         }
       },
-      touchM (e) {
+      touchM(e) {
         // 当手指在屏幕上滑动时连续地触发
         if (e.touches.length === 1) {
           //获取手指触摸的是哪一个item
@@ -62,7 +62,7 @@
           this.list[this.index].style = this.style
         }
       },
-      touchE (e) {
+      touchE(e) {
         // 当手指从屏幕上移开时触发
         if (e.mp.touches.length === 0) {
           //获取手指触摸的是哪一个item

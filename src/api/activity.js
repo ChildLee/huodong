@@ -1,19 +1,19 @@
-import { wx } from 'common-mpvue'
+import {wx} from 'common-mpvue'
 
 export default {
   //获取活动列表
-  getActivitys (param) {
+  getActivitys(param) {
     return wx.httpRequest.httpJsonPost('/user/activitys', param)
   },
   //活动详细信息
-  activity (param) {
+  activity(param) {
     return wx.httpRequest.httpJsonPost('/user/activity', param)
   },
   //填写活动评价
-  addComment (param) {
+  addComment(param) {
     return wx.httpRequest.httpJsonPost('/user/addComment', param)
   }, //填写活动评价
-  myComment (param) {
+  myComment(param) {
     return wx.httpRequest.httpJsonPost('/user/myComment', param)
   }
 }

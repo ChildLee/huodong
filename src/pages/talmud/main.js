@@ -1,4 +1,4 @@
-import { WrapPage } from 'common-mpvue'
+import {WrapPage} from 'common-mpvue'
 import App from './index'
 
 let store = {

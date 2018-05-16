@@ -1,8 +1,8 @@
 <script>
-  import { userStore } from './store'
+  import {userStore} from './store'
 
   export default {
-    beforeCreate () {
+    beforeCreate() {
       //$app属性还没有生成,只能引用store
       userStore.dispatch('userStatus').then()
     }

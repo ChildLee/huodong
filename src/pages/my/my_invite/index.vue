@@ -67,18 +67,18 @@
 <script>
   export default {
     name: 'my_invite',
-    data () {
+    data() {
       return {
         currentTab: 1,
         currentTabChild: 1
       }
     },
     methods: {
-      switchNav (tab) {
+      switchNav(tab) {
         if (this.currentTab === tab) return false
         this.currentTab = tab
       },
-      switchNavChild (tab) {
+      switchNavChild(tab) {
         if (this.currentTabChild === tab) return false
         this.currentTabChild = tab
       }

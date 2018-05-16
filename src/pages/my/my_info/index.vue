@@ -67,7 +67,7 @@
     components: {
       WxCell
     },
-    data () {
+    data() {
       return {
         love: '',
         userInfo: {
@@ -86,7 +86,7 @@
         }
       }
     },
-    async onShow () {
+    async onShow() {
       await this.$app.api.user.userData({
         userId: this.$app.storageStore.userStore.getters.getUserId
       }).then(res => {
@@ -105,7 +105,7 @@
       }
     },
     methods: {
-      navigateTo (nav) {
+      navigateTo(nav) {
         this.$app.nav.navigateTo(nav)
       }
     }

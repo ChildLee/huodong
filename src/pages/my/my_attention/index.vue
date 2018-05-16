@@ -75,7 +75,7 @@
 <script>
   export default {
     name: 'my_attention',
-    data () {
+    data() {
       return {
         attention_balance: 0,//余额
         attention_money: 0,//选择的购买金额
@@ -96,11 +96,11 @@
         index: 0 //滑动项的下标
       }
     },
-    beforeMount () {
+    beforeMount() {
       this.init()
     },
     methods: {
-      init () {
+      init() {
         this.$app.api.user.myFocus({
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {
@@ -111,7 +111,7 @@
           }
         })
       },
-      del (index, id) {
+      del(index, id) {
         this.$app.api.user.addFocus({
           userId: this.$app.storageStore.userStore.getters.getUserId,
           id: id,
@@ -120,21 +120,21 @@
           res.data ? this.list.splice(index, 1) : ``
         })
       },
-      attention_pay () {
+      attention_pay() {
         this.attention_balance > this.attention_money
           ? wx.showToast({title: '购买成功!', icon: 'none'})
           : wx.showToast({title: '余额不足,请充值!', icon: 'none'})
         this.closePopup()
       },
-      closePopup () {
+      closePopup() {
         this.isPopup = false
         this.isPopup_1 = false
         this.attention_num = 0
       },
-      popup () {
+      popup() {
         this.isPopup = true
       },
-      popup_1 () {
+      popup_1() {
         if (this.attention_num === 0) {
           return wx.showToast({title: '请选择金额!', icon: 'none'})
         }
@@ -142,11 +142,11 @@
         this.closePopup()
         this.isPopup_1 = true
       },
-      popupChange (e) {
+      popupChange(e) {
         this.attention_num = e.target.value
       },
       //滑动事件
-      touchS (e) {
+      touchS(e) {
         // 当手指触摸屏幕时触发
         if (e.touches.length === 1) {
           //重置展开index的数据
@@ -155,7 +155,7 @@
           this.startX = e.clientX
         }
       },
-      touchM (e) {
+      touchM(e) {
         // 当手指在屏幕上滑动时连续地触发
         if (e.touches.length === 1) {
           //获取手指触摸的是哪一个item
@@ -174,7 +174,7 @@
           this.list[this.index].style = this.style
         }
       },
-      touchE (e) {
+      touchE(e) {
         // 当手指从屏幕上移开时触发
         if (e.mp.touches.length === 0) {
           //获取手指触摸的是哪一个item

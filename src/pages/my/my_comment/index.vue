@@ -74,7 +74,7 @@
 <script>
   export default {
     name: 'my_comment',
-    data () {
+    data() {
       return {
         currentTab: 1, // tab当下标
         popup_1: false,
@@ -99,11 +99,11 @@
         }]
       }
     },
-    beforeMount () {
+    beforeMount() {
       this.init({status: 1, role: 1})
     },
     methods: {
-      init (param) {
+      init(param) {
         this.$app.api.activity.myComment({
           status: param.status,
           userId: this.$app.storageStore.userStore.getters.getUserId,
@@ -114,23 +114,23 @@
           this.activitys = res.data ? JSON.parse(res.data.activitys) : []
         })
       },
-      closePopup () {
+      closePopup() {
         this.popup_1 = false
         this.popup_2 = false
       },
-      isPopup_1 () {
+      isPopup_1() {
         this.popup_1 = true
       },
-      isPopup_2 () {
+      isPopup_2() {
         this.popup_2 = true
       },
-      switchNav (tab) {
+      switchNav(tab) {
         if (this.currentTab === tab) return false
         this.currentTab = tab
         this.param.status = tab
         this.init(this.param)
       },
-      filter_comment (score, role) {
+      filter_comment(score, role) {
         score ? this.param.score = score : this.param.role = role
         score ? this.param.role = '' : this.param.score = ''
         this.init(this.param)

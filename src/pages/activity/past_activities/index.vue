@@ -26,7 +26,7 @@
 <script>
   export default {
     name: 'index',
-    data () {
+    data() {
       return {
         activityStatus: {
           type: 1, //type,0近期,1往期
@@ -42,7 +42,7 @@
         }]
       }
     },
-    beforeMount () {
+    beforeMount() {
       //初始化活动信息
       this.activityStatus.id = this.$app.storageStore.userStore.getters.getUserId //获取用户id
       this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
@@ -50,11 +50,11 @@
       })
     },
     methods: {
-      activity (id) {
+      activity(id) {
         this.$app.nav.navigateTo('/pages/activity/past_activity_info/main', {id: id})
       }
     },
-    onReachBottom () {
+    onReachBottom() {
       //上拉刷新
       this.activityStatus.page++ //页码加一
       this.$app.api.activity.getActivitys(this.activityStatus).then(res => {

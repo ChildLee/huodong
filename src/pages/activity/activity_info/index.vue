@@ -143,7 +143,7 @@
 <script>
   export default {
     name: 'activity_info',
-    data () {
+    data() {
       return {
         isPay: true, //支付弹窗
         activityId: 0, //活动Id
@@ -184,18 +184,18 @@
         }
       }
     },
-    beforeMount () {
+    beforeMount() {
       this.dataStatus = this.$app.storageStore.userStore.getters.getType //获取资料填写状态
       // this.activityId = this.$mp.query.id //获取活动id
       this.activityId = 1 //获取活动id
       //初始化活动信息
       this.init()//调用初始化
     },
-    mounted () {
+    mounted() {
     },
     methods: {
       //初始化页面
-      init () {
+      init() {
         this.$app.api.activity.activity({
           id: this.activityId, //活动id
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id
@@ -206,18 +206,18 @@
           this.activityInfo.userList = JSON.parse(res.data.userList)
         })
       },
-      goData () {
+      goData() {
         this.$app.nav.navigateTo('/pages/my/my_info/add_info/main')
       },
-      navigateTo (nav) {
+      navigateTo(nav) {
         this.$app.nav.navigateTo(nav)
       },
       //收藏按钮
-      collection () {
+      collection() {
         this.dataStatus ? `` : this.goData()
       },
       //邀约
-      invitation () {
+      invitation() {
         this.dataStatus ? `` : this.goData()
         this.activityInfo.activity.surplusStatus ? wx.showToast({
           title: '活动人数已满!',
@@ -225,16 +225,17 @@
         }) : this.navigateTo('/pages/activity/activity_info/activity_invite/main')
       },
       //参加
-      participate () {
+      participate() {
         this.dataStatus ? `` : this.goData()
         this.activityInfo.activity.surplusStatus ? wx.showToast({title: '活动人数已满!', icon: 'none'}) : ``
       },
       //关闭幕布
-      closePopup () {
+      closePopup() {
         this.isPay = false
       }
     },
-    onShareAppMessage () {}
+    onShareAppMessage() {
+    }
   }
 </script>
 

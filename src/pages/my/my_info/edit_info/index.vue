@@ -107,7 +107,7 @@
 <script>
   export default {
     name: 'index',
-    data () {
+    data() {
       return {
         userInfo: {
           phone: '', //手机
@@ -126,7 +126,7 @@
         sexBox: ['男', '女']
       }
     },
-    beforeMount () {
+    beforeMount() {
       this.$app.api.user.userData({
         userId: this.$app.storageStore.userStore.getters.getUserId
       }).then(res => {
@@ -138,15 +138,15 @@
       })
     },
     methods: {
-      sexChange (e) {
+      sexChange(e) {
         //改变选中的性别
         this.userInfo.sex = e.target.value
       },
-      radioChange (e) {
+      radioChange(e) {
         //改变选中的婚姻
         this.userInfo.status = e.target.value
       },
-      async formSubmit (e) {
+      async formSubmit(e) {
         let data = e.mp.detail.value
         if (data.phone && data.nick && data.currentCity && data.selfEvaluation) {
           await this.$app.api.user.checkNick({

@@ -139,7 +139,7 @@
 <script>
   export default {
     name: 'index',
-    data () {
+    data() {
       return {
         activityId: 0, //活动Id
         assessId: 0, //被评价人的id
@@ -178,20 +178,20 @@
     },
     watch: {
       //监听评价弹窗是否关闭
-      isAssess (param) {
+      isAssess(param) {
         if (!param) {
           this.assess_score = 0//清空评价得分
           this.review = ''//清空评价
         }
       }
     },
-    beforeMount () {
+    beforeMount() {
       this.activityId = this.$mp.query.id//保存活动ID
       this.init()//调用初始化
     },
     methods: {
       //初始化页面
-      init () {
+      init() {
         this.$app.api.activity.activity({
           id: this.activityId, //活动id
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id
@@ -202,15 +202,15 @@
         })
       },
       //点击评价规则
-      assess_rule () {
+      assess_rule() {
         wx.showToast({title: '对方投诉成功，评价人取消本次参与计数', icon: 'none'})
       },
       //点击分数事件
-      clickScore (score) {
+      clickScore(score) {
         this.assess_score = score
       },
       //点击💗关注事件
-      focus (item, id, attention) {
+      focus(item, id, attention) {
         this.$app.api.user.addFocus({
           userId: this.$app.storageStore.userStore.getters.getUserId,
           id: id,
@@ -222,17 +222,17 @@
         })
       },
       //关闭评价弹窗
-      closeAssess () {
+      closeAssess() {
         this.isAssess = false
       },
       //打开评价弹窗
-      assess (item) {
+      assess(item) {
         this.assessId = item.id //获取被评价人的id
         this.assessRole = item.role //获取被评价人的角色
         this.isAssess = !this.isAssess
       },
       //发送评价信息
-      send_assess () {
+      send_assess() {
         if (!this.assess_score) {
           wx.showToast({title: '请给予评分!', icon: 'none'})
         } else if (!this.review) {

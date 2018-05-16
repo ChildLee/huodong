@@ -245,7 +245,7 @@
     components: {
       WxCell
     },
-    data () {
+    data() {
       return {
         love: '',
         transfer_money: '', //转账金额
@@ -276,7 +276,7 @@
       }
     },
     watch: {
-      isTransfer (e) {
+      isTransfer(e) {
         if (e) {
           this.transfer_money = ''
           this.withdraw = ''
@@ -284,7 +284,7 @@
         }
       }
     },
-    async onShow () {
+    async onShow() {
       //判断资料填了没有
       this.$app.storageStore.userStore.getters.getType ? `` : wx.redirectTo({url: '/pages/my/my_info/add_info/main'})
       //初始化个人中心
@@ -302,7 +302,7 @@
       }
     },
     methods: {
-      getUserInfo (e) {
+      getUserInfo(e) {
         let img = JSON.parse(e.target.rawData).avatarUrl
         this.$app.api.user.avatatUrl({
           url: img,
@@ -312,19 +312,19 @@
           this.userInfo.avatatUrl = img
         })
       },
-      popup () {
+      popup() {
         this.isPopup = !this.isPopup
       },
-      transfer () {
+      transfer() {
         this.isTransfer = !this.isTransfer
       },
-      navigateTo (nav) {
+      navigateTo(nav) {
         this.$app.nav.navigateTo(nav)
       },
-      popup_sel (e) {
+      popup_sel(e) {
         this.transfer_sel = e.target.value
       },
-      transfer_btn () {
+      transfer_btn() {
         if (this.transfer_sel === '0') { //转会费
           if (!this.transfer_money) return wx.showToast({title: '请填写金额!', icon: 'none'})
           this.$app.api.money.withdraw({

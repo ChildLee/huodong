@@ -97,7 +97,7 @@
 <script>
   export default {
     name: 'index',
-    data () {
+    data() {
       return {
         isPopup: false,
         activityStatus: {
@@ -114,7 +114,7 @@
         }]
       }
     },
-    beforeMount () {
+    beforeMount() {
       //初始化活动信息
       this.activityStatus.id = this.$app.storageStore.userStore.getters.getUserId //获取用户id
       this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
@@ -123,10 +123,10 @@
       })
     },
     methods: {
-      popup () {
+      popup() {
         this.isPopup = !this.isPopup
       },
-      filter () {
+      filter() {
         wx.showActionSheet({
           itemList: ['消息', '收藏'],
           success: function (res) {
@@ -134,16 +134,16 @@
           }
         })
       },
-      activity (id) {
+      activity(id) {
         this.$app.nav.navigateTo('/pages/activity/activity_info/main', {
           id: id
         })
       },
-      past_activities () {
+      past_activities() {
         this.$app.nav.navigateTo('/pages/activity/past_activities/main')
       }
     },
-    onReachBottom () {
+    onReachBottom() {
       //上拉刷新
       this.activityStatus.page++ //页码加一
       this.$app.api.activity.getActivitys(this.activityStatus).then(res => {

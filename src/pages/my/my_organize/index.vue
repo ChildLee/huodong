@@ -45,13 +45,13 @@
   export default {
     name: 'my_organize',
     computed: {},
-    data () {
+    data() {
       return {}
     },
-    mounted () {
+    mounted() {
     },
     methods: {
-      navigateTo (nav) {
+      navigateTo(nav) {
         this.$app.nav.navigateTo(nav)
       }
     }

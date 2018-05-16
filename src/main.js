@@ -1,4 +1,4 @@
-import { wrap } from 'common-mpvue'
+import {wrap} from 'common-mpvue'
 import App from './App'
 import * as api from './api'
 import * as storageStore from './store'

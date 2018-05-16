@@ -106,7 +106,7 @@
 <script>
   export default {
     name: 'index',
-    data () {
+    data() {
       return {
         validation: false, //表单验证默认失败
         userId: 0, //用户id
@@ -114,13 +114,13 @@
         sexBox: ['未知', '男', '女']
       }
     },
-    beforeMount () {
+    beforeMount() {
     },
     methods: {
-      sexChange (e) {
+      sexChange(e) {
         this.sexIndex = e.target.value
       },
-      async formSubmit (e) {
+      async formSubmit(e) {
         let data = e.mp.detail.value
         if (data.phone && data.nick && data.currentCity && data.selfEvaluation) {
           await this.$app.api.user.checkNick({

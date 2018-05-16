@@ -1,8 +1,8 @@
-import { wx } from 'common-mpvue'
+import {wx} from 'common-mpvue'
 
 export default {
   //提现
-  withdraw (param) {
+  withdraw(param) {
     return wx.httpRequest.httpJsonPost('/user/withdraw', param)
   }
 }

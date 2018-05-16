@@ -18,16 +18,16 @@
 <script>
   export default {
     name: 'popup',
-    data () {
+    data() {
       return {
         isPopup: false //是否显示弹窗
       }
     },
     methods: {
-      closePopup () {
+      closePopup() {
         this.isPopup = false
       },
-      popup () {
+      popup() {
         this.isPopup = true
       }
     }
