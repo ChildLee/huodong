@@ -32,5 +32,13 @@ export default {
   //我组织的详情
   myOrganization(param) {
     return wx.httpRequest.httpJsonPost('/user/myOrganization', param)
+  },
+  //我的活动,他的活动
+  myActivities(param) {
+    return wx.httpRequest.httpJsonPost('/user/myActivities', param)
+  },
+  //取消活动
+  quitActivity(param) {
+    return wx.httpRequest.httpJsonPost('/user/quitActivity', param)
   }
 }

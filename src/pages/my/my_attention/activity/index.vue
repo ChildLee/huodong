@@ -16,10 +16,7 @@
         <div class="activity_info border_line">
           <div class="activity_info_time">{{item.time}}</div>
           <div class="activity_info_location">{{item.place}}</div>
-          <div v-if="item.status===1" class="btn btn_size-mini btn_color-DodgerBlue"
-               @click.stop="cancelActivity(item.id)">
-            取消活动
-          </div>
+          <!--<div v-if="!currentTab" class="btn btn_size-mini btn_color-DodgerBlue" @click="cancelActivity">取消活动</div>-->
         </div>
         <div class="activity_text">{{item.title}}</div>
       </div>
@@ -49,7 +46,7 @@
     methods: {
       init(tab) {
         this.$app.api.activity.myActivities({
-          userId: this.$app.storageStore.userStore.getters.getUserId,
+          userId: this.$mp.query.id,
           status: tab
         }).then(res => {
           this.list = []
@@ -66,22 +63,8 @@
       go_activity_info(id) {
         this.$app.nav.navigateTo('/pages/activity/past_activity_info/main', {id})
       },
-      cancelActivity(id) {
-        let that = this
-        wx.showModal({
-          title: '提示',
-          content: `活动24小时以外取退全款，活动24小时以内取消扣取${this.deduction}%的名额费用`,
-          success: function (res) {
-            if (res.confirm) {
-              that.$app.api.activity.quitActivity({
-                userId: that.$app.storageStore.userStore.getters.getUserId,
-                activityId: id
-              }).then(res => {
-                console.log(res)
-              })
-            }
-          }
-        })
+      cancelActivity() {
+
       }
     }
   }

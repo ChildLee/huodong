@@ -13,7 +13,7 @@
            @touchstart="touchS"
            @touchmove="touchM"
            @touchend="touchE">
-        <div class="attention_info" @click="attention_info(item.id)">
+        <div class="attention_info" @click="attention_info(item.attentionUserId)">
           <div class="info-name">{{item.nickName}}</div>
           <div class="info-time">{{item.time}}</div>
           <div class="info-desc">{{item.remark?item.remark:''}}</div>
@@ -21,7 +21,7 @@
       </div>
       <!--这里是滑动后显示的按钮----start-->
       <div class="slide_btn">
-        <div class="del" @click="del(index,item.id)">删除</div>
+        <div class="del" @click="del(index,item.attentionUserId)">删除</div>
       </div>
       <!--这里是滑动后显示的按钮----end-->
     </div>
@@ -88,7 +88,8 @@
           nickName: '',
           remark: '',
           sex: 1,
-          time: ''
+          time: '',
+          attentionUserId: 0
         }],
         startX: 0, // 记录触摸起始位置的X坐标
         btnWidth: 160, // 右侧按钮区域的宽度,单位rpx
@@ -104,6 +105,7 @@
         this.$app.api.user.myFocus({
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {
+          console.log(res)
           if (res.data) {
             this.list = JSON.parse(res.data.focus)
           } else {
@@ -114,9 +116,10 @@
       del(index, id) {
         this.$app.api.user.addFocus({
           userId: this.$app.storageStore.userStore.getters.getUserId,
-          id: id,
-          status: 0
+          attentionUserId: id,
+          status: false
         }).then(res => {
+          console.log(res)
           res.data ? this.list.splice(index, 1) : ``
         })
       },

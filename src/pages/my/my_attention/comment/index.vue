@@ -22,7 +22,8 @@
           <span>{{item.score}}分</span>
           <i class="icon"
              :style="item.attention?'color:red;':''"
-             :class="item.attention?'icon-red-heart':'icon-heart'"></i>
+             :class="item.attention?'icon-red-heart':'icon-heart'">
+          </i>
         </div>
         <div class="comment_info">
           <div class="comment_time_location">
@@ -128,8 +129,6 @@
         if (this.currentTab === tab) return false
         this.currentTab = tab
         this.param.status = tab
-        this.param.score = ''
-        this.param.role = 1
         this.init(this.param)
       },
       filter_comment(score, role) {
@@ -143,7 +142,7 @@
 </script>
 
 <style lang="stylus">
-  @import "../../../stylus/common.styl";
+  @import "../../../../stylus/common.styl";
 
   page {
     background-color: $background-color;
