@@ -221,7 +221,6 @@
         //   attentionUserId: id,
         //   status: !attention
         // }).then(res => {
-        //   console.log(res.data)
         //   if (res.data) {
         //     item.attention = !item.attention
         //   }

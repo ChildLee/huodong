@@ -44,7 +44,6 @@
       }
     },
     beforeMount() {
-      console.log(this.$mp.query)
       this.init()
     },
     methods: {
@@ -60,7 +59,6 @@
         })
       },
       invite_helper(id) {
-        console.log(id)
         this.$app.api.activity.addInvitation({
           activityId: this.activityId,
           type: 2,//1参与者,2是辅助人,3爱情

@@ -200,7 +200,6 @@
           id: this.activityId, //活动id
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id
         }).then(res => {
-          console.log(res)
           this.activityInfo = res.data
           this.activityInfo.activity = JSON.parse(res.data.activity)
           this.activityInfo.userList = JSON.parse(res.data.userList)

@@ -118,7 +118,6 @@
       //初始化活动信息
       this.activityStatus.id = this.$app.storageStore.userStore.getters.getUserId //获取用户id
       this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
-        console.log(res)
         this.list = JSON.parse(res.data.activities)
       })
     },

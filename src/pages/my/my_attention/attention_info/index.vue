@@ -139,7 +139,6 @@
         this.$app.api.user.userCenter({
           userId: this.$mp.query.id
         }).then(res => {
-          console.log(res)
           this.userInfo = JSON.parse(res.data.user)
         })
 

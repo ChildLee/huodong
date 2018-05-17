@@ -110,7 +110,6 @@
           role: param.role,
           score: param.score
         }).then(res => {
-          console.log(res)
           this.activitys = res.data ? JSON.parse(res.data.activitys) : []
         })
       },

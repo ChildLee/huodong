@@ -105,7 +105,6 @@
         this.$app.api.user.myFocus({
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {
-          console.log(res)
           if (res.data) {
             this.list = JSON.parse(res.data.focus)
           } else {
@@ -119,7 +118,6 @@
           attentionUserId: id,
           status: false
         }).then(res => {
-          console.log(res)
           res.data ? this.list.splice(index, 1) : ``
         })
       },

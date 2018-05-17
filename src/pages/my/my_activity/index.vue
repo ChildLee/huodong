@@ -77,7 +77,7 @@
                 userId: that.$app.storageStore.userStore.getters.getUserId,
                 activityId: id
               }).then(res => {
-                console.log(res)
+
               })
             }
           }
