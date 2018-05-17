@@ -56,8 +56,22 @@
       return {}
     },
     beforeMount() {
+      this.init()
     },
-    methods: {}
+    methods: {
+      init() {
+        this.$app.api.user.userData({
+          userId: this.$app.storageStore.userStore.getters.getUserId
+        }).then(res => {
+          console.log(JSON.parse(res.data.user))
+          if (res.data) {
+            wx.showToast({title: '未知错误', icon: 'none'})
+          } else if (res.data.user) {
+            this.userInfo = JSON.parse(res.data.user)
+          }
+        })
+      }
+    }
   }
 </script>
 

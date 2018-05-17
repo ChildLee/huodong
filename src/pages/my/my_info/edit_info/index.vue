@@ -127,17 +127,20 @@
       }
     },
     beforeMount() {
-      this.$app.api.user.userData({
-        userId: this.$app.storageStore.userStore.getters.getUserId
-      }).then(res => {
-        if (res.state) {
-          wx.showToast({title: '未知错误', icon: 'none'})
-        } else if (res.data.user) {
-          this.userInfo = JSON.parse(res.data.user)
-        }
-      })
+      this.init()
     },
     methods: {
+      init(){
+        this.$app.api.user.userData({
+          userId: this.$app.storageStore.userStore.getters.getUserId
+        }).then(res => {
+          if (res.state) {
+            wx.showToast({title: '未知错误', icon: 'none'})
+          } else if (res.data.user) {
+            this.userInfo = JSON.parse(res.data.user)
+          }
+        })
+      },
       sexChange(e) {
         //改变选中的性别
         this.userInfo.sex = e.target.value

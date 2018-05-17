@@ -213,7 +213,7 @@
       focus(item, id, attention) {
         this.$app.api.user.addFocus({
           userId: this.$app.storageStore.userStore.getters.getUserId,
-          id: id,
+          attentionUserId: id,
           status: !attention
         }).then(res => {
           if (res.data) {

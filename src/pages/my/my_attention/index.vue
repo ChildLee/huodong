@@ -6,14 +6,14 @@
       <div>备注</div>
     </div>
 
-    <div class="slide_cell border_line" v-for="(item,index) in list" :key="index">
+    <div class="slide_cell border-bottom_line" v-for="(item,index) in list" :key="index">
       <div class="slide_box"
            :style="item.style"
            :data-index="index"
            @touchstart="touchS"
            @touchmove="touchM"
            @touchend="touchE">
-        <div class="attention_info">
+        <div class="attention_info" @click="attention_info(item.id)">
           <div class="info-name">{{item.nickName}}</div>
           <div class="info-time">{{item.time}}</div>
           <div class="info-desc">{{item.remark?item.remark:''}}</div>
@@ -119,6 +119,9 @@
         }).then(res => {
           res.data ? this.list.splice(index, 1) : ``
         })
+      },
+      attention_info(id) {
+        this.$app.nav.navigateTo('/pages/my/my_attention/attention_info/main', {id})
       },
       attention_pay() {
         this.attention_balance > this.attention_money

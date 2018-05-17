@@ -26,8 +26,8 @@
         <div class="title-mark"></div>
         <div>参与人员</div>
       </div>
-      <div class="assess_desc">点击人名进行评价</div>
-      <div class="assess-rule" @click="assess_rule">评价规则</div>
+      <!--<div class="assess_desc">点击人名进行评价</div>-->
+      <!--<div class="assess-rule" @click="assess_rule">评价规则</div>-->
     </div>
 
     <div class="activity_personnel icon">
@@ -41,20 +41,22 @@
         <div>主持人</div>
         <div>
           <div class="operate" v-if="item.sex===1">
-            <div class="operate-attention" @click="focus(item,item.id,item.attention)">
-              <span v-if="item.attention" style="color:red;">&#xe755;</span>
-              <span v-else>&#xe613;</span>
-            </div>
+            <!--<div class="operate-attention" @click="focus(item,item.id,item.attention)">-->
+            <!--<span v-if="item.attention" style="color:red;">&#xe755;</span>-->
+            <!--<span v-else>&#xe613;</span>-->
+            <!--</div>-->
             <div @click="assess(item)">{{item.nickName}}</div>
+            <div class="price_color">￥{{item.price}}</div>
           </div>
         </div>
         <div>
           <div class="operate" v-if="item.sex===2">
-            <div class="operate-attention" @click="focus(item,item.id,item.attention)">
-              <span v-if="item.attention" style="color:red;">&#xe755;</span>
-              <span v-else>&#xe613;</span>
-            </div>
+            <!--<div class="operate-attention" @click="focus(item,item.id,item.attention)">-->
+            <!--<span v-if="item.attention" style="color:red;">&#xe755;</span>-->
+            <!--<span v-else>&#xe613;</span>-->
+            <!--</div>-->
             <div @click="assess(item)">{{item.nickName}}</div>
+            <div class="price_color">￥{{item.price}}</div>
           </div>
         </div>
       </div>
@@ -63,20 +65,22 @@
         <div>辅助人</div>
         <div>
           <div class="operate" v-if="item.sex===1">
-            <div class="operate-attention" @click="focus(item,item.id,item.attention)">
-              <span v-if="item.attention" style="color:red;">&#xe755;</span>
-              <span v-else>&#xe613;</span>
-            </div>
+            <!--<div class="operate-attention" @click="focus(item,item.id,item.attention)">-->
+            <!--<span v-if="item.attention" style="color:red;">&#xe755;</span>-->
+            <!--<span v-else>&#xe613;</span>-->
+            <!--</div>-->
             <div @click="assess(item)">{{item.nickName}}</div>
+            <div class="price_color">￥{{item.price}}</div>
           </div>
         </div>
         <div>
           <div class="operate" v-if="item.sex===2">
-            <div class="operate-attention" @click="focus(item,item.id,item.attention)">
-              <span v-if="item.attention" style="color:red;">&#xe755;</span>
-              <span v-else>&#xe613;</span>
-            </div>
+            <!--<div class="operate-attention" @click="focus(item,item.id,item.attention)">-->
+            <!--<span v-if="item.attention" style="color:red;">&#xe755;</span>-->
+            <!--<span v-else>&#xe613;</span>-->
+            <!--</div>-->
             <div @click="assess(item)">{{item.nickName}}</div>
+            <div class="price_color">￥{{item.price}}</div>
           </div>
         </div>
       </div>
@@ -85,22 +89,24 @@
         <div class="participate">
           <div v-for="item in activityInfo.userList" v-if="item.role===1" :key="item.id">
             <div class="operate" v-if="item.sex===1">
-              <div class="operate-attention" @click="focus(item,item.id,item.attention)">
-                <span v-if="item.attention" style="color:red;">&#xe755;</span>
-                <span v-else>&#xe613;</span>
-              </div>
+              <!--<div class="operate-attention" @click="focus(item,item.id,item.attention)">-->
+              <!--<span v-if="item.attention" style="color:red;">&#xe755;</span>-->
+              <!--<span v-else>&#xe613;</span>-->
+              <!--</div>-->
               <div @click="assess(item)">{{item.nickName}}</div>
+              <div class="price_color">￥{{item.price}}</div>
             </div>
           </div>
         </div>
         <div class="participate">
           <div v-for="item in activityInfo.userList" v-if="item.role===1" :key="item.id">
             <div class="operate" v-if="item.sex===2">
-              <div class="operate-attention" @click="focus(item,item.id,item.attention)">
-                <span v-if="item.attention" style="color:red;">&#xe755;</span>
-                <span v-else>&#xe613;</span>
-              </div>
+              <!--<div class="operate-attention" @click="focus(item,item.id,item.attention)">-->
+              <!--<span v-if="item.attention" style="color:red;">&#xe755;</span>-->
+              <!--<span v-else>&#xe613;</span>-->
+              <!--</div>-->
               <div @click="assess(item)">{{item.nickName}}</div>
+              <div class="price_color">￥{{item.price}}</div>
             </div>
           </div>
         </div>
@@ -192,13 +198,12 @@
     methods: {
       //初始化页面
       init() {
-        this.$app.api.activity.activity({
+        this.$app.api.activity.myOrganization({
           id: this.activityId, //活动id
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id
         }).then(res => {
-          this.activityInfo = res.data
-          this.activityInfo.activity = JSON.parse(res.data.activity)
-          this.activityInfo.userList = JSON.parse(res.data.userList)
+          this.activityInfo.activity = JSON.parse(res.data.myOrganizations)
+          this.activityInfo.userList = JSON.parse(res.data.userlists)
         })
       },
       //点击评价规则
@@ -211,16 +216,16 @@
       },
       //点击💗关注事件
       focus(item, id, attention) {
-        this.$app.api.user.addFocus({
-          userId: this.$app.storageStore.userStore.getters.getUserId,
-          id: id,
-          status: !attention
-        }).then(res => {
-          console.log(res.data)
-          if (res.data) {
-            item.attention = !item.attention
-          }
-        })
+        // this.$app.api.user.addFocus({
+        //   userId: this.$app.storageStore.userStore.getters.getUserId,
+        //   attentionUserId: id,
+        //   status: !attention
+        // }).then(res => {
+        //   console.log(res.data)
+        //   if (res.data) {
+        //     item.attention = !item.attention
+        //   }
+        // })
       },
       //关闭评价弹窗
       closeAssess() {
@@ -230,7 +235,7 @@
       assess(item) {
         this.assessId = item.id //获取被评价人的id
         this.assessRole = item.role //获取被评价人的角色
-        this.isAssess = !this.isAssess
+        //this.isAssess = !this.isAssess
       },
       //发送评价信息
       send_assess() {
@@ -259,6 +264,10 @@
 
 <style lang="stylus">
   @import "../../../../stylus/common.styl"
+
+  .price_color {
+    color: #25ABDF;
+  }
 
   .assess_popup-title {
     text-align center;
