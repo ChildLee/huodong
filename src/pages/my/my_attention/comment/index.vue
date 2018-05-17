@@ -107,11 +107,10 @@
       init(param) {
         this.$app.api.activity.myComment({
           status: param.status,
-          userId: this.$app.storageStore.userStore.getters.getUserId,
+          userId: this.$mp.query.id,
           role: param.role,
           score: param.score
         }).then(res => {
-          console.log(res)
           this.activitys = res.data ? JSON.parse(res.data.activitys) : []
         })
       },

@@ -30,22 +30,22 @@
     name: 'activity_invite',
     data() {
       return {
-        activityId: "21",//活动id
-        addStatus: "true",//是否添加成功
-        hostStatus: "0",//能不能不要辅助人0不能
-        userId: "4",//用户id
+        activityId: '21',//活动id
+        addStatus: 'true',//是否添加成功
+        hostStatus: '0',//能不能不要辅助人0不能
+        userId: '4',//用户id
         list: [{
           id: 7,
-          nickName: "名",
+          nickName: '名',
           remark: null,
           sex: 1,
-          time: "2018-5-5 20:19:15"
+          time: '2018-5-5 20:19:15'
         }]
       }
     },
     beforeMount() {
-      console.log(this.$mp.query);
-      this.init();
+      console.log(this.$mp.query)
+      this.init()
     },
     methods: {
       init() {
@@ -53,14 +53,14 @@
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {
           if (res.data) {
-            this.list = JSON.parse(res.data.focus);
+            this.list = JSON.parse(res.data.focus)
           } else {
             this.list = []
           }
         })
       },
       invite_helper(id) {
-        console.log(id);
+        console.log(id)
         this.$app.api.activity.addInvitation({
           activityId: this.activityId,
           type: 2,//1参与者,2是辅助人,3爱情

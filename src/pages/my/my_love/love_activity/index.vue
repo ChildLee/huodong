@@ -24,7 +24,7 @@
 
 <script>
   export default {
-    name: "love_activity",
+    name: 'love_activity',
     data() {
       return {
         isPopup: false
@@ -32,11 +32,11 @@
     },
     methods: {
       closePopup() {
-        this.isPopup = false;
+        this.isPopup = false
       },
       popup() {
         this.isPopup = true
-      },
+      }
     }
   }
 </script>

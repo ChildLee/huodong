@@ -50,7 +50,7 @@
         this.fold_selected = !this.fold_selected
       },
       closePopup() {
-        this.isPopup = false;
+        this.isPopup = false
       },
       popup() {
         this.isPopup = true

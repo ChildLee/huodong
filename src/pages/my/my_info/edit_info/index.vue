@@ -130,7 +130,7 @@
       this.init()
     },
     methods: {
-      init(){
+      init() {
         this.$app.api.user.userData({
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {

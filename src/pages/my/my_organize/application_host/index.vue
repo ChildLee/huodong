@@ -26,28 +26,28 @@
     },
     methods: {
       up_1() {
-        let that = this;
+        let that = this
         wx.chooseImage({
           success(res) {
-            let tempFilePaths = res.tempFilePaths;
-            that.img = tempFilePaths[0];
+            let tempFilePaths = res.tempFilePaths
+            that.img = tempFilePaths[0]
           }
         })
       },
       up_2() {
-        let that = this;
+        let that = this
         wx.chooseImage({
           success(res) {
-            let tempFilePaths = res.tempFilePaths;
-            that.img_2 = tempFilePaths[0];
+            let tempFilePaths = res.tempFilePaths
+            that.img_2 = tempFilePaths[0]
           }
         })
       },
       app_btn() {
-        this.$app.nav.navigateTo('/pages/my/my_organize/main');
+        this.$app.nav.navigateTo('/pages/my/my_organize/main')
         wx.showToast({title: '申请成功!', icon: 'none'})
-        this.img = '';
-        this.img_2 = '';
+        this.img = ''
+        this.img_2 = ''
       }
     }
   }

@@ -60,12 +60,8 @@
       <wx-cell arrow text="Ta的活动"></wx-cell>
     </div>
 
-    <div class="panel">
+    <div class="panel" @click="comment">
       <wx-cell arrow text="Ta的评价"></wx-cell>
-    </div>
-
-    <div class="panel">
-      <wx-cell arrow text="Ta组织的"></wx-cell>
     </div>
 
     <div class="panel">
@@ -157,6 +153,9 @@
       },
       activity() {
         this.$app.nav.navigateTo('/pages/my/my_attention/activity/main', {id: this.user.id})
+      },
+      comment() {
+        this.$app.nav.navigateTo('/pages/my/my_attention/comment/main', {id: this.user.id})
       }
     }
   }

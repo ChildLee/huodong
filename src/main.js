@@ -8,7 +8,7 @@ wrap(App, {
   version: 'v1.0.0',
   pkgName: 'zzlSocial',
   // env: 'production' | 'development',
-  env: 'production',
+  env: 'development',
   // domain: 'https://zzlsocial.com'
   domain: 'http://192.168.1.53'
 }, {
