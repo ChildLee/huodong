@@ -8,7 +8,7 @@ wrap(App, {
   version: 'v1.0.0',
   pkgName: 'zzlSocial',
   // env: 'production' | 'development',
-  env: 'development',
+  env: 'production',
   // domain: 'https://zzlsocial.com'
   domain: 'http://192.168.1.53'
 }, {
@@ -18,7 +18,7 @@ wrap(App, {
 
 export default {
   config: {
-    pages: ['^pages/my/my_attention/activity/main'],
+    pages: ['^pages/my/my_love/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',

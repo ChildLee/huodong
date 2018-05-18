@@ -43,7 +43,7 @@
         currentTab: 1 // tab当下标
       }
     },
-    beforeMount() {
+    async onLoad() {
       this.init(1)
     },
     methods: {

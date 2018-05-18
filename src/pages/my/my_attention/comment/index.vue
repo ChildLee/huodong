@@ -100,7 +100,7 @@
         }]
       }
     },
-    beforeMount() {
+    async onLoad() {
       this.init({status: 1, role: 1})
     },
     methods: {

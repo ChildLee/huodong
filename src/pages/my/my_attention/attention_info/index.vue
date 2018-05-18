@@ -120,11 +120,11 @@
         }
       }
     },
-    beforeMount() {
-      this.init()
+    async onLoad() {
+      await this.init()
     },
     methods: {
-      init() {
+      async init() {
         //获取用户信息
         this.$app.api.user.userData({
           userId: this.$mp.query.id

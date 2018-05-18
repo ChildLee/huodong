@@ -48,7 +48,7 @@
         }]
       }
     },
-    beforeMount() {
+    async onLoad() {
       this.init(1)
     },
     methods: {

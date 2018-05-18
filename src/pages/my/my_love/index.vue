@@ -9,8 +9,9 @@
     </div>
 
     <div class="love_info">
-      <div class="border-bottom-white" @click="">2018-08-08 08：20 您与二 丫进入准备恋爱阶段。</div>
-      <div class="border-bottom-white" @click="">2018-08-08 08：20 您与二 丫进入准备恋爱阶段。</div>
+      <div class="border-bottom-white" v-for="item in loves" @click="love_info(item.id)" :key="item.id">
+        {{item.determine}}您与{{item.nick}}进入准备恋爱阶段。
+      </div>
     </div>
 
     <div class="love_btn">
@@ -24,9 +25,7 @@
       <div class="popup-box">
         <div class="popup-msg">
           <div>规则：</div>
-          <div>1.</div>
-          <div>2.</div>
-          <div>3.</div>
+          <div>1.没有规则</div>
         </div>
       </div>
       <div class="popup-curtain" @click="closePopup"></div>
@@ -40,12 +39,37 @@
     name: 'my_love',
     data() {
       return {
-        isPopup: false
+        res: {
+          data: {
+            loves: ''
+          }
+        },
+        isPopup: false,
+        loves: [{
+          determine: '',
+          id: 1,
+          nick: ''
+        }]
       }
     },
-    beforeMount() {
+    async onLoad() {
+      wx.showLoading({title: '加载中'})
+      await this.init()
+      wx.hideLoading()
     },
     methods: {
+      async init() {
+        this.$app.api.love.myLoves({
+          userId: this.$app.storageStore.userStore.getters.getUserId
+        }).then(res => {
+          if (res.data) {
+            this.loves = JSON.parse(res.data.loves)
+          }
+        })
+      },
+      love_info(id) {
+        this.$app.nav.navigateTo('/pages/my/my_love/love_activity/main', {id})
+      },
       fold() {
         this.fold_selected = !this.fold_selected
       },

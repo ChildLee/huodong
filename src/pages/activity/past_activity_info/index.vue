@@ -185,13 +185,13 @@
         }
       }
     },
-    beforeMount() {
+    async onLoad() {
       this.activityId = this.$mp.query.id//保存活动ID
-      this.init()//调用初始化
+      await this.init()//调用初始化
     },
     methods: {
       //初始化页面
-      init() {
+      async init() {
         this.$app.api.activity.activity({
           id: this.activityId, //活动id
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id

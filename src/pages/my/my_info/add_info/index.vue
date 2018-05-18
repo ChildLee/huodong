@@ -114,7 +114,7 @@
         sexBox: ['未知', '男', '女']
       }
     },
-    beforeMount() {
+    async onLoad() {
     },
     methods: {
       sexChange(e) {

@@ -20,7 +20,7 @@ function getEntry (rootSrc, pattern) {
   }, {})
 }
 
-const appEntry = {app: resolve('./src/main.js')}
+const appEntry = { app: resolve('./src/main.js') }
 const pagesEntry = getEntry(resolve('./src'), 'pages/**/main.js')
 const entry = Object.assign({}, appEntry, pagesEntry)
 
@@ -43,7 +43,8 @@ module.exports = {
       'vue': 'mpvue',
       '@': resolve('src')
     },
-    symlinks: false
+    symlinks: false,
+    mainFields: ['browser', 'module', 'main']
   },
   module: {
     rules: [
@@ -62,7 +63,7 @@ module.exports = {
             options: {
               checkMPEntry: true
             }
-          }
+          },
         ]
       },
       {

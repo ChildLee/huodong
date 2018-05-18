@@ -126,11 +126,11 @@
         sexBox: ['男', '女']
       }
     },
-    beforeMount() {
-      this.init()
+    async onLoad() {
+      await this.init()
     },
     methods: {
-      init() {
+      async init() {
         this.$app.api.user.userData({
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {

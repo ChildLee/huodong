@@ -184,18 +184,18 @@
         }
       }
     },
-    beforeMount() {
+    async onLoad() {
       this.dataStatus = this.$app.storageStore.userStore.getters.getType //获取资料填写状态
       // this.activityId = this.$mp.query.id //获取活动id
       this.activityId = 1 //获取活动id
       //初始化活动信息
-      this.init()//调用初始化
+      await this.init()//调用初始化
     },
     mounted() {
     },
     methods: {
       //初始化页面
-      init() {
+      async init() {
         this.$app.api.activity.activity({
           id: this.activityId, //活动id
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id

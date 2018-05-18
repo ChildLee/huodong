@@ -99,11 +99,11 @@
         }]
       }
     },
-    beforeMount() {
-      this.init({status: 1, role: 1})
+    async onLoad() {
+      await this.init({status: 1, role: 1})
     },
     methods: {
-      init(param) {
+      async init(param) {
         this.$app.api.activity.myComment({
           status: param.status,
           userId: this.$app.storageStore.userStore.getters.getUserId,

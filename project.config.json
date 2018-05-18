@@ -9,8 +9,8 @@
   },
   "miniprogramRoot": "./dist/",
   "compileType": "miniprogram",
-  "appid": "wx7a2f8c658c749b32",
-  "projectname": "huodong",
+  "appid": "touristappid",
+  "projectname": "applets_education",
   "condition": {
     "search": {
       "current": -1,

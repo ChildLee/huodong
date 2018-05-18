@@ -97,11 +97,11 @@
         index: 0 //滑动项的下标
       }
     },
-    beforeMount() {
-      this.init()
+    async onLoad() {
+      await this.init()
     },
     methods: {
-      init() {
+      async init() {
         this.$app.api.user.myFocus({
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {
