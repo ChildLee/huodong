@@ -31,6 +31,17 @@
           success(res) {
             let tempFilePaths = res.tempFilePaths
             that.img = tempFilePaths[0]
+            wx.uploadFile({
+              url: wx.httpRequest._config.domain + '/file/uploadFile',
+              filePath: tempFilePaths[0],
+              name: 'file',
+              header: {
+                'content-type': 'multipart/form-data'
+              },
+              success: function (res) {
+                console.log(res)
+              }
+            })
           }
         })
       },

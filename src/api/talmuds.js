@@ -12,5 +12,9 @@ export default {
   //添加同问
   addSameQuestion(param) {
     return wx.httpRequest.httpJsonPost('/user/addSameQuestion', param)
+  },
+  //提问
+  addTalmud(param) {
+    return wx.httpRequest.httpJsonPost('/user/addTalmud', param)
   }
 }

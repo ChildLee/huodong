@@ -278,9 +278,7 @@
     .popup-box {
       padding: 15px;
       box-sizing border-box;
-      border-radius 10px;
-      background-color white;
-      position: absolute;
+      border-radius 10px;       background-color white;       position: fixed;
       top: 30%;
       left: 15%;
       width 70%;
@@ -294,7 +292,7 @@
 
     .popup-curtain {
       background-color rgba(0, 0, 0, .5)
-      position absolute;
+      position fixed;
       top: 0;
       left 0;
       width 100%;
@@ -352,9 +350,7 @@
     .popup-box {
       padding: 15px;
       box-sizing border-box;
-      border-radius 10px;
-      background-color white;
-      position: absolute;
+      border-radius 10px;       background-color white;       position: fixed;
       top: 30%;
       left: 15%;
       width 70%;
@@ -368,7 +364,7 @@
 
     .popup-curtain {
       background-color rgba(0, 0, 0, .5)
-      position absolute;
+      position fixed;
       top: 0;
       left 0;
       width 100%;

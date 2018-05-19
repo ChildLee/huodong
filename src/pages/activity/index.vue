@@ -166,9 +166,7 @@
     .popup-box {
       padding: 15px;
       box-sizing border-box;
-      border-radius 10px;
-      background-color white;
-      position: absolute;
+      border-radius 10px;       background-color white;       position: fixed;
       top: 10%;
       left: 8%;
       width 85%;
@@ -182,7 +180,7 @@
 
     .popup-curtain {
       background-color rgba(0, 0, 0, .5)
-      position absolute;
+      position fixed;
       top: 0;
       left 0;
       width 100%;

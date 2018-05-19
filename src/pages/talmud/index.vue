@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main style="height: 100%;">
     <div class="talmud_top">
       <!--<div>规则</div>-->
       <div class="talmud_top-search">
@@ -28,21 +28,31 @@
       </div>
     </div>
 
-    <div style="height: 80px" class="bd f f-wrap_r">
-      <div style="width: 30%">1</div>
-      <div style="width: 30%">2</div>
-      <div style="width: 30%">3</div>
-      <div style="width: 30%">4</div>
-      <div style="width: 30%">5</div>
-      <div style="width: 30%">6</div>
-      <div style="width: 30%">7</div>
-      <div style="width: 30%" class="order-first">8</div>
+    <div style="height: 50px"></div>
+
+    <div class="questioner_box">
+      <div class="questioner" @click="popup">提问</div>
     </div>
 
-    <div style="position:fixed;bottom:0;z-index:2;width: 100%;padding: 5px;height: 50px;background: white;">
-      <div class="questioner">提问</div>
+    <!--弹窗-->
+    <div class="popup" v-if="isPopup">
+      <div class="popup-box">
+        <div>
+          <div>提问</div>
+          <div>
+            <textarea v-model.lazy="quest_text" class="quest_text"></textarea>
+          </div>
+          <div>标签</div>
+          <div>
+            <input v-model.lazy="quest_tag" class="quest_input" type="text">
+          </div>
+          <div class="quest_send" @click="quest_send">发送</div>
+        </div>
+      </div>
+      <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
     </div>
   </main>
+  <!--弹窗-->
 </template>
 
 <script>
@@ -50,6 +60,9 @@
     name: 'talmud',
     data() {
       return {
+        quest_text: '',
+        quest_tag: '',
+        isPopup: false, //是否显示弹窗
         status: 1,
         tab: 1,
         res: {
@@ -81,6 +94,12 @@
           }
         })
       },
+      closePopup() {
+        this.isPopup = false
+      },
+      popup() {
+        this.isPopup = true
+      },
       switchTab(tab) {
         this.tab = tab
         this.init(tab)
@@ -107,6 +126,24 @@
             wx.showToast({title: res.message, icon: 'none'})
           }
         })
+      },
+      quest_send() {
+        this.$app.api.talmuds.addTalmud({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          content: this.quest_text,
+          title: this.quest_text,
+          tag: this.quest_tag
+        }).then(res => {
+          if (res.state) {
+            return wx.showToast({title: res.message, icon: 'none'})
+          }
+          if (res.data) {
+            this.init(this.tab)
+          }
+        })
+        this.quest_text = ''
+        this.quest_tag = ''
+        this.closePopup()
       }
     }
   }
@@ -166,7 +203,18 @@
     }
   }
 
+  .questioner_box {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    width: 100%;
+    padding: 5px;
+    height: 50px;
+    background: white;
+  }
+
   .questioner {
+    z-index 1;
     width 30%;
     line-height 40px;
     background-color: rgba(22, 155, 213, 1);
@@ -177,6 +225,61 @@
     left 50%;
     bottom: 10px;
     margin-left -15%
+  }
+
+  /* 弹窗 */
+  .popup {
+    height 100%;
+
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
+      top: 30%;
+      left: 10%;
+      width 80%;
+      z-index: 4;
+      transition: all 2s;
+
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position fixed;
+      top: 0;
+      left: 0;
+      width 100%;
+      height 100%;
+      z-index 3;
+    }
+  }
+
+  .quest_text {
+    border 0 solid #eee;
+    border-bottom-width 1px;
+    width 100%;
+    height 1rem;
+  }
+
+  .quest_input {
+    border 0 solid #eee;
+    border-bottom-width 1px;
+  }
+
+  .quest_send {
+    text-align center;
+    width 30%;
+    line-height 35px;
+    border-radius 8px;
+    margin 0 auto;
+    margin-top 10px;
+    font-size 16px;
+    color: #1388BA;
   }
 </style>
 
