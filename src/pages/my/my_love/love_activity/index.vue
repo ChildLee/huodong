@@ -1,19 +1,21 @@
 <template>
   <main>
     <div class="love_activity-box">
-      <div class="love_activity-info" @click="popup">活动1：2018-08-08 10：00 深圳活动汇</div>
-      <div class="love_activity-info" @click="popup">活动1：2018-08-08 10：00 深圳活动汇</div>
+      <div class="love_activity-info" v-for="(item,index) in activitys" :key="index" @click="popup(item.id)">
+        活动{{index+1}}：{{item.time}} {{item.title}}
+      </div>
     </div>
 
+    <div class="prompt">您与{{userInfo.nick}}在{{determine}}-{{stop?stop:'至今'}}期间尝试交往</div>
 
     <!--弹窗显示信件-->
     <div class="popup_1" v-if="isPopup">
       <div class="popup-box">
         <div class="love_msg">
           <div class="love_msg-1">我给二丫的信</div>
-          <div class="love_msg-2">不好玩不好玩不好玩不好玩不好玩不好玩不好玩不好玩不好玩不好玩不好玩不好玩不好玩</div>
+          <div class="love_msg-2">{{issueReviews}}</div>
           <div class="love_msg-1">二丫给我的信</div>
-          <div class="love_msg-2">还行啊还行啊还行啊还行啊还行啊还行啊还行啊还行啊还行啊还行啊还行啊还行啊还行啊</div>
+          <div class="love_msg-2">{{receivedReviews}}</div>
         </div>
       </div>
       <div class="popup-curtain" @click="closePopup"></div>
@@ -27,14 +29,70 @@
     name: 'love_activity',
     data() {
       return {
-        isPopup: false
+        isPopup: false,
+        activitys: [{
+          time: '',
+          title: ''
+        }],
+        determine: '',
+        loveUserId: 2,
+        status: 1,
+        stop: null,
+        userInfo: {
+          avatatUrl: '',
+          id: 2,
+          nick: '',
+          sex: 1,
+          status: 1
+        },
+        issueReviews: '',//给出
+        receivedReviews: ''//收到的评价
       }
     },
+    onLoad() {
+      wx.showLoading({title: '加载中'})
+      this.init()
+      wx.hideLoading()
+    },
     methods: {
+      async init() {
+        await this.$app.api.love.love({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          id: this.$mp.query.id
+        }).then(res => {
+          if (res.data) {
+            this.activitys = JSON.parse(res.data.activitys)
+            this.loveUserId = res.data.loveUserId
+            this.determine = res.data.determine
+            this.status = res.data.status
+            this.stop = res.data.stop
+          }
+          return res.data
+        }).then(res => {
+          return this.$app.api.user.userData({
+            userId: res.loveUserId
+          })
+        }).then(res => {
+          if (res.data) {
+            this.userInfo = JSON.parse(res.data.user)
+          }
+        })
+      },
       closePopup() {
         this.isPopup = false
+        this.issueReviews = ''
+        this.receivedReviews = ''
       },
-      popup() {
+      popup(id) {
+        this.$app.api.love.loveReview({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          loveUserId: this.loveUserId,
+          activityId: id
+        }).then(res => {
+          console.log(res)
+          this.issueReviews = res.data.issueReviews
+          this.receivedReviews = res.data.receivedReviews
+        })
         this.isPopup = true
       }
     }
@@ -44,6 +102,12 @@
 <style lang="stylus">
   page {
     background-color #eee;
+  }
+
+  .prompt {
+    font-size 14px;
+    padding: 15px;
+    color: #333;
   }
 
   .love_activity-box {

@@ -1,7 +1,7 @@
 <template>
   <main>
     <div style="text-align: center;margin-top: 15%;">
-      <img src="/static/img/pay.png" mode="widthFix" style="width: 50%;">
+      <img src="/src/img/pay.png" mode="widthFix" style="width: 50%;">
     </div>
     <div class="prompt-box">
       <div class="prompt-1">请截屏后用微信识别本二维码进行支付</div>

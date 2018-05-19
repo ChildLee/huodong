@@ -3,7 +3,7 @@
     <div class="love_top border">
       <div class="love_top-1"></div>
       <div class="love_top-2">
-        <div @click.stop="love_invite" class="btn btn_size-small btn_color-DodgerBlue">爱的邀约</div>
+        <div @click.stop="love_invite" class="btn btn_size-small btn_color-DodgerBlue" @click="love_invite">爱的邀约</div>
       </div>
       <div class="love_top-3" @click="popup">恋爱规则</div>
     </div>
@@ -20,6 +20,7 @@
       <div class="btn btn_size-small btn_color-DodgerBlue btn-disabled">执手</div>
     </div>
 
+    <div></div>
     <!--弹窗-->
     <div class="popup" v-if="isPopup">
       <div class="popup-box">
@@ -80,6 +81,7 @@
         this.isPopup = true
       },
       love_invite() {
+        this.$app.nav.navigateTo('/pages/my/my_love/invite/main')
       }
     }
   }
