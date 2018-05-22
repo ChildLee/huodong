@@ -7,7 +7,7 @@ export default {
   },
   //塔木德详情
   talmud(param) {
-    return wx.httpRequest.httpJsonPost('/user/talmud ', param)
+    return wx.httpRequest.httpJsonPost('/user/talmud', param)
   },
   //添加同问
   addSameQuestion(param) {

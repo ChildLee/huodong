@@ -26,9 +26,9 @@
       <!--这里是滑动后显示的按钮----end-->
     </div>
 
-    <div class="more">
-      <div class="btn btn_size-small btn_color-DodgerBlue" @click="popup">关注更多</div>
-    </div>
+    <!--<div class="more">-->
+      <!--<div class="btn btn_size-small btn_color-DodgerBlue" @click="popup">关注更多</div>-->
+    <!--</div>-->
 
     <!--弹窗-->
     <div class="popup" v-if="isPopup">

@@ -74,6 +74,15 @@
       }
     },
     methods: {
+      init() {
+        this.$app.api.activity.invite({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          sendStatus: '',
+          type: ''
+        }).then(res => {
+
+        })
+      },
       switchNav(tab) {
         if (this.currentTab === tab) return false
         this.currentTab = tab

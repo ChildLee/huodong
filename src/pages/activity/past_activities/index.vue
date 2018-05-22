@@ -5,7 +5,7 @@
       <div class="past-top-input_box">
         <input class="past-top-input" type="text" placeholder="搜索活动">
       </div>
-      <div class="past-top-participating">已参加的</div>
+      <div class="past-top-participating" @click.stop="can">已参加的</div>
     </div>
 
     <div v-for="item in list" :key="item.id">
@@ -52,6 +52,9 @@
     methods: {
       activity(id) {
         this.$app.nav.navigateTo('/pages/activity/past_activity_info/main', {id: id})
+      },
+      can() {
+        this.$app.nav.navigateTo('/pages/my/my_activity/main')
       }
     },
     onReachBottom() {

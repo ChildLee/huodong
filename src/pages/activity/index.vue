@@ -9,7 +9,7 @@
 
     <div class="activity_nav">
       <div @click="popup">优惠规则</div>
-      <div>活动介绍</div>
+      <!--<div>活动介绍</div>-->
       <div @click="past_activities">往期活动</div>
     </div>
 
@@ -114,10 +114,11 @@
         }]
       }
     },
-    async onLoad() {
+    async onShow() {
       //初始化活动信息
       this.activityStatus.id = this.$app.storageStore.userStore.getters.getUserId //获取用户id
-      this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
+      await this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
+        console.log(res)
         this.list = []
         if (res.data) {
           this.list = JSON.parse(res.data.activities)
@@ -166,7 +167,9 @@
     .popup-box {
       padding: 15px;
       box-sizing border-box;
-      border-radius 10px;       background-color white;       position: fixed;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
       top: 10%;
       left: 8%;
       width 85%;

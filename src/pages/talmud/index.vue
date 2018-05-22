@@ -17,12 +17,12 @@
       </div>
     </div>
 
-    <div class="talmud">
-      <div class="talmud-info" v-for="(item,index) in list" :key="item.id">
+    <div class="talmud" v-if="member&&tab===1">
+      <div class="talmud-info" v-for="(item,index) in list" :key="item.id" @click.stop="talmudInfo(item.id)">
         <div class="talmud-title">
           <span>{{item.title}}</span>
-          <span class="talmud-btn">回答</span>
-          <span class="icon talmud-num" @click="addSame(item,item.id)">&#xe645;{{item.sameQuestion}}</span>
+          <span class="talmud-btn" @click="reply(item.id)">回答</span>
+          <span class="icon talmud-num" @click.stop="addSame(item,item.id)">&#xe645;{{item.sameQuestion}}</span>
         </div>
         <div class="talmud-tag">标签:{{item.tag}}</div>
       </div>
@@ -60,6 +60,7 @@
     name: 'talmud',
     data() {
       return {
+        member: 0,
         quest_text: '',
         quest_tag: '',
         isPopup: false, //是否显示弹窗
@@ -82,6 +83,7 @@
       //判断资料填了没有
       this.$app.storageStore.userStore.getters.getType ? `` : wx.redirectTo({url: '/pages/my/my_info/add_info/main?id=1'})
       await this.init(1)
+      this.member = this.$app.storageStore.userStore.getters.getMember
     },
     methods: {
       async init(tab) {
@@ -144,6 +146,14 @@
         this.quest_text = ''
         this.quest_tag = ''
         this.closePopup()
+      },
+      talmudInfo(id) {
+        this.$app.nav.navigateTo('/pages/talmud/talmud_info/main', {id})
+      },
+      reply(id) {
+        // this.$app.api.talmuds.talmud({}).then(res => {
+        //
+        // })
       }
     }
   }

@@ -111,18 +111,13 @@
     </div>
 
     <div class="menu_list panel">
-      <div @click="navigateTo('/pages/my/my_activity/main')">
-        <span class="tag-box">
-          <span>我的活动</span>
-          <span class="tag"></span>
-        </span>
-      </div>
+      <div @click="navigateTo('/pages/my/my_activity/main')">我的活动</div>
       <div @click="navigateTo('/pages/my/my_comment/main')">我的评价</div>
       <div @click="navigateTo('/pages/my/my_attention/main')">我的关注</div>
       <div @click="navigateTo('/pages/my/my_invite/main')">我的邀约</div>
       <div @click="navigateTo('/pages/my/my_love/main')">我的爱情</div>
       <div @click="navigateTo('/pages/my/my_organize/main')">我组织的</div>
-      <div @click="navigateTo('/pages/my/my_attention/main')">平台客服</div>
+      <div @click="navigateTo('/pages/my/service/main')">平台客服</div>
       <div @click="navigateTo('/pages/my/my_attention/main')">我的塔木德</div>
     </div>
 

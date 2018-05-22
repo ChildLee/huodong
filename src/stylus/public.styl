@@ -1,9 +1,4 @@
-$primary = darken(#428bca, 6.5%); // #337ab7
-$success = #5cb85c;
-$info = #5bc0de;
-$warning = #f0ad4e;
-$danger = #d9534f;
-$blue = #21afa9
+@import "common.styl"
 
 $mg(value) {
   .mg{value} {
@@ -70,48 +65,54 @@ $pd(value) {
 }
 
 //边距
-$mg(10px)
-$mg(15px)
-
-$pd(10px)
-$pd(15px)
+for $i in 1..20 {
+  $mg($i* 5px)
+  $pd($i* 5px)
+}
 
 .pd-no-l {
-  padding-left none;
+  padding-left 0;
 }
 
 .pd-no-r {
-  padding-right none;
+  padding-right 0;
 }
 
 .pd-no-t {
-  padding-top none;
+  padding-top 0;
 }
 
 .pd-no-b {
-  padding-bottom none;
+  padding-bottom 0;
 }
 
 .mg-no-l {
-  margin-left none;
+  margin-left 0;
 }
 
 .mg-no-r {
-  margin-right none;
+  margin-right 0;
 }
 
 .mg-no-t {
-  margin-top none;
+  margin-top 0;
 }
 
 .mg-no-b {
-  margin-bottom none;
+  margin-bottom 0;
+}
+
+//遍历行高
+for $i in 0..20 {
+  .lh{$i*5} {
+    line-height: ($i * 5px);
+  }
 }
 
 //遍历宽度
-for $i in 1..20 {
-  .w{$i*10} {
-    width: ($i * 10px);
+for $i in 0..20 {
+  .w{$i*5} {
+    width: ($i * 5px);
   }
 }
 
@@ -128,8 +129,8 @@ for $i in 1..19 {
 
 //遍历高度
 for $i in 1..20 {
-  .h{$i*10} {
-    height: ($i * 10px);
+  .h{$i*5} {
+    height: ($i * 5px);
   }
 }
 
@@ -145,24 +146,22 @@ for $i in 1..19 {
 }
 
 //颜色
-.c222 {
-  color: #222;
-}
-
-.c444 {
-  color: #444;
-}
-
-.c666 {
-  color: #666;
-}
-
-.c888 {
-  color: #888;
+for $i in 1..9 {
+  .c{$i}{$i}{$i} {
+    color: s('#' + $i* 111)
+  }
 }
 
 .eee {
   color: #eee;
+}
+
+.bg-eee {
+  background-color: #eee;
+}
+
+.bg-f9 {
+  background-color: #f9f9f9;
 }
 
 .fff {
@@ -170,10 +169,6 @@ for $i in 1..19 {
 }
 
 //文字排版
-.fs10 {
-  font-size: 10px;
-}
-
 .fs12 {
   font-size: 12px;
 }
@@ -184,6 +179,14 @@ for $i in 1..19 {
 
 .fs16 {
   font-size: 16px;
+}
+
+.fs18 {
+  font-size: 18px;
+}
+
+.fs20 {
+  font-size: 20px;
 }
 
 .fw {
@@ -219,7 +222,11 @@ for $i in 1..19 {
 }
 
 .bd {
-  border: 1px solid $danger;
+  border: 1px solid red;
+}
+
+.br10 {
+  border-radius 10px;
 }
 
 .hide {
