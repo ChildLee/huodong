@@ -12,5 +12,9 @@ export default {
   //我的爱情
   loveReview(param) {
     return wx.httpRequest.httpJsonPost('/user/loveReview', param)
+  },
+  //异路
+  breakUp(param) {
+    return wx.httpRequest.httpJsonPost('/user/breakUp', param)
   }
 }

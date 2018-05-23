@@ -15,8 +15,8 @@
     </div>
 
     <div class="love_btn">
-      <div class="btn btn_size-small btn_color-DodgerBlue">异路</div>
-      <div class="btn btn_size-small btn_color-DodgerBlue">帮助</div>
+      <div class="btn btn_size-small btn_color-DodgerBlue" @click="breakUp">异路</div>
+      <!--<div class="btn btn_size-small btn_color-DodgerBlue">帮助</div>-->
       <div class="btn btn_size-small btn_color-DodgerBlue btn-disabled">执手</div>
     </div>
 
@@ -82,6 +82,13 @@
       },
       love_invite() {
         this.$app.nav.navigateTo('/pages/my/my_love/invite/main')
+      },
+      breakUp() {
+        this.$app.api.love.breakUp({
+          id: this.$app.storageStore.userStore.getters.getUserId
+        }).then(res => {
+          console.log(res)
+        })
       }
     }
   }
@@ -186,7 +193,9 @@
     .popup-box {
       padding: 15px;
       box-sizing border-box;
-      border-radius 10px;       background-color white;       position: fixed;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
       top: 30%;
       left: 10%;
       width 80%;

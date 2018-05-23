@@ -102,7 +102,7 @@
         isPopup: false,
         activityStatus: {
           type: 0, //type,0近期,1往期
-          status: 1,
+          status: 1,//0收藏
           id: 0, //用户id
           page: 1 //页码
         },
@@ -117,23 +117,29 @@
     async onShow() {
       //初始化活动信息
       this.activityStatus.id = this.$app.storageStore.userStore.getters.getUserId //获取用户id
-      await this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
-        console.log(res)
-        this.list = []
-        if (res.data) {
-          this.list = JSON.parse(res.data.activities)
-        }
-      })
+      await this.init()
     },
     methods: {
+      async init() {
+        this.list = []
+        await this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
+          if (res.data) {
+            this.list = JSON.parse(res.data.activities)
+          }
+        })
+      },
       popup() {
         this.isPopup = !this.isPopup
       },
       filter() {
+        let that = this
         wx.showActionSheet({
-          itemList: ['消息', '收藏'],
+          itemList: [ '收藏'],
           success: function (res) {
-            console.log(res.tapIndex)
+            if (res.tapIndex === 0) {
+              that.activityStatus.status = 0
+              that.init()
+            }
           }
         })
       },

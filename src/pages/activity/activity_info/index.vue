@@ -111,7 +111,7 @@
         <div class="pay-box">
           <div class="pay-price">支付会费188元</div>
           <div class="pay-balance">会费剩余100元</div>
-          <div class="pay-btn border-top">确定</div>
+          <div class="pay-btn border-top" @click="payBtn">确定</div>
         </div>
       </div>
       <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
@@ -145,7 +145,7 @@
     name: 'activity_info',
     data() {
       return {
-        isPay: true, //支付弹窗
+        isPay: false, //支付弹窗
         activityId: 0, //活动Id
         dataStatus: 0, //资料是否填写
         assessId: 0, //被评价人的id
@@ -213,7 +213,14 @@
       },
       //收藏按钮
       collection() {
-        this.dataStatus ? `` : this.goData()
+        this.dataStatus ? this.$app.api.activity.collect({
+          status: 0,
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          id: this.activityId
+        }).then(res => {
+          wx.showToast({title: '收藏成功!', icon: 'none'})
+        }) : this.goData()
+
       },
       //邀约
       invitation() {
@@ -221,16 +228,25 @@
         this.activityInfo.activity.surplusStatus ? wx.showToast({
           title: '活动人数已满!',
           icon: 'none'
-        }) : this.navigateTo('/pages/activity/activity_info/activity_invite/main')
+        }) : this.navigateTo('/pages/activity/invite/main')
       },
       //参加
       participate() {
-        this.dataStatus ? `` : this.goData()
-        this.activityInfo.activity.surplusStatus ? wx.showToast({title: '活动人数已满!', icon: 'none'}) : ``
+        if (!this.dataStatus) {
+          return this.goData()
+        }
+        if (this.activityInfo.activity.surplusStatus) {
+          return wx.showToast({title: '活动人数已满!', icon: 'none'})
+        }
+        this.isPay = true
       },
       //关闭幕布
       closePopup() {
         this.isPay = false
+      },
+      payBtn() {
+        this.closePopup()
+        this.navigateTo('/pages/activity/pay/main')
       }
     },
     onShareAppMessage() {
@@ -267,7 +283,9 @@
     .popup-box {
       padding: 15px;
       box-sizing border-box;
-      border-radius 10px;       background-color white;       position: fixed;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
       top: 30%;
       left: 15%;
       width 70%;

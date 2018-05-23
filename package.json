@@ -9,8 +9,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "common-mpvue": "^0.4.2",
-    "mpvue": "^1.0.11",
+    "common-mpvue": "^0.4.5",
+    "mpvue": "^1.0.12",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

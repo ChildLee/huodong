@@ -41,8 +41,12 @@ export default {
   quitActivity(param) {
     return wx.httpRequest.httpJsonPost('/user/quitActivity', param)
   },
-  //取消活动
+  //我的邀约
   invite(param) {
     return wx.httpRequest.httpJsonPost('/user/invite', param)
+  },
+  //收藏
+  collect(param) {
+    return wx.httpRequest.httpJsonPost('/user/collect', param)
   }
 }

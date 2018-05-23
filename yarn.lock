@@ -1218,9 +1218,9 @@ commander@~2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.6.0.tgz#9df7e52fb2a0cb0fb89058ee80c3104225f37e1d"
 
-common-mpvue@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/common-mpvue/-/common-mpvue-0.4.2.tgz#e507182b19fef8dad7a5e10238ebd7283c05296d"
+common-mpvue@^0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/common-mpvue/-/common-mpvue-0.4.5.tgz#4573fe07786fdfdde2842517e45b768e6f9005e4"
   dependencies:
     left-pad "^1.2.0"
     md5 "^2.2.1"
@@ -1547,6 +1547,10 @@ decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
 decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
+
+deep-equal@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/deep-equal/-/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
 
 deep-extend@^0.5.1:
   version "0.5.1"
@@ -2816,7 +2820,7 @@ loader-runner@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
 
-loader-utils@^0.2.16, loader-utils@^0.2.7:
+loader-utils@^0.2.16:
   version "0.2.17"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.17.tgz#f86e6374d43205a6e6c60e9196f17c0299bfb348"
   dependencies:
@@ -3083,15 +3087,17 @@ move-concurrently@^1.0.1:
     run-queue "^1.0.3"
 
 mpvue-loader@^1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/mpvue-loader/-/mpvue-loader-1.0.13.tgz#2b759e5e9be266f49db55a14e2f5b5424805c2eb"
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/mpvue-loader/-/mpvue-loader-1.0.14.tgz#c03472bf0bd8e102fc085f3dccb96a2feef71368"
   dependencies:
     babelon "^1.0.5"
     consolidate "^0.14.0"
+    deep-equal "^1.0.1"
     hash-sum "^1.0.2"
     js-beautify "^1.6.14"
     loader-utils "^1.1.0"
     lru-cache "^4.1.1"
+    mkdirp "^0.5.1"
     postcss "^6.0.6"
     postcss-load-config "^1.1.0"
     postcss-selector-parser "^2.0.0"
@@ -3103,8 +3109,8 @@ mpvue-loader@^1.0.13:
     vue-template-es2015-compiler "^1.5.3"
 
 mpvue-template-compiler@^1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/mpvue-template-compiler/-/mpvue-template-compiler-1.0.11.tgz#aab4f89c07b98030b8be3009002f8b953a2b4f68"
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/mpvue-template-compiler/-/mpvue-template-compiler-1.0.12.tgz#79a6f87d1d1bbd726fd1841bc19271b526c38bc7"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -3115,7 +3121,11 @@ mpvue-webpack-target@^1.0.0:
   dependencies:
     webpack "^3.4.0"
 
-mpvue@^1.0.11, mpvue@^1.0.7:
+mpvue@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/mpvue/-/mpvue-1.0.12.tgz#03610de052050861edf36b873df91b30623ad233"
+
+mpvue@^1.0.7:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/mpvue/-/mpvue-1.0.11.tgz#65b2f9c8c35b8447d020f10e47bdc2ff51a2e13d"
 
@@ -3145,8 +3155,8 @@ nanomatch@^1.2.9:
     to-regex "^3.0.1"
 
 natives@^1.1.0:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/natives/-/natives-1.1.3.tgz#44a579be64507ea2d6ed1ca04a9415915cf75558"
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/natives/-/natives-1.1.4.tgz#2f0f224fc9a7dd53407c7667c84cf8dbe773de58"
 
 needle@^2.2.0:
   version "2.2.1"
@@ -3911,13 +3921,13 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.0.tgz#5f863edc89b96db09074bad7947bf09056ca4e7d"
 
 px2rpx-loader@^0.1.8:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/px2rpx-loader/-/px2rpx-loader-0.1.9.tgz#090036268fe39b03492e0de856fa56bcfe8efd9f"
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/px2rpx-loader/-/px2rpx-loader-0.1.10.tgz#15b70d8ce820a34c250845fd454db5e1876e1c25"
   dependencies:
-    loader-utils "^0.2.7"
-    px2rpx "~0.5.3"
+    loader-utils "^1.1.0"
+    px2rpx "^0.5.3"
 
-px2rpx@~0.5.3:
+px2rpx@^0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/px2rpx/-/px2rpx-0.5.3.tgz#120c86e1c64b0a9acb1ce9a13fadbff69e985239"
   dependencies:

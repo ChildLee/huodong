@@ -25,39 +25,79 @@
       </div>
     </div>
 
-    <div class="invite-box">
+    <div class="invite-box" v-for="(item,index) in focus" :key="index" v-if="currentTab===1&&currentTabChild===1">
       <!--发出活动邀约-->
       <div class="my_invite">
         <div class="invite-info">已邀约
-          <span class="invite-info_color">二丫</span>与您一起参加
-          <span class="invite-info_color">2018-8-8 9：00 高新园 深圳活动汇</span>活动.
+          <span class="invite-info_color">{{item.nickName}}</span>与您一起参加
+          <span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.
         </div>
-        <div class="invite-msg">留言:</div>
+        <div class="invite-msg">留言:{{item.title}}</div>
+      </div>
+    </div>
+
+    <div class="invite-box" v-for="(item,index) in focus" :key="index" v-if="currentTab===1&&currentTabChild===2">
+      <!--发出辅助邀约-->
+      <div class="my_invite">
+        <div class="invite-info">已邀约
+          <span class="invite-info_color">{{item.nickName}}</span>作为辅助人与您一起主持
+          <span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.
+        </div>
+        <div class="invite-msg">留言:{{item.title}}</div>
+      </div>
+    </div>
+
+    <div class="invite-box" v-for="(item,index) in focus" :key="index" v-if="currentTab===1&&currentTabChild===3">
+      <!--发出爱情邀约-->
+      <div class="my_invite">
+        <div class="invite-info">已邀约
+          <span class="invite-info_color">{{item.nickName}}</span>与您一起进入准备恋爱阶段
+          <!--<span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.-->
+        </div>
+        <div class="invite-msg">留言:{{item.title}}</div>
       </div>
     </div>
 
     <div>
       <!--收到辅助邀约-->
-      <div class="invite-help border-bottom_line">
+      <div class="invite-help border-bottom_line" v-for="(item,index) in focus" :key="index"
+           v-if="currentTab===2&&currentTabChild===1">
         <div class="invite-help-info">
-          <span class="invite-info_color">王五</span>邀约您与TA一起参加
-          <span class="invite-info_color">2018-8-8 9：00 高新园 深圳活动汇</span>活动.
+          <span class="invite-info_color">{{item.nickName}}</span>邀约您与TA一起参加
+          <span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.
         </div>
         <div class="invite-help-btn">
-          <div class="btn btn_size-small btn_color-diyBlue">好呀</div>
+          <div class="btn btn_size-small btn_color-diyBlue mg10-t">好呀</div>
         </div>
       </div>
     </div>
 
-    <div class="invite-love">
-      <!--收到爱情邀约-->
-      <div class="invite-love-info"><span class="invite-info_color">王五</span>邀约您与TA一起进入准备恋爱阶段。</div>
-      <div class="invite-love-time">距您有效回复还剩
-        <span class="invite-info_color">15</span>天
+    <div>
+      <!--收到辅助邀约-->
+      <div class="invite-help border-bottom_line" v-for="(item,index) in focus" :key="index"
+           v-if="currentTab===2&&currentTabChild===2">
+        <div class="invite-help-info">
+          <span class="invite-info_color">{{item.nickName}}</span>邀约您与TA一起辅助
+          <span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.
+        </div>
+        <div class="invite-help-btn">
+          <div class="btn btn_size-small btn_color-diyBlue mg10-t">好呀</div>
+        </div>
       </div>
+    </div>
+
+    <div class="invite-love" v-for="(item,index) in focus" :key="index" v-if="currentTab===2&&currentTabChild===3">
+      <!--收到爱情邀约-->
+      <div class="invite-love-info">已邀约
+        <span class="invite-info_color">
+          {{item.nickName}}</span>与您一起进入准备恋爱阶段。
+      </div>
+      <!--<div class="invite-love-time">距您有效回复还剩-->
+      <!--<span class="invite-info_color">15</span>天-->
+      <!--</div>-->
       <div class="invite-love-btn">
-        <div class="btn btn_size-small btn_color-diyBlue">好呀</div>
-        <div class="btn btn_size-small btn_color-diyBlue">不</div>
+        <div class="btn btn_size-small btn_color-diyBlue mg10-t">好呀</div>
+        <!--<div class="btn btn_size-small btn_color-diyBlue mg10-t">不</div>-->
       </div>
     </div>
 
@@ -69,27 +109,39 @@
     name: 'my_invite',
     data() {
       return {
-        currentTab: 1,
-        currentTabChild: 1
+        focus: [{
+          'nickName': 'cs名',
+          'place': '2',
+          'status': 0,
+          'time': '1',
+          'title': '1'
+        }],
+        currentTab: 1,//sendStatus 1收到的  2发出的
+        currentTabChild: 1////type 1/2 参加 辅助邀请   3爱情邀请
       }
+    },
+    async onLoad() {
+      await this.init()
     },
     methods: {
       init() {
         this.$app.api.activity.invite({
           userId: this.$app.storageStore.userStore.getters.getUserId,
-          sendStatus: '',
-          type: ''
+          sendStatus: this.currentTab,//sendStatus 1收到的  2发出的
+          type: this.currentTabChild //type 1/2 参加 辅助邀请   3爱情邀请
         }).then(res => {
-
+          console.log(res)
         })
       },
       switchNav(tab) {
         if (this.currentTab === tab) return false
         this.currentTab = tab
+        this.init()
       },
       switchNavChild(tab) {
         if (this.currentTabChild === tab) return false
         this.currentTabChild = tab
+        this.init()
       }
     }
   }
