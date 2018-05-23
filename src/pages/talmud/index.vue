@@ -10,14 +10,14 @@
 
     <div class="tab tab-box">
       <div class="tab-item" :class="tab===1?'tab-item-selected':''" @click="switchTab(1)">
-        <div class="tab-title">整理区</div>
+        <div class="tab-title">散问区</div>
       </div>
       <div class="tab-item" :class="tab===2?'tab-item-selected':''" @click="switchTab(2)">
-        <div class="tab-title">散问区</div>
+        <div class="tab-title">整理区</div>
       </div>
     </div>
 
-    <div class="talmud" v-if="member&&tab===1">
+    <div class="talmud">
       <div class="talmud-info" v-for="(item,index) in list" :key="item.id" @click.stop="talmudInfo(item.id)">
         <div class="talmud-title">
           <span>{{item.title}}</span>
@@ -100,9 +100,15 @@
         this.isPopup = false
       },
       popup() {
+        if (this.member === 0) {
+          return wx.showToast({title: '非会员不能提问和查看整理区', icon: 'none'})
+        }
         this.isPopup = true
       },
       switchTab(tab) {
+        if (tab === 2 && this.member === 0) {
+          return wx.showToast({title: '非会员不能提问和查看整理区', icon: 'none'})
+        }
         this.tab = tab
         this.init(tab)
       },

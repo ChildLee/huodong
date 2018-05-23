@@ -1,10 +1,10 @@
 <template>
   <main>
     <div class="organize-btn">
-      <div v-if="hostStatus" class="btn-box btn btn_size-small btn_color-diyBlue"
+      <div v-if="!hostStatus" class="btn-box btn btn_color-DodgerBlue"
            @click="navigateTo('/pages/my/my_organize/application_host/main')">申请成为主持人
       </div>
-      <div v-else class="btn-box btn btn_color-DodgerBlue">发布活动</div>
+      <div v-else class="btn-box btn btn_color-DodgerBlue" @click="pushActivitie">发布活动</div>
     </div>
 
     <div class="tab">
@@ -72,6 +72,9 @@
       },
       organize_nav(id) {
         this.$app.nav.navigateTo('/pages/my/my_organize/organize_info/main', {id})
+      },
+      pushActivitie() {
+        this.$app.nav.navigateTo('/pages/my/my_organize/publish_activities/main')
       }
     }
   }

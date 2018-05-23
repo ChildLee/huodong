@@ -36,5 +36,9 @@ export default {
   //获取个人中心
   userCenter(param) {
     return wx.httpRequest.httpJsonPost('/user/userCenter', param)
+  },
+  //获取个人中心
+  feedback(param) {
+    return wx.httpRequest.httpJsonPost('/user/feedback', param)
   }
 }

@@ -9,6 +9,10 @@ export default {
   talmud(param) {
     return wx.httpRequest.httpJsonPost('/user/talmud', param)
   },
+  //我的塔木德
+  myTalmud(param) {
+    return wx.httpRequest.httpJsonPost('/user/myTalmud', param)
+  },
   //添加同问
   addSameQuestion(param) {
     return wx.httpRequest.httpJsonPost('/user/addSameQuestion', param)

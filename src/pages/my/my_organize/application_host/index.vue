@@ -4,13 +4,13 @@
       <span v-if="!img">上传身份证正面</span>
       <img v-else :src="img" class="card_img">
     </div>
-    <div class="card card_negative" @click="up_1">
+    <div class="card card_negative" @click="up_2">
       <span v-if="!img_2">上传身份证正面</span>
       <img v-else :src="img_2" class="card_img">
     </div>
-    <div class="card_desc">
-      <textarea class="desc"/>
-    </div>
+    <!--<div class="card_desc">-->
+      <!--<textarea class="desc"/>-->
+    <!--</div>-->
     <div class="btn-box btn btn_color-diyBlue" @click="app_btn">申请</div>
   </main>
 </template>
@@ -32,10 +32,35 @@
             let tempFilePaths = res.tempFilePaths
             that.img = tempFilePaths[0]
             wx.uploadFile({
-              url: wx.httpRequest._config.domain + '/cs/weChat/file',
+              url: wx.httpRequest._config.domain + '/img/weChat/file',
               filePath: tempFilePaths[0],
               name: 'file',
               formData: {
+                type: 'A',
+                id: that.$app.storageStore.userStore.getters.getUserId
+              },
+              header: {
+                'content-type': 'multipart/form-data'
+              },
+              success: function (res) {
+                console.log(res)
+              }
+            })
+          }
+        })
+      },
+      up_2() {
+        let that = this
+        wx.chooseImage({
+          success(res) {
+            let tempFilePaths = res.tempFilePaths
+            that.img_2 = tempFilePaths[0]
+            wx.uploadFile({
+              url: wx.httpRequest._config.domain + '/img/weChat/file',
+              filePath: tempFilePaths[0],
+              name: 'file',
+              formData: {
+                type: 'B',
                 id: that.$app.storageStore.userStore.getters.getUserId
               },
               header: {
