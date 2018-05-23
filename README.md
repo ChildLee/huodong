@@ -1,4 +1,4 @@
-# applets_education
+# my-project
 
 > A Mpvue project
 

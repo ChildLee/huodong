@@ -48,15 +48,6 @@
           }
         })
       },
-      // up_2() {
-      //   let that = this
-      //   wx.chooseImage({
-      //     success(res) {
-      //       let tempFilePaths = res.tempFilePaths
-      //       that.img_2 = tempFilePaths[0]
-      //     }
-      //   })
-      // },
       app_btn() {
         this.$app.nav.navigateTo('/pages/my/my_organize/main')
         wx.showToast({title: '申请成功!', icon: 'none'})
