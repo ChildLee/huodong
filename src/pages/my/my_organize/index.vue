@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="organize-btn">
-      <div v-if="!hostStatus" class="btn-box btn btn_color-DodgerBlue"
+      <div v-if="!hostStatus" class="btn-box btn btn_color-DodgerBlue br5 of"
            @click="navigateTo('/pages/my/my_organize/application_host/main')">申请成为主持人
       </div>
       <div v-else class="btn-box btn btn_color-DodgerBlue" @click="pushActivitie">发布活动</div>

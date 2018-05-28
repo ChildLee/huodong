@@ -17,8 +17,8 @@
           <div class="activity_info_time">{{item.time}}</div>
           <div class="activity_info_location">{{item.place}}</div>
           <!--<div v-if="item.status===1" class="btn btn_size-mini btn_color-DodgerBlue"-->
-               <!--@click.stop="cancelActivity(item.id)">-->
-            <!--取消活动-->
+          <!--@click.stop="cancelActivity(item.id)">-->
+          <!--取消活动-->
           <!--</div>-->
         </div>
         <div class="activity_text">{{item.title}}</div>

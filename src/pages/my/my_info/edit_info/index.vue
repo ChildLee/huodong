@@ -21,7 +21,7 @@
             <div class="field_right">
               <!--{{userInfo.sex===1?'男':'女'}}-->
               <picker name="sex" @change="sexChange" :value="userInfo.sex" :range="sexBox">
-              {{sexBox[userInfo.sex]}}
+                {{sexBox[userInfo.sex]}}
               </picker>
             </div>
           </div>

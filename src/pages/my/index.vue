@@ -101,12 +101,14 @@
     <div class="my-price panel">
       <div>
         <span class="c666">收入￥<span style="color: #1D9ED7;">{{userInfo.gold}}</span></span>
-        <span style="width: 50%;background: #1D9ED7;" class="my-price-btn btn btn_size-small btn_color-DodgerBlue br5 of"
+        <span style="width: 50%;background: #1D9ED7;"
+              class="my-price-btn btn btn_size-small btn_color-DodgerBlue br5 of"
               @click="transfer">转账</span>
       </div>
       <div>
         <span class="c666">会费￥<span style="color: #1D9ED7;">{{userInfo.integral}}</span></span>
-        <span style="width: 50%;background: #1D9ED7;" class="my-price-btn btn btn_size-small btn_color-DodgerBlue br5 of"
+        <span style="width: 50%;background: #1D9ED7;"
+              class="my-price-btn btn btn_size-small btn_color-DodgerBlue br5 of"
               @click="navigateTo('/pages/activity/pay/main')">充值</span>
       </div>
     </div>

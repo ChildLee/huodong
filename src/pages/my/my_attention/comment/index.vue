@@ -237,7 +237,9 @@
     .popup-box {
       padding: 15px;
       box-sizing border-box;
-      border-radius 10px;       background-color white;       position: fixed;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
       top: 30%;
       left: 10%;
       width 80%;
