@@ -1,9 +1,17 @@
 <template>
   <main>
+
+    <div class="activity_top" style="background: white">
+      <div class="activity_search">
+        <input v-model="search1" type="text" placeholder="搜索关注人" @blur="search">
+      </div>
+      <!--<div class="activity_btn" @click="filter">收藏</div>-->
+    </div>
+
     <div class="attention_top panel panel-no_top">
       <div>关注人</div>
-      <div>最近活动</div>
       <div>备注</div>
+      <div></div>
     </div>
 
     <div class="slide_cell border-bottom_line" v-for="(item,index) in list" :key="index">
@@ -14,9 +22,11 @@
            @touchmove="touchM"
            @touchend="touchE">
         <div class="attention_info" @click="attention_info(item.attentionUserId)">
-          <div class="info-name">{{item.nickName}}</div>
-          <div class="info-time">{{item.time}}</div>
-          <div class="info-desc">{{item.remark?item.remark:''}}</div>
+          <div class="info-name ">{{item.nickName}}</div>
+          <div class="info-time">{{item.remark?item.remark:''}}</div>
+          <div class="info-desc" @click.stop="popup2(item.id)">
+            <div class="btn btn_size-small btn_color-DodgerBlue br5 of">备注</div>
+          </div>
         </div>
       </div>
       <!--这里是滑动后显示的按钮----start-->
@@ -26,9 +36,9 @@
       <!--这里是滑动后显示的按钮----end-->
     </div>
 
-    <!--<div class="more">-->
-      <!--<div class="btn btn_size-small btn_color-DodgerBlue" @click="popup">关注更多</div>-->
-    <!--</div>-->
+    <div class="more">
+      <div class="btn btn_size-small btn_color-DodgerBlue br5 of" @click="popup">关注更多</div>
+    </div>
 
     <!--弹窗-->
     <div class="popup" v-if="isPopup">
@@ -38,13 +48,13 @@
             <label class="attention-1">
               <radio :value="1"/>
               <span>￥50</span>
-              <span class="a-more">更多关注50人/年</span>
+              <span class="a-more">更多关注20人/年</span>
             </label>
-            <label class="attention-2">
-              <radio :value="2"/>
-              <span>￥100</span>
-              <span class="a-more">更多关注200人/年</span>
-            </label>
+            <!--<label class="attention-2">-->
+            <!--<radio :value="2"/>-->
+            <!--<span>￥100</span>-->
+            <!--<span class="a-more">更多关注200人/年</span>-->
+            <!--</label>-->
           </radio-group>
           <div class="attention_more-btn border-top">
             <div @click="closePopup">取消</div>
@@ -69,6 +79,23 @@
       <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
     </div>
     <!--弹窗-->
+
+    <!--弹窗-->
+    <div class="popup2" v-if="isPopup2">
+      <div class="popup-box">
+        <div>
+          <div class="border">
+            <input v-model="note_info" class="w h50 pd5-lr" type="text" placeholder="备注信息">
+          </div>
+          <div class="mg10-t" style="text-align: center">
+            <div class="btn btn_size-small btn_color-DodgerBlue" @click="note_btn">确定</div>
+          </div>
+        </div>
+      </div>
+      <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
+    </div>
+    <!--弹窗-->
+
   </main>
 </template>
 
@@ -77,11 +104,15 @@
     name: 'my_attention',
     data() {
       return {
+        Focus_primary_key: 0,
+        note_info: '',
+        search1: '',
         attention_balance: 0,//余额
         attention_money: 0,//选择的购买金额
         attention_num: 0, //购买关注的选项
         isPopup: false, //是否显示弹窗
         isPopup_1: false, //是否显示弹窗
+        isPopup2: false, //是否显示弹窗
         list: [{
           style: '',
           id: 0,
@@ -97,7 +128,7 @@
         index: 0 //滑动项的下标
       }
     },
-    async onLoad() {
+    async onShow() {
       await this.init()
     },
     methods: {
@@ -110,6 +141,15 @@
           } else {
             this.list = []
           }
+        })
+      },
+      search() {
+        this.list = []
+        this.$app.api.user.myFocus({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          condition: this.search1
+        }).then(res => {
+          this.list = JSON.parse(res.data.focus)
         })
       },
       del(index, id) {
@@ -133,18 +173,38 @@
       closePopup() {
         this.isPopup = false
         this.isPopup_1 = false
+        this.isPopup2 = false
         this.attention_num = 0
+        this.note_info = ''
+      },
+      note_btn() {
+        let that = this
+        this.$app.api.user.modifyRemark({
+          id: this.Focus_primary_key,
+          remark: this.note_info
+        }).then(res => {
+          if (res.data) {
+            wx.showToast({title: '备注成功!', icon: 'none'})
+            that.init()
+            that.closePopup()
+          }
+        })
       },
       popup() {
         this.isPopup = true
       },
+      popup2(id) {
+        this.Focus_primary_key = id
+        this.isPopup2 = true
+      },
       popup_1() {
-        if (this.attention_num === 0) {
-          return wx.showToast({title: '请选择金额!', icon: 'none'})
-        }
-        this.attention_num === '1' ? this.attention_money = 50 : this.attention_money = 100
-        this.closePopup()
-        this.isPopup_1 = true
+        // if (this.attention_num === 0) {
+        //   return wx.showToast({title: '请选择金额!', icon: 'none'})
+        // }
+        // this.attention_num === '1' ? this.attention_money = 50 : this.attention_money = 100
+        // this.closePopup()
+        // this.isPopup_1 = true
+        this.$app.nav.navigateTo('/pages/activity/pay/main')
       },
       popupChange(e) {
         this.attention_num = e.target.value
@@ -256,6 +316,10 @@
     justify-content space-between;
     align-items center
     font-size 16px;
+
+    ._div {
+      flex 1;
+    }
   }
 
   .attention_info {
@@ -265,6 +329,17 @@
     align-items center;
     font-size 16px;
     background-color white;
+
+    .info-name {
+      flex 1
+    }
+    .info-time {
+      flex 1
+    }
+    .info-desc {
+      flex 1
+      text-align right
+    }
   }
 
   .more {
@@ -278,7 +353,9 @@
     .popup-box {
       padding: 15px;
       box-sizing border-box;
-      border-radius 10px;       background-color white;       position: fixed;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
       top: 30%;
       left: 15%;
       width 70%;
@@ -350,7 +427,9 @@
     .popup-box {
       padding: 15px;
       box-sizing border-box;
-      border-radius 10px;       background-color white;       position: fixed;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
       top: 30%;
       left: 15%;
       width 70%;
@@ -393,6 +472,56 @@
       line-height 50px;
       font-size 16px;
       color: #1388BA;
+    }
+  }
+
+  .activity_top {
+    display flex;
+    justify-content space-between;
+    align-items center;
+    padding: 15px;
+
+    .activity_search {
+      flex 1;
+
+      input {
+        border: 1px solid #ccc
+        font-size 14px;
+      }
+    }
+    .activity_btn {
+      margin-left 15px;
+      font-size 14px;
+    }
+  }
+
+  /* 弹窗 */
+  .popup2 {
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
+      top: 30%;
+      left: 10%;
+      width 80%;
+      z-index: 3;
+      transition: all 2s;
+
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position fixed;
+      top: 0;
+      left 0;
+      width 100%;
+      height 100%;
+      z-index 2;
     }
   }
 </style>

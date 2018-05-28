@@ -22,6 +22,7 @@
               <picker name="sex" @change="sexChange" :value="sexIndex" :range="sexBox">
                 {{sexBox[sexIndex]}}
               </picker>
+              <!--<span class="c999">不可修改</span>-->
             </div>
           </div>
           <div class="field">

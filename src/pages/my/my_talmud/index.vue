@@ -10,7 +10,7 @@
         </div>
         <div class="small c999 mg5-b f-between">
           <div>标签：{{item.tag}}</div>
-          <div class="fs12 ls">&#xe6e1;{{item.like}}</div>
+          <!--<div class="fs12 ls">&#xe6e1;{{item.like}}</div>-->
         </div>
         <div class="fs16 c555 fs14">{{item.content}}</div>
       </div>
@@ -25,6 +25,7 @@
     name: 'index',
     data() {
       return {
+        id: 0,
         myTalmuds: [{
           'content': '塔木德回答内容2',
           'id': 2,
@@ -36,14 +37,17 @@
       }
     },
     async onLoad() {
+      this.id = this.$mp.query.id || this.$app.storageStore.userStore.getters.getUserId
       await this.init()
     },
     methods: {
       async init() {
         this.$app.api.talmuds.myTalmud({
-          userId: this.$app.storageStore.userStore.getters.getUserId
+          userId: this.id
         }).then(res => {
-          console.log(res)
+          if (res.data) {
+            this.myTalmuds = JSON.parse(res.data.myTalmuds)
+          }
         })
       }
     }

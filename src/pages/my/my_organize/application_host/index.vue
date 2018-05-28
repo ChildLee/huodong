@@ -9,9 +9,15 @@
       <img v-else :src="img_2" class="card_img">
     </div>
     <!--<div class="card_desc">-->
-      <!--<textarea class="desc"/>-->
+    <!--<textarea class="desc"/>-->
     <!--</div>-->
     <div class="btn-box btn btn_color-diyBlue" @click="app_btn">申请</div>
+
+    <div class="we w-80 tc">
+      <img class="w-60" mode="widthFix" src="/static/img/we.jpg">
+      <div class="c999">添加客服微信并提交申请书</div>
+    </div>
+
   </main>
 </template>
 
@@ -117,5 +123,10 @@
   .card_img {
     width: 100%;
     height 100%;
+  }
+
+  .we {
+    margin 0 auto;
+    margin-bottom 15px;
   }
 </style>

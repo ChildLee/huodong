@@ -48,5 +48,45 @@ export default {
   //收藏
   collect(param) {
     return wx.httpRequest.httpJsonPost('/user/collect', param)
+  },
+  //公告
+  placard(param) {
+    return wx.httpRequest.httpJsonPost('/user/placard', param)
+  },
+  //活动介绍
+  introduce(param) {
+    return wx.httpRequest.httpJsonPost('/user/introduce', param)
+  },
+  //撤销
+  undoInvitation(param) {
+    return wx.httpRequest.httpJsonPost('/user/undoInvitation', param)
+  },
+  //撤销
+  undoLove(param) {
+    return wx.httpRequest.httpJsonPost('/user/undoLove', param)
+  },
+  //参与者答应
+  promiseParticipate(param) {
+    return wx.httpRequest.httpJsonPost('/user/promiseParticipate', param)
+  },
+  //辅助人答应
+  promiseAssistant(param) {
+    return wx.httpRequest.httpJsonPost('/user/promiseAssistant', param)
+  },
+  //爱情答应
+  promiseLove(param) {
+    return wx.httpRequest.httpJsonPost('/user/promiseLove', param)
+  },
+  //活动开始
+  startActivity(param) {
+    return wx.httpRequest.httpJsonPost('/user/startActivity', param)
+  },
+  //活动开始
+  stopActivity(param) {
+    return wx.httpRequest.httpJsonPost('/user/stopActivity', param)
+  },
+  //活动开始
+  modifyActivity(param) {
+    return wx.httpRequest.httpJsonPost('/user/modifyActivity', param)
   }
 }

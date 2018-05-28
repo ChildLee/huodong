@@ -16,7 +16,7 @@
         <div>{{item.nickName}}</div>
         <div>{{item.remark?remark:''}}</div>
         <div>
-          <span class="btn-no_border btn btn_size-small btn_color-DodgerBlue" @click="invite_helper(item.id)">邀约</span>
+          <span class="btn btn_size-small btn_color-DodgerBlue br5 of" @click="invite_helper(item.id)">邀约</span>
         </div>
       </div>
 

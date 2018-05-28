@@ -20,5 +20,9 @@ export default {
   //提问
   addTalmud(param) {
     return wx.httpRequest.httpJsonPost('/user/addTalmud', param)
+  },
+  //回答
+  addReply(param) {
+    return wx.httpRequest.httpJsonPost('/user/addReply', param)
   }
 }

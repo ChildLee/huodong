@@ -19,6 +19,11 @@
     </div>
 
     <div class="btn btn_color-diyBlue" @click="submit">提交</div>
+
+    <div class="we w-80 tc">
+      <img class="w-60" mode="widthFix" src="/static/img/we.jpg">
+      <div class="c999">请识别二维码添加客服微信</div>
+    </div>
   </main>
 </template>
 
@@ -53,6 +58,8 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="stylus">
+  .we {
+    margin 0 auto;
+  }
 </style>

@@ -13,7 +13,7 @@
 
     <div class="comment_filter panel">
       <div>总计：{{activitys.length}}（筛选总数）</div>
-      <div class="" @click="isPopup_1">筛选</div>
+      <div @click="isPopup_1">筛选</div>
     </div>
 
     <div v-for="(item,index) in activitys" :key="index">
@@ -22,7 +22,7 @@
           <span>{{item.score}}分</span>
           <i class="icon"
              :style="item.attention?'color:red;':''"
-             :class="item.attention?'icon-red-heart':'icon-heart'"></i>
+             :class="item.attention?'icon-red-heart':'icon-heart'" @click="focus(item,item.id,item.attention)"></i>
         </div>
         <div class="comment_info">
           <div class="comment_time_location">
@@ -42,9 +42,9 @@
     <div class="popup_1" v-if="popup_1">
       <div class="popup-box">
         <div class="filter_box">
-          <div @click="filter_comment(false,1)" class="border-bottom_line">参与人</div>
-          <div @click="filter_comment(false,2)" class="border-bottom_line">主持人</div>
-          <div @click="filter_comment(false,3)" class="border-bottom_line">辅助人</div>
+          <div @click="filter_comment(false,1)" class="border-bottom_line">主持人</div>
+          <div @click="filter_comment(false,2)" class="border-bottom_line">辅助人</div>
+          <div @click="filter_comment(false,3)" class="border-bottom_line">参与人</div>
           <div @click="filter_comment(5)" class="border-bottom_line">5分</div>
           <div @click="filter_comment(4)" class="border-bottom_line">4分</div>
           <div @click="filter_comment(3)" class="border-bottom_line">3分</div>
@@ -110,6 +110,7 @@
           role: param.role,
           score: param.score
         }).then(res => {
+          console.log(res)
           this.activitys = res.data ? JSON.parse(res.data.activitys) : []
         })
       },
@@ -136,6 +137,18 @@
         score ? this.param.role = '' : this.param.score = ''
         this.init(this.param)
         this.closePopup()
+      },
+      //点击💗关注事件
+      focus(item, id, attention) {
+        this.$app.api.user.addFocus({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          attentionUserId: id,
+          status: !attention
+        }).then(res => {
+          if (res.data) {
+            item.attention = !item.attention
+          }
+        })
       }
     }
   }
@@ -238,7 +251,9 @@
     .popup-box {
       padding: 15px;
       box-sizing border-box;
-      border-radius 10px;       background-color white;       position: fixed;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
       top: 30%;
       left: 10%;
       width 80%;

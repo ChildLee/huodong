@@ -31,10 +31,10 @@
     </div>
 
     <div class="activity_personnel icon">
-      <div class="active_staff">
+      <div class="active_staff icon">
         <div></div>
-        <div>男</div>
-        <div>女</div>
+        <div>&#xe643;</div>
+        <div>&#xe665;</div>
       </div>
 
       <div class="active_staff" v-for="(item,index) in activityInfo.userList" v-if="item.role===2" :key="item.id">
@@ -139,6 +139,12 @@
     </div>
     <!--弹窗-->
 
+    <div class="f-around mg15-t">
+      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="startA">开始</div>
+      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="editA">修改</div>
+      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="stopA">结束</div>
+    </div>
+
   </main>
 </template>
 
@@ -191,7 +197,7 @@
         }
       }
     },
-    async onLoad() {
+    async onShow() {
       this.activityId = this.$mp.query.id//保存活动ID
       await this.init()//调用初始化
     },
@@ -256,6 +262,27 @@
             this.isAssess = false
           })
         }
+      },
+      startA() {
+        this.$app.api.activity.startActivity({
+          activityId: this.activityId
+        }).then(res => {
+          if (res.data) {
+            wx.showToast({title: '活动开始!', icon: 'none'})
+          }
+        })
+      },
+      stopA() {
+        this.$app.api.activity.stopActivity({
+          activityId: this.activityId
+        }).then(res => {
+          if (res.data) {
+            wx.showToast({title: '活动结束!', icon: 'none'})
+          }
+        })
+      },
+      editA() {
+        this.$app.nav.navigateTo('/pages/my/my_organize/edit_activity/main', {id: this.activityId})
       }
     }
   }
@@ -326,9 +353,10 @@
 
   .operate {
     display flex;
+    justify-content space-between;
     align-items center;
     position: relative;
-    margin-left 15px;
+    margin: 0 10px;
 
     .operate-attention {
       font-size 26px;
@@ -363,7 +391,7 @@
     align-items center;
     padding: 5px 0;
     font-size 14px;
-    color: DodgerBlue;
+    color: #1D9ED7;
     font-weight bold;
   }
 
@@ -374,7 +402,7 @@
     line-height 0;
     font-size 0;
     margin-right 5px;
-    background DodgerBlue;
+    background: #1D9ED7;
   }
 
   .activity_personnel {
@@ -458,7 +486,9 @@
     .popup-box {
       padding: 15px;
       box-sizing border-box;
-      border-radius 10px;       background-color white;       position: fixed;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
       top: 25%;
       left: 15%;
       width 70%;

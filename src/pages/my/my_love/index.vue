@@ -1,9 +1,11 @@
 <template>
   <main>
-    <div class="love_top border">
+    <div class="love_top" v-if="status===0">
       <div class="love_top-1"></div>
       <div class="love_top-2">
-        <div @click.stop="love_invite" class="btn btn_size-small btn_color-DodgerBlue" @click="love_invite">爱的邀约</div>
+        <div @click.stop="love_invite" class="btn btn_size-small btn_color-DodgerBlue br5 of" @click="love_invite">
+          爱的邀约
+        </div>
       </div>
       <div class="love_top-3" @click="popup">恋爱规则</div>
     </div>
@@ -14,10 +16,10 @@
       </div>
     </div>
 
-    <div class="love_btn">
-      <div class="btn btn_size-small btn_color-DodgerBlue" @click="breakUp">异路</div>
+    <div class="love_btn" v-if="status!==0">
+      <div class="btn btn_size-small btn_color-DodgerBlue br5 of" @click="breakUp">异路</div>
       <!--<div class="btn btn_size-small btn_color-DodgerBlue">帮助</div>-->
-      <div class="btn btn_size-small btn_color-DodgerBlue btn-disabled">执手</div>
+      <!--<div class="btn btn_size-small btn_color-DodgerBlue btn-disabled br5 of">执手</div>-->
     </div>
 
     <div></div>
@@ -26,7 +28,8 @@
       <div class="popup-box">
         <div class="popup-msg">
           <div>规则：</div>
-          <div>1.没有规则</div>
+          <div>感情是郑重严谨的，请双方缴费确定</div>
+          <div>在交往中如需帮助，加客服微信可获得专业辅助</div>
         </div>
       </div>
       <div class="popup-curtain" @click="closePopup"></div>
@@ -42,15 +45,16 @@
       return {
         res: {
           data: {
-            loves: ''
+            loves: [],
+            status: 0
           }
         },
         isPopup: false,
         loves: [{
-          determine: '',
           id: 1,
           nick: ''
-        }]
+        }],
+        status: 0
       }
     },
     async onLoad() {
@@ -64,6 +68,7 @@
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {
           if (res.data) {
+            this.status = res.data.status
             this.loves = JSON.parse(res.data.loves)
           }
         })
@@ -84,9 +89,14 @@
         this.$app.nav.navigateTo('/pages/my/my_love/invite/main')
       },
       breakUp() {
+        let that = this
         this.$app.api.love.breakUp({
-          id: this.$app.storageStore.userStore.getters.getUserId
+          id: this.loves[0].id
         }).then(res => {
+          if (res.data) {
+            that.init()
+            wx.showToast({title: '异路成功!', icon: 'none'})
+          }
           console.log(res)
         })
       }
@@ -98,7 +108,7 @@
   @import "../../../stylus/common.styl"
 
   page {
-    background-color #e4d7da;
+    background-color white;
     color: #6D5B42;
     width 100%;
     height 100%;
@@ -109,11 +119,8 @@
     justify-content space-between;
     align-items center;
     padding: 15px;
+    border-bottom 1px solid #d8d8d8;
 
-    &::after {
-      border_line(white);
-      border-bottom-width 2px;
-    }
   }
 
   .love_top-1 {

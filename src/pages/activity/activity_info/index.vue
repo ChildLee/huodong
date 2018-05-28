@@ -29,10 +29,10 @@
     </div>
 
     <div class="activity_personnel icon">
-      <div class="active_staff">
+      <div class="active_staff icon">
         <div></div>
-        <div>男</div>
-        <div>女</div>
+        <div>&#xe643;</div>
+        <div>&#xe665;</div>
       </div>
 
       <div class="active_staff" v-for="(item,index) in activityInfo.userList" v-if="item.role===2" :key="item.id">
@@ -41,53 +41,95 @@
           <div class="operate" v-if="item.sex===1">
             <div class="operate-attention">
               <span v-if="item.attention" style="color:red;">&#xe755;</span>
-              <span v-else>&#xe613;</span>
+              <span v-else class="db w25"></span>
             </div>
-            <div>{{item.nickName}}</div>
+            <div>{{item.nickName}}
+              <span style="color: #1D9ED7;">
+              {{item.maxLV===1?'Ⅰ':''}}
+              {{item.maxLV===2?'Ⅱ':''}}
+              {{item.maxLV===3?'Ⅲ':''}}
+              {{item.maxLV===4?'Ⅳ':''}}
+              {{item.maxLV===5?'Ⅴ':''}}
+              </span>
+            </div>
           </div>
         </div>
         <div>
           <div class="operate" v-if="item.sex===2">
             <div class="operate-attention">
               <span v-if="item.attention" style="color:red;">&#xe755;</span>
-              <span v-else>&#xe613;</span>
+              <span v-else class="db w25"></span>
             </div>
-            <div>{{item.nickName}}</div>
+            <div>{{item.nickName}}
+              <span style="color: #1D9ED7;">
+              {{item.maxLV===1?'Ⅰ':''}}
+              {{item.maxLV===2?'Ⅱ':''}}
+              {{item.maxLV===3?'Ⅲ':''}}
+              {{item.maxLV===4?'Ⅳ':''}}
+              {{item.maxLV===5?'Ⅴ':''}}
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="active_staff" v-for="item in activityInfo.userList" v-if="item.role===3" :key="item.id">
-        <div>辅助人</div>
+      <div class="active_staff" v-for="(item,index) in activityInfo.userList" v-if="item.role===3"
+           :key="item.id">
+        <div class="">辅助人</div>
         <div>
           <div class="operate" v-if="item.sex===1">
             <div class="operate-attention">
               <span v-if="item.attention" style="color:red;">&#xe755;</span>
-              <span v-else>&#xe613;</span>
+              <span v-else class="db w25"></span>
             </div>
-            <div>{{item.nickName}}</div>
+            <div>{{item.nickName}}
+              <span style="color: #1D9ED7;">
+              {{item.maxLV===1?'Ⅰ':''}}
+              {{item.maxLV===2?'Ⅱ':''}}
+              {{item.maxLV===3?'Ⅲ':''}}
+              {{item.maxLV===4?'Ⅳ':''}}
+              {{item.maxLV===5?'Ⅴ':''}}
+              </span>
+            </div>
           </div>
+
         </div>
         <div>
           <div class="operate" v-if="item.sex===2">
             <div class="operate-attention">
               <span v-if="item.attention" style="color:red;">&#xe755;</span>
-              <span v-else>&#xe613;</span>
+              <span v-else class="db w25"></span>
             </div>
-            <div>{{item.nickName}}</div>
+            <div>{{item.nickName}}
+              <span style="color: #1D9ED7;">
+              {{item.maxLV===1?'Ⅰ':''}}
+              {{item.maxLV===2?'Ⅱ':''}}
+              {{item.maxLV===3?'Ⅲ':''}}
+              {{item.maxLV===4?'Ⅳ':''}}
+              {{item.maxLV===5?'Ⅴ':''}}
+              </span>
+            </div>
           </div>
         </div>
       </div>
       <div class="active_staff">
         <div>参与人</div>
         <div class="participate">
-          <div v-for="item in activityInfo.userList" v-if="item.role===1" :key="item.id">
+          <div v-for="(item,index) in activityInfo.userList" v-if="item.role===1" :key="item.id">
             <div class="operate" v-if="item.sex===1">
               <div class="operate-attention">
                 <span v-if="item.attention" style="color:red;">&#xe755;</span>
-                <span v-else>&#xe613;</span>
+                <span v-else class="db w25"></span>
               </div>
-              <div>{{item.nickName}}</div>
+              <div>{{item.nickName}}
+                <span style="color: #1D9ED7;">
+              {{item.maxLV===1?'Ⅰ':''}}
+              {{item.maxLV===2?'Ⅱ':''}}
+              {{item.maxLV===3?'Ⅲ':''}}
+              {{item.maxLV===4?'Ⅳ':''}}
+              {{item.maxLV===5?'Ⅴ':''}}
+              </span>
+              </div>
             </div>
           </div>
         </div>
@@ -96,9 +138,17 @@
             <div class="operate" v-if="item.sex===2">
               <div class="operate-attention">
                 <span v-if="item.attention" style="color:red;">&#xe755;</span>
-                <span v-else>&#xe613;</span>
+                <span v-else class="db w25"></span>
               </div>
-              <div>{{item.nickName}}</div>
+              <div>{{item.nickName}}
+                <span style="color: #1D9ED7;">
+              {{item.maxLV===1?'Ⅰ':''}}
+              {{item.maxLV===2?'Ⅱ':''}}
+              {{item.maxLV===3?'Ⅲ':''}}
+              {{item.maxLV===4?'Ⅳ':''}}
+              {{item.maxLV===5?'Ⅴ':''}}
+              </span>
+              </div>
             </div>
           </div>
         </div>
@@ -161,7 +211,7 @@
             time: '', //时间
             place: '', //地点
             phone: '', //手机
-            content: '', //内容,
+            content: '', //内容
             menPrice: 0, //男价格
             womenPrice: 0, //女价格
             freePlaces: 0, //免费名额
@@ -186,8 +236,7 @@
     },
     async onLoad() {
       this.dataStatus = this.$app.storageStore.userStore.getters.getType //获取资料填写状态
-      // this.activityId = this.$mp.query.id //获取活动id
-      this.activityId = 1 //获取活动id
+      this.activityId = this.$mp.query.id //获取活动id
       //初始化活动信息
       await this.init()//调用初始化
     },
@@ -196,6 +245,9 @@
     methods: {
       //初始化页面
       async init() {
+        this.activityInfo = []
+        this.activityInfo.activity = []
+        this.activityInfo.userList = []
         this.$app.api.activity.activity({
           id: this.activityId, //活动id
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id
@@ -226,9 +278,9 @@
       invitation() {
         this.dataStatus ? `` : this.goData()
         this.activityInfo.activity.surplusStatus ? wx.showToast({
-          title: '活动人数已满!',
-          icon: 'none'
-        }) : this.navigateTo('/pages/activity/invite/main')
+          title: '活动人数已满!', icon: 'none'
+        }) : this.$app.nav.navigateTo('/pages/activity/invite/main', {id: this.activityId})
+
       },
       //参加
       participate() {
@@ -338,7 +390,7 @@
       }
 
       &:last-child {
-        background-color DodgerBlue;
+        background-color #1D9ED7;
         color: white;
       }
     }
@@ -366,7 +418,7 @@
     align-items center;
     padding: 5px 0;
     font-size 14px;
-    color: DodgerBlue;
+    color: #1D9ED7;
     font-weight bold;
   }
 
@@ -377,7 +429,7 @@
     line-height 0;
     font-size 0;
     margin-right 5px;
-    background DodgerBlue;
+    background #1D9ED7;
   }
 
   .activity_personnel {

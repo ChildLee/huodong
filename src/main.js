@@ -18,7 +18,7 @@ wrap(App, {
 
 export default {
   config: {
-    pages: ['^pages/my/my_talmud/main'],
+    pages: ['^pages/activity/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',

@@ -2,20 +2,20 @@
   <main>
     <div class="activity_top">
       <div class="activity_search">
-        <input type="text" placeholder="搜索活动">
+        <input v-model="search1" type="text" placeholder="搜索地点" @blur="search">
       </div>
-      <div class="activity_btn" @click="filter">筛选</div>
+      <div class="activity_btn" @click="filter">收藏</div>
     </div>
 
     <div class="activity_nav">
-      <div @click="popup">优惠规则</div>
-      <!--<div>活动介绍</div>-->
-      <div @click="past_activities">往期活动</div>
+      <div @click="popup" style="color: #1D9ED7">优惠规则</div>
+      <div @click="popup1" style="color: #1D9ED7">活动介绍</div>
+      <div @click="past_activities" style="color: #1D9ED7">往期活动</div>
     </div>
 
-    <div v-for="item in list" :key="item.id">
+    <div v-for="(item,index) in list" :key="item.id">
       <div class="container">
-        <div class="activity_list" @click="activity(item.id)">
+        <div class="activity_list" :class="item.surplusStatus===0?'':'bg-d8'" @click="activity(item.id)">
           <div class="activity_list_info">
             <div>{{item.time}}</div>
             <div class="activity_list_info-address">{{item.title}}</div>
@@ -77,19 +77,34 @@
               <div>1</div>
             </div>
           </div>
-          <div class="popup-content-desc-2">
-            <div>一星会员9折参与</div>
-            <div>推荐新成员异性参加活动后返活动价格的4折</div>
-            <div>推荐同性新成员加活动后返活动价格的1折</div>
-            <div>再多荐新成员参加活动后无论同性异性皆返活动价的1折</div>
-          </div>
+          <!--<div class="popup-content-desc-2">-->
+          <!--<div>一星会员9折参与</div>-->
+          <!--<div>推荐新成员异性参加活动后返活动价格的4折</div>-->
+          <!--<div>推荐同性新成员加活动后返活动价格的1折</div>-->
+          <!--<div>再多荐新成员参加活动后无论同性异性皆返活动价的1折</div>-->
+          <!--</div>-->
         </div>
       </div>
-      <div class="popup-curtain" @click="popup">
+      <div class="popup-curtain" @click="closePopup">
         <!--幕布-->
       </div>
     </div>
     <!--弹窗-->
+
+
+    <!--弹窗-->
+    <div class="popup1" v-if="isPopup1">
+      <div class="popup-box">
+        <div>
+          <!--这里填写弹窗的信息-->
+
+          {{placard}}
+        </div>
+      </div>
+      <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
+    </div>
+    <!--弹窗-->
+
 
   </main>
 </template>
@@ -99,8 +114,12 @@
     name: 'index',
     data() {
       return {
+        placard: '',
+        search1: '',
         isPopup: false,
+        isPopup1: false,
         activityStatus: {
+          title: '',
           type: 0, //type,0近期,1往期
           status: 1,//0收藏
           id: 0, //用户id
@@ -110,12 +129,14 @@
           id: 0,
           title: '',
           time: '',
-          place: ''
+          place: '',
+          surplusStatus: 0
         }]
       }
     },
     async onShow() {
       //初始化活动信息
+      this.activityStatus.status = 1
       this.activityStatus.id = this.$app.storageStore.userStore.getters.getUserId //获取用户id
       await this.init()
     },
@@ -128,20 +149,31 @@
           }
         })
       },
+      closePopup() {
+        this.isPopup = false
+        this.isPopup1 = false
+      },
       popup() {
-        this.isPopup = !this.isPopup
+        this.isPopup = true
+      },
+      popup1() {
+        this.isPopup1 = true
+        this.$app.api.activity.introduce().then(res => {
+          this.placard = res.data.introduce
+        })
       },
       filter() {
-        let that = this
-        wx.showActionSheet({
-          itemList: [ '收藏'],
-          success: function (res) {
-            if (res.tapIndex === 0) {
-              that.activityStatus.status = 0
-              that.init()
-            }
-          }
-        })
+        this.activityStatus.status = 0
+        this.init()
+        // let that = this
+        // wx.showActionSheet({
+        //   itemList: ['收藏'],
+        //   success: function (res) {
+        //     if (res.tapIndex === 0) {
+        //
+        //     }
+        //   }
+        // })
       },
       activity(id) {
         this.$app.nav.navigateTo('/pages/activity/activity_info/main', {
@@ -150,6 +182,12 @@
       },
       past_activities() {
         this.$app.nav.navigateTo('/pages/activity/past_activities/main')
+      },
+      search() {
+        // console.log(1)
+        // console.log(this.search1)
+        this.activityStatus.title = this.search1
+        this.init()
       }
     },
     onReachBottom() {
@@ -176,7 +214,37 @@
       border-radius 10px;
       background-color white;
       position: fixed;
-      top: 10%;
+      top: 15%;
+      left: 8%;
+      width 85%;
+      z-index: 3;
+      transition: all 2s;
+
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position fixed;
+      top: 0;
+      left 0;
+      width 100%;
+      height 100%;
+      z-index 2;
+    }
+  }
+
+  /* 弹窗 */
+  .popup1 {
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
+      top: 15%;
       left: 8%;
       width 85%;
       z-index: 3;
@@ -225,13 +293,13 @@
     padding: 0 15px;
     font-size 14px;
     margin-bottom 15px;
-    color: DodgerBlue;
+    color: #1D9ED7;
     font-weight bold;
   }
 
   .activity_list {
     padding: 15px;
-    background-color #e9e9e9;
+    background-color #f5f5f5;
     border-radius 10px;
     font-size 16px;
     margin-bottom 10px;

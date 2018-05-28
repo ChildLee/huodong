@@ -80,16 +80,16 @@
       </div>
       <div>
         <div>
-          <span>建议奖：</span>
-          <span>0</span>
-        </div>
-        <div>
           <span>主持次数：</span>
           <span>{{userInfo.hostNumber}}</span>
         </div>
         <div>
           <span>辅助次数：</span>
           <span>{{userInfo.assistantNumber}}</span>
+        </div>
+        <div>
+          <span>建议奖：</span>
+          <span>0</span>
         </div>
         <div>
           <span>特殊贡献奖：</span>
@@ -100,12 +100,13 @@
 
     <div class="my-price panel">
       <div>
-        <span>收入￥{{userInfo.gold}}</span>
-        <span class="my-price-btn btn btn_size-small btn_color-DodgerBlue" @click="transfer">转账</span>
+        <span class="c666">收入￥<span style="color: #1D9ED7;">{{userInfo.gold}}</span></span>
+        <span style="width: 50%;background: #1D9ED7;" class="my-price-btn btn btn_size-small btn_color-DodgerBlue br5 of"
+              @click="transfer">转账</span>
       </div>
       <div>
-        <span>会费￥{{userInfo.integral}}</span>
-        <span class="my-price-btn btn btn_size-small btn_color-DodgerBlue"
+        <span class="c666">会费￥<span style="color: #1D9ED7;">{{userInfo.integral}}</span></span>
+        <span style="width: 50%;background: #1D9ED7;" class="my-price-btn btn btn_size-small btn_color-DodgerBlue br5 of"
               @click="navigateTo('/pages/activity/pay/main')">充值</span>
       </div>
     </div>
@@ -118,7 +119,7 @@
       <div @click="navigateTo('/pages/my/my_love/main')">我的爱情</div>
       <div @click="navigateTo('/pages/my/my_organize/main')">我组织的</div>
       <div @click="navigateTo('/pages/my/service/main')">平台客服</div>
-      <div @click="navigateTo('/pages/my/my_attention/main')">我的塔木德</div>
+      <div @click="navigateTo('/pages/my/my_talmud/main')">我的塔木德</div>
     </div>
 
     <!--规则弹窗-->
@@ -126,10 +127,10 @@
       <div class="popup-box">
         <div>
           <!---->
-          <div class="rule_top">
-            <div>每期完成评价要求</div>
-            <div>&同时达到累计参与次数</div>
-          </div>
+          <!--<div class="rule_top">-->
+          <!--<div>每期完成评价要求</div>-->
+          <!--<div>&同时达到累计参与次数</div>-->
+          <!--</div>-->
           <!---->
           <div class="upgrade-1">
             <div class="upgrade-box upgrade-color">
@@ -190,10 +191,10 @@
           </div>
           <!---->
           <div class="rule_bottom">
-            <div>塔木德评级系数：</div>
-            <div>回答次数、赞数、回答质量</div>
-            <div>主持/辅助人评级系数：</div>
-            <div> 主持/辅助次数、平均分、评价内容、塔木德、面谈</div>
+            <div>塔木德：回答次数、赞数、回答质量</div>
+            <div></div>
+            <div>主持/辅助人：次数、平均分、评价内容、塔木德、面谈</div>
+            <div></div>
           </div>
         </div>
       </div>
@@ -399,6 +400,7 @@
     background-color white;
     color: #006600;
     font-size 16px;
+    text-align center
 
     > ._div {
       display flex;
@@ -415,7 +417,7 @@
     font-size 16px;
     display flex;
     flex-wrap: wrap;
-    color: #6D5B42;
+    color: #666;
     background-color white;
 
     ._div {
@@ -482,7 +484,7 @@
       border-radius 10px;
       box-sizing border-box;
       background-color white;
-      top: 5%;
+      top: 10%;
       left: 7%;
       width 86%;
       z-index: 3;
@@ -545,7 +547,7 @@
     font-size 14px;
 
     ._div:nth-child(even) {
-      text-indent 4em;
+      /*text-indent 2em;*/
     }
   }
 

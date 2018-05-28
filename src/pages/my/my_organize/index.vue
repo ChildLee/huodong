@@ -48,7 +48,7 @@
         }]
       }
     },
-    async onLoad() {
+    async onShow() {
       this.init(1)
     },
     methods: {
@@ -57,6 +57,7 @@
           userId: this.$app.storageStore.userStore.getters.getUserId,
           type: type
         }).then(res => {
+          console.log(res)
           if (res.data) {
             this.list = JSON.parse(res.data.myOrganizations)
             this.hostStatus = res.data.hostStatus

@@ -40,5 +40,9 @@ export default {
   //获取个人中心
   feedback(param) {
     return wx.httpRequest.httpJsonPost('/user/feedback', param)
+  },
+  //备注关注人
+  modifyRemark(param) {
+    return wx.httpRequest.httpJsonPost('/user/modifyRemark', param)
   }
 }

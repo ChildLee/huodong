@@ -64,7 +64,7 @@
       <wx-cell arrow text="Ta的评价"></wx-cell>
     </div>
 
-    <div class="panel">
+    <div class="panel" @click="ta_talmud">
       <wx-cell arrow text="Ta的塔木德"></wx-cell>
     </div>
 
@@ -155,6 +155,9 @@
       },
       comment() {
         this.$app.nav.navigateTo('/pages/my/my_attention/comment/main', {id: this.user.id})
+      },
+      ta_talmud() {
+        this.$app.nav.navigateTo('/pages/my/my_talmud/main', {id: this.user.id})
       }
     }
   }

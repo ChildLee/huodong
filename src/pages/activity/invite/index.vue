@@ -16,7 +16,7 @@
         <div>{{item.nickName}}</div>
         <div>{{item.remark?remark:''}}</div>
         <div>
-          <span class="btn-no_border btn btn_size-small btn_color-DodgerBlue" @click="invite_helper(item.id)">邀约</span>
+          <span class="btn btn_size-small btn_color-DodgerBlue br5 of" @click="invite_helper(item.id)">邀约</span>
         </div>
       </div>
 
@@ -44,6 +44,7 @@
       }
     },
     async onLoad() {
+      this.activityId = this.$mp.query.id
       await this.init()
     },
     methods: {
@@ -59,14 +60,15 @@
         })
       },
       invite_helper(id) {
+        let that = this
         this.$app.api.activity.addInvitation({
           activityId: this.activityId,
-          type: 3,//1参与者,2是辅助人,3爱情
+          type: 1,//1参与者,2是辅助人,3爱情
           userId: this.$app.storageStore.userStore.getters.getUserId,
           invitationId: id
         }).then(res => {
           if (res.data) {
-            this.$app.nav.navigateTo('/pages/activity/activity_info/main')
+            that.$app.nav.navigateTo('/pages/activity/activity_info/main', {id: that.activityId})
             wx.showToast({title: '邀约成功!', icon: 'success'})
           }
         })

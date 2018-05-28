@@ -32,7 +32,7 @@
     font-style: normal;
     content: '\e650'
 
-    color: DodgerBlue;
+    color: #1D9ED7;
     transform: translate(-50%, -50%) scale(1);
   }
 

@@ -3,7 +3,7 @@
     <div class="talmud_top">
       <!--<div>规则</div>-->
       <div class="talmud_top-search">
-        <input type="text" placeholder="搜索"/>
+        <input v-model="search1" type="text" placeholder="搜索" @blur="search"/>
       </div>
       <div class="btn btn_size-small" @click="same">我的同问</div>
     </div>
@@ -21,8 +21,9 @@
       <div class="talmud-info" v-for="(item,index) in list" :key="item.id" @click.stop="talmudInfo(item.id)">
         <div class="talmud-title">
           <span>{{item.title}}</span>
-          <span class="talmud-btn" @click="reply(item.id)">回答</span>
-          <span class="icon talmud-num" @click.stop="addSame(item,item.id)">&#xe645;{{item.sameQuestion}}</span>
+          <span class="icon talmud-num" @click.stop="addSame(item,item.id)">&#xe645;{{item.sameQuestion}}
+             <span class="talmud-btn mg10-l" @click.stop="reply(item.id)">回答</span>
+          </span>
         </div>
         <div class="talmud-tag">标签:{{item.tag}}</div>
       </div>
@@ -51,6 +52,21 @@
       </div>
       <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
     </div>
+
+    <!--弹窗-->
+    <div class="popup-1" v-if="isPopup1">
+      <div class="popup-box">
+        <div class="w h100 border">
+          <textarea v-model="content" maxlength="5000" class="w h" placeholder="请回答"></textarea>
+        </div>
+        <div style="text-align: center;" class="mg10-t">
+          <div class="btn btn_size-small btn_color-DodgerBlue" @click="Reply1">确定</div>
+        </div>
+      </div>
+      <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
+    </div>
+    <!--弹窗-->
+
   </main>
   <!--弹窗-->
 </template>
@@ -60,10 +76,14 @@
     name: 'talmud',
     data() {
       return {
+        search1: '',
+        replyid: 0,
+        content: '',
         member: 0,
         quest_text: '',
         quest_tag: '',
         isPopup: false, //是否显示弹窗
+        isPopup1: false, //是否显示弹窗
         status: 1,
         tab: 1,
         res: {
@@ -79,7 +99,7 @@
         }]
       }
     },
-    async onLoad() {
+    async onShow() {
       //判断资料填了没有
       this.$app.storageStore.userStore.getters.getType ? `` : wx.redirectTo({url: '/pages/my/my_info/add_info/main?id=1'})
       await this.init(1)
@@ -98,6 +118,7 @@
       },
       closePopup() {
         this.isPopup = false
+        this.isPopup1 = false
       },
       popup() {
         if (this.member === 0) {
@@ -157,9 +178,35 @@
         this.$app.nav.navigateTo('/pages/talmud/talmud_info/main', {id})
       },
       reply(id) {
-        // this.$app.api.talmuds.talmud({}).then(res => {
-        //
-        // })
+        this.isPopup1 = true
+        this.replyid = id
+      },
+      Reply1() {
+        let that = this
+        this.$app.api.talmuds.addReply({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          talmudId: this.replyid,
+          content: this.content
+        }).then(res => {
+          console.log(res)
+          if (res.data) {
+            that.closePopup()
+            wx.showToast({title: '回答成功', icon: 'none'})
+          }
+        })
+      },
+      search() {
+        this.$app.api.talmuds.talmuds({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          title: this.search1,
+          status: this.tab //1散问 2整理
+        }).then(res => {
+          console.log(res)
+          this.list = []
+          if (res.data) {
+            this.list = JSON.parse(res.data.myTalmuds)
+          }
+        })
       }
     }
   }
@@ -205,7 +252,8 @@
       .talmud-btn {
         flex none;
         color: #25ABDF;
-        font-weight bold;
+        font-size 14px;
+        /*font-weight bold;*/
       }
 
       .talmud-num {
@@ -296,6 +344,36 @@
     margin-top 10px;
     font-size 16px;
     color: #1388BA;
+  }
+
+  /* 弹窗 */
+  .popup-1 {
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
+      top: 30%;
+      left: 10%;
+      width 80%;
+      z-index: 3;
+      transition: all 2s;
+
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position fixed;
+      top: 0;
+      left 0;
+      width 100%;
+      height 100%;
+      z-index 2;
+    }
   }
 </style>
 

@@ -19,8 +19,9 @@
           <div class="field">
             <div class="field_left">性别：</div>
             <div class="field_right">
+              <!--{{userInfo.sex===1?'男':'女'}}-->
               <picker name="sex" @change="sexChange" :value="userInfo.sex" :range="sexBox">
-                {{sexBox[userInfo.sex]}}
+              {{sexBox[userInfo.sex]}}
               </picker>
             </div>
           </div>
@@ -188,7 +189,7 @@
             userId: this.$app.storageStore.userStore.getters.getUserId, //用户id
             phone: data.phone, //手机
             nick: data.nick, //昵称
-            sex: data.sex, //性别
+            sex: this.userInfo.sex, //性别
             currentCity: data.currentCity, //常驻城市
             status: data.status, //婚姻状态
             selfEvaluation: data.selfEvaluation, //自评

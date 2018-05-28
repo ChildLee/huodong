@@ -31,10 +31,10 @@
     </div>
 
     <div class="activity_personnel icon">
-      <div class="active_staff">
+      <div class="active_staff ">
         <div></div>
-        <div>男</div>
-        <div>女</div>
+        <div>&#xe643;</div>
+        <div>&#xe665;</div>
       </div>
 
       <div class="active_staff" v-for="(item,index) in activityInfo.userList" v-if="item.role===2" :key="item.id">
@@ -354,7 +354,7 @@
     align-items center;
     padding: 5px 0;
     font-size 14px;
-    color: DodgerBlue;
+    color: #1D9ED7;
     font-weight bold;
   }
 
@@ -365,7 +365,7 @@
     line-height 0;
     font-size 0;
     margin-right 5px;
-    background DodgerBlue;
+    background: #1D9ED7;
   }
 
   .activity_personnel {

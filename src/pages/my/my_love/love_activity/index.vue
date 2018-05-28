@@ -6,16 +6,16 @@
       </div>
     </div>
 
-    <div class="prompt">您与{{userInfo.nick}}在{{determine}}-{{stop?stop:'至今'}}期间尝试交往</div>
+    <div class="prompt">您与{{userInfo.nick}}在{{determine?determine:''}}-{{stop?stop:'至今'}}期间尝试交往</div>
 
     <!--弹窗显示信件-->
     <div class="popup_1" v-if="isPopup">
       <div class="popup-box">
         <div class="love_msg">
           <div class="love_msg-1">我给二丫的信</div>
-          <div class="love_msg-2">{{issueReviews}}</div>
+          <div class="love_msg-2">{{issueReviews?issueReviews:'无'}}</div>
           <div class="love_msg-1">二丫给我的信</div>
-          <div class="love_msg-2">{{receivedReviews}}</div>
+          <div class="love_msg-2">{{receivedReviews?receivedReviews:'无'}}</div>
         </div>
       </div>
       <div class="popup-curtain" @click="closePopup"></div>
@@ -89,7 +89,6 @@
           loveUserId: this.loveUserId,
           activityId: id
         }).then(res => {
-          console.log(res)
           this.issueReviews = res.data.issueReviews
           this.receivedReviews = res.data.receivedReviews
         })
@@ -159,8 +158,9 @@
   .love_msg {
 
     .love_msg-1 {
-      font-weight bold;
+      /*font-weight bold;*/
     }
+
     .love_msg-2 {
       text-indent 2em;
     }
