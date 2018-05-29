@@ -9,8 +9,8 @@ wrap(App, {
   pkgName: 'zzlSocial',
   // env: 'production' | 'development',
   env: 'production',
-  // domain: 'https://zzlsocial.com'
-  domain: 'http://192.168.1.53'
+  domain: 'https://zzlsocial.com'
+  // domain: 'http://192.168.1.53'
 }, {
   api,
   storageStore
@@ -26,6 +26,7 @@ export default {
       navigationBarTextStyle: 'black'
     },
     tabBar: {
+      selectedColor: '#009dda',
       list: [
         {
           pagePath: 'pages/activity/main',

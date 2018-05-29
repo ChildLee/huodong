@@ -3,7 +3,7 @@
 
     <div class="mg15-lr icon">
 
-      <div class="pd15 mg10-b bg-eee br10" v-for="(item,index) in myTalmuds" :key="index">
+      <div class="pd15 mg10-b bg-eee br10" v-for="(item,index) in myTalmuds" :key="index" @click="talmudInfo(item.id)">
         <div class="fs16 c111 f-between">
           <div>{{item.title}}</div>
           <div>&#xe645;{{item.sameQuestion}}</div>
@@ -49,6 +49,9 @@
             this.myTalmuds = JSON.parse(res.data.myTalmuds)
           }
         })
+      },
+      talmudInfo(id) {
+        this.$app.nav.navigateTo('/pages/talmud/talmud_info/main', {id})
       }
     }
   }

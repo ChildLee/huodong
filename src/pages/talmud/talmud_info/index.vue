@@ -3,7 +3,7 @@
     <div class="talmud">
       <div class="talmud-info">
         <div class="talmud-title">
-          <span>{{talmud.title}}</span>
+          <span>{{talmud.title?talmud.title:''}}</span>
           <!--<span class="icon talmud-num" @click="addSame(item,item.id)">&#xe645;{{talmud.content}}</span>-->
         </div>
         <!--<div class="talmud-tag">标签:{{item.tag}}111</div>-->
@@ -42,8 +42,12 @@
           id: this.$mp.query.id
         }).then(res => {
           if (res.data) {
-            this.replies = JSON.parse(res.data.replies)
-            this.talmud = JSON.parse(res.data.talmud)
+            if (res.data.replies) {
+              this.replies = JSON.parse(res.data.replies)
+            }
+            if (res.data.talmud !== 'null') {
+              this.talmud = JSON.parse(res.data.talmud)
+            }
           }
         })
       }
