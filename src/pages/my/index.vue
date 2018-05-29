@@ -141,19 +141,19 @@
             </div>
             <div class="upgrade-box">
               <div>I---II</div>
-              <div>31</div>
+              <div>{{roles.userLV2}}</div>
             </div>
             <div class="upgrade-box">
               <div>II---III</div>
-              <div>101</div>
+              <div>{{roles.userLV3}}</div>
             </div>
             <div class="upgrade-box">
               <div>III---IV</div>
-              <div>301</div>
+              <div>{{roles.userLV4}}</div>
             </div>
             <div class="upgrade-box">
               <div>IV-V</div>
-              <div>501</div>
+              <div>{{roles.userLV5}}</div>
             </div>
           </div>
           <!---->
@@ -169,26 +169,26 @@
             <div class="upgrade-box">
               <div class="upgrade-color">主持人</div>
               <div>0</div>
-              <div>35</div>
-              <div>85</div>
-              <div>135</div>
-              <div>185</div>
+              <div>{{roles.hostLV1}}</div>
+              <div>{{roles.hostLV2}}</div>
+              <div>{{roles.hostLV3}}</div>
+              <div>{{roles.hostLV4}}</div>
             </div>
             <div class="upgrade-box">
               <div class="upgrade-color">辅助人</div>
               <div>0</div>
-              <div>35</div>
-              <div>85</div>
-              <div>135</div>
-              <div>185</div>
+              <div>{{roles.assistantLV1}}</div>
+              <div>{{roles.assistantLV2}}</div>
+              <div>{{roles.assistantLV3}}</div>
+              <div>{{roles.assistantLV4}}</div>
             </div>
             <div class="upgrade-box">
               <div class="upgrade-color">塔木德</div>
               <div>无</div>
               <div>无</div>
-              <div>20</div>
-              <div>60</div>
-              <div>100</div>
+              <div>{{roles.talmudLV1}}</div>
+              <div>{{roles.talmudLV2}}</div>
+              <div>{{roles.talmudLV3}}</div>
             </div>
           </div>
           <!---->
@@ -245,6 +245,23 @@
     },
     data() {
       return {
+        roles: {
+          assistantLV1: 35,
+          assistantLV2: 85,
+          assistantLV3: 135,
+          assistantLV4: 185,
+          hostLV1: 35,
+          hostLV2: 85,
+          hostLV3: 135,
+          hostLV4: 185,
+          talmudLV1: 20,
+          talmudLV2: 60,
+          talmudLV3: 180,
+          userLV2: 31,
+          userLV3: 101,
+          userLV4: 301,
+          userLV5: 501
+        },
         love: '',
         transfer_money: '', //转账金额
         withdraw: '', //提现金额
@@ -311,6 +328,11 @@
         })
       },
       popup() {
+        this.$app.api.user.LVRule().then(res => {
+          this.roles = res.data
+          console.log(res.data)
+        })
+
         this.isPopup = !this.isPopup
       },
       transfer() {

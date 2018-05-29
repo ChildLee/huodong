@@ -159,8 +159,9 @@
     <div class="popup" v-if="isPay">
       <div class="popup-box">
         <div class="pay-box">
-          <div class="pay-price">支付会费188元</div>
-          <div class="pay-balance">会费剩余100元</div>
+          <div class="pay-price">支付会费{{user.sex===1?activityInfo.activity.menPrice:activityInfo.activity.womenPrice}}元
+          </div>
+          <!--<div class="pay-balance">会费剩余100元</div>-->
           <div class="pay-btn border-top" @click="payBtn">确定</div>
         </div>
       </div>
@@ -195,6 +196,7 @@
     name: 'activity_info',
     data() {
       return {
+        user: '',
         isPay: false, //支付弹窗
         activityId: 0, //活动Id
         dataStatus: 0, //资料是否填写
@@ -256,6 +258,15 @@
           this.activityInfo.activity = JSON.parse(res.data.activity)
           this.activityInfo.userList = JSON.parse(res.data.userList)
         })
+
+        this.$app.api.user.userCenter({
+          userId: this.$app.storageStore.userStore.getters.getUserId
+        }).then(res => {
+          console.log(res.data)
+          if (res.data) {
+            this.user = JSON.parse(res.data.user)
+          }
+        })
       },
       goData() {
         this.$app.nav.navigateTo('/pages/my/my_info/add_info/main')
@@ -270,7 +281,9 @@
           userId: this.$app.storageStore.userStore.getters.getUserId,
           id: this.activityId
         }).then(res => {
-          wx.showToast({title: '收藏成功!', icon: 'none'})
+          if (res.data) {
+            wx.showToast({title: '收藏成功!', icon: 'none'})
+          }
         }) : this.goData()
 
       },
@@ -297,8 +310,17 @@
         this.isPay = false
       },
       payBtn() {
-        this.closePopup()
-        this.navigateTo('/pages/activity/pay/main')
+        this.$app.api.activity.joinActivity({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          activityId: this.activityId
+        }).then(res => {
+          if (res.data) {
+            wx.showToast({title: '参加成功!', icon: 'none'})
+            this.closePopup()
+          } else {
+            this.navigateTo('/pages/activity/pay/main')
+          }
+        })
       }
     },
     onShareAppMessage() {

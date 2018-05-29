@@ -41,41 +41,57 @@
               <div>推荐异性</div>
               <div>推荐更多</div>
             </div>
-            <div class="activity_rule">
-              <div>I</div>
-              <div>9</div>
-              <div>4</div>
-              <div>1</div>
-              <div>1</div>
+
+            <div v-for="(item,index) in roles">
+              <div class="activity_rule">
+                <div v-if="item.level===1">I</div>
+                <div v-if="item.level===2">II</div>
+                <div v-if="item.level===3">III</div>
+                <div v-if="item.level===4">IV</div>
+                <div v-if="item.level===5">V</div>
+                <div>{{item.rebate}}</div>
+                <div>{{item.firstHeterosexual}}</div>
+                <div>{{item.firstHomosexual}}</div>
+                <div>{{item.other}}</div>
+              </div>
             </div>
-            <div class="activity_rule">
-              <div>II</div>
-              <div>7</div>
-              <div>3</div>
-              <div>1</div>
-              <div>1</div>
-            </div>
-            <div class="activity_rule">
-              <div>III</div>
-              <div>5</div>
-              <div>2</div>
-              <div>1</div>
-              <div>1</div>
-            </div>
-            <div class="activity_rule">
-              <div>IV</div>
-              <div>3</div>
-              <div>1</div>
-              <div>1</div>
-              <div>1</div>
-            </div>
-            <div class="activity_rule">
-              <div>V</div>
-              <div>1</div>
-              <div>2</div>
-              <div>1</div>
-              <div>1</div>
-            </div>
+
+
+            <!--<div class="activity_rule">-->
+              <!--<div>I</div>-->
+              <!--<div>9</div>-->
+              <!--<div>4</div>-->
+              <!--<div>1</div>-->
+              <!--<div>1</div>-->
+            <!--</div>-->
+            <!--<div class="activity_rule">-->
+              <!--<div>II</div>-->
+              <!--<div>7</div>-->
+              <!--<div>3</div>-->
+              <!--<div>1</div>-->
+              <!--<div>1</div>-->
+            <!--</div>-->
+            <!--<div class="activity_rule">-->
+              <!--<div>III</div>-->
+              <!--<div>5</div>-->
+              <!--<div>2</div>-->
+              <!--<div>1</div>-->
+              <!--<div>1</div>-->
+            <!--</div>-->
+            <!--<div class="activity_rule">-->
+              <!--<div>IV</div>-->
+              <!--<div>3</div>-->
+              <!--<div>1</div>-->
+              <!--<div>1</div>-->
+              <!--<div>1</div>-->
+            <!--</div>-->
+            <!--<div class="activity_rule">-->
+              <!--<div>V</div>-->
+              <!--<div>1</div>-->
+              <!--<div>2</div>-->
+              <!--<div>1</div>-->
+              <!--<div>1</div>-->
+            <!--</div>-->
           </div>
           <!--<div class="popup-content-desc-2">-->
           <!--<div>一星会员9折参与</div>-->
@@ -114,6 +130,7 @@
     name: 'index',
     data() {
       return {
+        roles: [],
         placard: '',
         search1: '',
         isPopup: false,
@@ -154,6 +171,10 @@
         this.isPopup1 = false
       },
       popup() {
+        this.$app.api.user.preferential().then(res => {
+          this.roles = JSON.parse(res.data.preferential)
+        })
+
         this.isPopup = true
       },
       popup1() {

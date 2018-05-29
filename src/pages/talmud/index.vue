@@ -99,7 +99,7 @@
         }]
       }
     },
-    async onShow() {
+    async onLoad() {
       //判断资料填了没有
       this.$app.storageStore.userStore.getters.getType ? `` : wx.redirectTo({url: '/pages/my/my_info/add_info/main?id=1'})
       await this.init(1)
@@ -107,10 +107,10 @@
     },
     methods: {
       async init(tab) {
+        this.list = []
         this.$app.api.talmuds.talmuds({
           status: tab //1散问 2整理
         }).then(res => {
-          this.list = []
           if (res.data) {
             this.list = JSON.parse(res.data.myTalmuds)
           }
@@ -121,24 +121,24 @@
         this.isPopup1 = false
       },
       popup() {
-        if (this.member === 0) {
-          return wx.showToast({title: '非会员不能提问和查看整理区', icon: 'none'})
-        }
+        // if (this.member === 0) {
+        //   return wx.showToast({title: '非会员不能提问和查看整理区', icon: 'none'})
+        // }
         this.isPopup = true
       },
       switchTab(tab) {
-        if (tab === 2 && this.member === 0) {
-          return wx.showToast({title: '非会员不能提问和查看整理区', icon: 'none'})
-        }
+        // if (tab === 2 && this.member === 0) {
+        //   return wx.showToast({title: '非会员不能提问和查看整理区', icon: 'none'})
+        // }
         this.tab = tab
         this.init(tab)
       },
       same() {
+        this.list = []
         this.$app.api.talmuds.talmuds({
           userId: this.$app.storageStore.userStore.getters.getUserId,
           status: this.tab //1散问 2整理
         }).then(res => {
-          this.list = []
           if (res.data) {
             this.list = JSON.parse(res.data.myTalmuds)
           }
@@ -157,6 +157,7 @@
         })
       },
       quest_send() {
+        this.list = []
         this.$app.api.talmuds.addTalmud({
           userId: this.$app.storageStore.userStore.getters.getUserId,
           content: this.quest_text,
@@ -196,13 +197,12 @@
         })
       },
       search() {
+        this.list = []
         this.$app.api.talmuds.talmuds({
           userId: this.$app.storageStore.userStore.getters.getUserId,
           title: this.search1,
           status: this.tab //1散问 2整理
         }).then(res => {
-          console.log(res)
-          this.list = []
           if (res.data) {
             this.list = JSON.parse(res.data.myTalmuds)
           }

@@ -24,5 +24,13 @@ export default {
   //回答
   addReply(param) {
     return wx.httpRequest.httpJsonPost('/user/addReply', param)
+  },
+  //回答
+  like(param) {
+    return wx.httpRequest.httpJsonPost('/user/like', param)
+  },
+  //删除塔木德回答
+  deleteReply(param) {
+    return wx.httpRequest.httpJsonPost('/user/deleteReply', param)
   }
 }

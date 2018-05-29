@@ -38,7 +38,7 @@
             let tempFilePaths = res.tempFilePaths
             that.img = tempFilePaths[0]
             wx.uploadFile({
-              url: wx.httpRequest._config.domain + '/img/weChat/file',
+              url: wx.httpRequest._config.domain + '/imgs/weChat/file',
               filePath: tempFilePaths[0],
               name: 'file',
               formData: {
@@ -62,7 +62,7 @@
             let tempFilePaths = res.tempFilePaths
             that.img_2 = tempFilePaths[0]
             wx.uploadFile({
-              url: wx.httpRequest._config.domain + '/img/weChat/file',
+              url: wx.httpRequest._config.domain + '/imgs/weChat/file',
               filePath: tempFilePaths[0],
               name: 'file',
               formData: {

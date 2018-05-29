@@ -198,13 +198,26 @@
         this.isPopup2 = true
       },
       popup_1() {
+        let that = this
         // if (this.attention_num === 0) {
         //   return wx.showToast({title: '请选择金额!', icon: 'none'})
         // }
         // this.attention_num === '1' ? this.attention_money = 50 : this.attention_money = 100
         // this.closePopup()
         // this.isPopup_1 = true
-        this.$app.nav.navigateTo('/pages/activity/pay/main')
+        this.$app.api.user.focusMore({
+          userId: this.$app.storageStore.userStore.getters.getType,
+          type: 1
+        }).then(res => {
+          console.log(res)
+          if (res.data) {
+            wx.showToast({title: '购买关注成功!', icon: 'none'})
+            that.closePopup()
+          } else {
+            this.$app.nav.navigateTo('/pages/activity/pay/main')
+          }
+        })
+
       },
       popupChange(e) {
         this.attention_num = e.target.value

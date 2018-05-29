@@ -140,9 +140,15 @@
     <!--弹窗-->
 
     <div class="f-around mg15-t">
-      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="startA">开始</div>
-      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="editA">修改</div>
-      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="stopA">结束</div>
+      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="startA"
+           v-if="activityInfo.activity.status===0">开始
+      </div>
+      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="editA"
+           v-if="activityInfo.activity.status===0||activityInfo.activity.status===1">修改
+      </div>
+      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="stopA"
+           v-if="activityInfo.activity.status===1">结束
+      </div>
     </div>
 
   </main>
@@ -161,6 +167,7 @@
         isAssess: false, //是否显示弹窗
         activityInfo: {
           activity: {
+            status: 1,//status  活动状态 0准备发起 1已发起 2已结束
             hostRevenue: 0, //主持人收入
             assistantRevenue: 0, //辅助人收入
             title: '', //标题
@@ -208,8 +215,10 @@
           id: this.activityId, //活动id
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id
         }).then(res => {
+
           this.activityInfo.activity = JSON.parse(res.data.myOrganizations)
           this.activityInfo.userList = JSON.parse(res.data.userlists)
+          console.log(this.activityInfo.activity)
         })
       },
       //点击评价规则

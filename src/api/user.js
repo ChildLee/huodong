@@ -44,5 +44,17 @@ export default {
   //备注关注人
   modifyRemark(param) {
     return wx.httpRequest.httpJsonPost('/user/modifyRemark', param)
+  },
+  //备注关注人
+  focusMore(param) {
+    return wx.httpRequest.httpJsonPost('/user/focusMore', param)
+  },
+  //备注关注人
+  preferential(param) {
+    return wx.httpRequest.httpJsonPost('/user/preferential', param)
+  },
+  //备注关注人
+  LVRule(param) {
+    return wx.httpRequest.httpJsonPost('/user/LVRule', param)
   }
 }

@@ -62,7 +62,7 @@
 
     <div class="publish_activities_btn">
       <div class="btn btn_size-small btn_color-diyBlue" @click="invite_btn">确定/邀约辅助人</div>
-      <div class="btn btn_size-small btn-disabled">确定/不邀约</div>
+      <div class="btn btn_size-small btn-disabled" @click="no_invite_btn">确定/不邀约</div>
     </div>
   </main>
 </template>
@@ -104,6 +104,25 @@
             wx.redirectTo({
               url: this.$app.utils.addUrlQuery('/pages/my/my_organize/invite/main', res.data)
             })
+          }
+        })
+      },
+      no_invite_btn() {
+        this.$app.api.activity.publishActivities({
+          id: this.$app.storageStore.userStore.getters.getUserId,
+          time: this.time,
+          title: this.title,
+          place: this.place,
+          phone: this.phone,
+          menPrice: this.menPrice,
+          menPlaces: this.menPlaces,
+          freePlaces: this.freePlaces,
+          womenPrice: this.womenPrice,
+          womenPlaces: this.womenPlaces
+        }).then(res => {
+          console.log(res.data)
+          if (res.data) {
+
           }
         })
       }

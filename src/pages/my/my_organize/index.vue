@@ -38,7 +38,7 @@
       return {
         hostStatus: 0,//0不是主持人
         tab: 1,
-        type: 1,//0将组织的,1已组织的
+        type: 1,//1将组织的,2已组织的
         list: [{
           id: 1,
           place: '地点1',

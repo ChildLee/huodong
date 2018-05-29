@@ -4,9 +4,8 @@
       <div class="talmud-info">
         <div class="talmud-title">
           <span>{{talmud.title?talmud.title:''}}</span>
-          <!--<span class="icon talmud-num" @click="addSame(item,item.id)">&#xe645;{{talmud.content}}</span>-->
         </div>
-        <!--<div class="talmud-tag">标签:{{item.tag}}111</div>-->
+        <div class="talmud-tag">标签:{{talmud.tag?talmud.tag:''}}</div>
       </div>
     </div>
 
@@ -15,6 +14,7 @@
         <div class="talmud_info f f-between c999 ">
           <span class="f-none">{{item.nickName}}</span>
           <span class="f-1 mg10-l small">2018-8-8 9:00</span>
+          <span style="float: right" class="small icon" @click.stop="like_btn(item.id)">&#xe6e1; {{item.likes}}</span>
         </div>
         <div class="c555 fs14">{{item.content}}
         </div>
@@ -29,8 +29,8 @@
     name: 'index',
     data() {
       return {
-        replies: [{'attentionStatus': 0, 'content': '塔木德回答内容1', 'like': 300, 'nickName': '匿名用户'}],
-        talmud: {'content': '塔木德内容1', 'title': '塔木德标题1'}
+        replies: [],
+        talmud: {}
       }
     },
     async onLoad() {
@@ -38,17 +38,33 @@
     },
     methods: {
       async init() {
+        let that = this
+        this.replies=[]
+        this.talmud={}
         this.$app.api.talmuds.talmud({
-          id: this.$mp.query.id
+          id: that.$mp.query.id
         }).then(res => {
+          console.log(res.data)
           if (res.data) {
             if (res.data.replies) {
-              this.replies = JSON.parse(res.data.replies)
+              that.replies = JSON.parse(res.data.replies)
             }
             if (res.data.talmud !== 'null') {
-              this.talmud = JSON.parse(res.data.talmud)
+              that.talmud = JSON.parse(res.data.talmud)
             }
           }
+        })
+      },
+      like_btn(id) {
+        let that = this
+        this.$app.api.talmuds.like({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          talmudId: id
+        }).then(res => {
+          if (res.data) {
+            that.init()
+          }
+          console.log(res.data)
         })
       }
     }

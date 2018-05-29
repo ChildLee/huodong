@@ -85,8 +85,12 @@ export default {
   stopActivity(param) {
     return wx.httpRequest.httpJsonPost('/user/stopActivity', param)
   },
-  //活动开始
+  //
   modifyActivity(param) {
     return wx.httpRequest.httpJsonPost('/user/modifyActivity', param)
+  },
+  //参加活动
+  joinActivity(param) {
+    return wx.httpRequest.httpJsonPost('/user/joinActivity', param)
   }
 }
