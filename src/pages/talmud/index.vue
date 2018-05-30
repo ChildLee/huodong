@@ -121,15 +121,15 @@
         this.isPopup1 = false
       },
       popup() {
-        // if (this.member === 0) {
-        //   return wx.showToast({title: '非会员不能提问和查看整理区', icon: 'none'})
-        // }
+        if (this.member === 0) {
+          return wx.showToast({title: '非会员不能提问和查看整理区', icon: 'none'})
+        }
         this.isPopup = true
       },
       switchTab(tab) {
-        // if (tab === 2 && this.member === 0) {
-        //   return wx.showToast({title: '非会员不能提问和查看整理区', icon: 'none'})
-        // }
+        if (tab === 2 && this.member === 0) {
+          return wx.showToast({title: '非会员不能提问和查看整理区', icon: 'none'})
+        }
         this.tab = tab
         this.init(tab)
       },
