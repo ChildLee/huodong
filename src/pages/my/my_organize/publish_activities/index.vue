@@ -122,7 +122,7 @@
         }).then(res => {
           if (res.data) {
             wx.redirectTo({
-              url: this.$app.utils.addUrlQuery('/pages/my/my_organize/invite/main', res.data)
+              url: this.$app.utils.addUrlQuery('/pages/my/my_organize/main', res.data)
             })
           }
         })
