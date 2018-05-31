@@ -40,14 +40,20 @@
           remark: null,
           sex: 1,
           time: '2018-5-5 20:19:15'
-        }]
+        }],
+        info: {}
       }
     },
     async onLoad() {
-      await this.init()
+      if (this.$mp.query.info) {
+        let info = JSON.parse(this.$mp.query.info)
+        this.info = info
+        await this.init()
+      }
     },
     methods: {
       async init() {
+        this.list = []
         this.$app.api.user.myFocus({
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {
@@ -58,17 +64,31 @@
           }
         })
       },
-      invite_helper(id) {
-        this.$app.api.activity.addInvitation({
-          activityId: this.activityId,
-          type: 2,//1参与者,2是辅助人,3爱情
-          userId: this.$app.storageStore.userStore.getters.getUserId,
-          invitationId: id
-        }).then(res => {
-          if (res.data) {
-            this.$app.nav.navigateTo('/pages/my/my_activity/main')
-            wx.showToast({title: '邀约成功!', icon: 'success'})
+      async invite_helper(id) {
+        let that = this
+        await this.$app.api.activity.publishActivities(that.info).then(res => {
+          /**
+           activityId:42
+           addStatus:true
+           hostStatus:0
+           userId:4
+           **/
+          if (res.state) {
+            return wx.showToast({title: res.message, icon: 'none'})
           }
+          return res.data
+        }).then(res => {
+          this.$app.api.activity.addInvitation({
+            activityId: res.activityId,
+            type: 2,//1参与者,2是辅助人,3爱情
+            userId: this.$app.storageStore.userStore.getters.getUserId,
+            invitationId: id
+          }).then(res => {
+            if (res.data) {
+              this.$app.nav.navigateTo('/pages/my/my_organize/main')
+              wx.showToast({title: '邀约成功!', icon: 'success'})
+            }
+          })
         })
       }
     }

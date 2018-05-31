@@ -109,7 +109,8 @@
         <span class="c666">会费￥<span style="color: #1D9ED7;">{{userInfo.integral}}</span></span>
         <span style="width: 50%;background: #1D9ED7;"
               class="my-price-btn btn btn_size-small btn_color-DodgerBlue br5 of"
-              @click="navigateTo('/pages/activity/pay/main')">充值</span>
+              @click="recharge">充值</span>
+        <!--navigateTo('/pages/activity/pay/main')-->
       </div>
     </div>
 
@@ -213,14 +214,14 @@
               <radio :value="0"/>
               <span>转会费</span>
               <span>
-                <input v-model="transfer_money" class="transfer-input" type="text" placeholder="请输入金额">
+                <input v-model="transfer_money" class="transfer-input" type="number" placeholder="请输入金额">
               </span>
             </label>
             <label class="transfer">
               <radio :value="1"/>
               <span>提现</span>
               <span>
-                <input v-model="withdraw" class="transfer-input" type="text" placeholder="每月25日申请">
+                <input v-model="withdraw" class="transfer-input" type="number" placeholder="每月25日申请">
               </span>
             </label>
           </radio-group>
@@ -232,6 +233,25 @@
       <div class="popup-curtain" @click="transfer"><!--幕布--></div>
     </div>
     <!--转账弹窗-->
+
+    <!--充值-->
+    <div class="popup-3" v-if="isPopup2">
+      <div class="popup-box">
+        <div>
+          <div class="transfer">
+            <span>充值</span>
+            <span>
+                <input v-model="recharge1" class="transfer-input1" type="number" placeholder="请输入金额">
+              </span>
+          </div>
+          <div class="transfer-btn-box border-top">
+            <span class="transfer-btn btn btn_size-small" @click="btn_recharge">确定</span>
+          </div>
+        </div>
+      </div>
+      <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
+    </div>
+    <!--弹窗-->
   </main>
 </template>
 
@@ -287,7 +307,9 @@
           reviewNumber: 0 //评价次数
         },
         isPopup: false,
-        isTransfer: false
+        isPopup2: false,
+        isTransfer: false,
+        recharge1: ''
       }
     },
     watch: {
@@ -327,10 +349,12 @@
           this.userInfo.avatatUrl = img
         })
       },
+      closePopup() {
+        this.isPopup2 = false
+      },
       popup() {
         this.$app.api.user.LVRule().then(res => {
           this.roles = res.data
-          console.log(res.data)
         })
 
         this.isPopup = !this.isPopup
@@ -344,8 +368,32 @@
       popup_sel(e) {
         this.transfer_sel = e.target.value
       },
+      btn_recharge() {
+        let reg = /^[\d]+$/
+        if (!reg.test(this.recharge1)) {
+          return wx.showToast({title: '请填写数字!', icon: 'none'})
+        }
+        this.$app.api.money.recharge({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          money: this.recharge1
+        }).then(res => {
+          if (res.data) {
+            // wx.showToast({title: '', icon: 'none'})
+            this.closePopup()
+            this.$app.nav.navigateTo('/pages/activity/pay/main')
+          }
+        })
+      },
+      recharge() {
+        this.isPopup2 = true
+      },
       transfer_btn() {
+        let that = this
         if (this.transfer_sel === '0') { //转会费
+          let reg = /^[\d]+$/
+          if (!reg.test(that.transfer_money)) {
+            return wx.showToast({title: '请填写数字!', icon: 'none'})
+          }
           if (!this.transfer_money) return wx.showToast({title: '请填写金额!', icon: 'none'})
           this.$app.api.money.withdraw({
             userId: this.$app.storageStore.userStore.getters.getUserId,
@@ -358,6 +406,15 @@
             wx.showToast({title: '未知错误!', icon: 'none'})
           })
         } else if (this.transfer_sel === '1') { //提现
+          let myDate = new Date()
+          console.log(myDate.getDate())
+          if (!myDate.getDate() >= 25) {
+            return wx.showToast({title: '每月25日申请!', icon: 'none'})
+          }
+          let reg = /^[\d]+$/
+          if (!reg.test(that.withdraw)) {
+            return wx.showToast({title: '请填写数字!', icon: 'none'})
+          }
           if (!this.withdraw) return wx.showToast({title: '请填写金额!', icon: 'none'})
           this.$app.api.money.withdraw({
             userId: this.$app.storageStore.userStore.getters.getUserId,
@@ -640,6 +697,12 @@
       border-bottom 1px solid #ccc;
       font-size 14px;
     }
+
+    .transfer-input1 {
+      width 150px;
+      margin-left 10px;
+      font-size 14px;
+    }
   }
 
   .transfer-btn-box {
@@ -647,6 +710,36 @@
 
     .transfer-btn {
       margin-top 10px;
+    }
+  }
+
+  /* 充值弹窗 */
+  .popup-3 {
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
+      top: 30%;
+      left: 10%;
+      width 80%;
+      z-index: 3;
+      transition: all 2s;
+
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position fixed;
+      top: 0;
+      left 0;
+      width 100%;
+      height 100%;
+      z-index 2;
     }
   }
 </style>

@@ -19,10 +19,10 @@
           <div class="field">
             <div class="field_left">性别：</div>
             <div class="field_right">
-              <!--{{userInfo.sex===1?'男':'女'}}-->
-              <picker name="sex" @change="sexChange" :value="userInfo.sex" :range="sexBox">
-                {{sexBox[userInfo.sex]}}
-              </picker>
+              {{userInfo.sex===1?'男':'女'}}
+              <!--<picker name="sex" @change="sexChange" :value="userInfo.sex" :range="sexBox">-->
+              <!--{{sexBox[userInfo.sex]}}-->
+              <!--</picker>-->
             </div>
           </div>
           <div class="field">
@@ -142,6 +142,18 @@
           }
         })
       },
+      reg(enter) {
+        let reg = /[a-zA-Z\d\u4e00-\u9fa5]/
+        return !reg.test(enter)
+      },
+      reg1(enter) {
+        let reg = /[a-zA-Z\d\u4e00-\u9fa5]/
+        return enter === '' ? false : !reg.test(enter)
+      },
+      regNum(enter) {
+        let reg = /[\d]/
+        return enter === '' ? false : !reg.test(enter)
+      },
       sexChange(e) {
         //改变选中的性别
         this.userInfo.sex = e.target.value
@@ -182,6 +194,21 @@
             icon: 'none',
             duration: 2000
           })
+        }
+
+
+        if (this.reg(data.phone) || this.reg(data.nick) || this.reg(data.currentCity)
+          || this.reg(data.status) || this.reg(data.selfEvaluation)) {
+          return wx.showToast({title: '不能包含符号', icon: 'none'})
+        }
+
+        if (this.reg1(data.zodiac)
+          || this.reg1(data.professional) || this.reg1(data.constellation) || this.reg1(data.birthplace)) {
+          return wx.showToast({title: '不能包含符号', icon: 'none'})
+        }
+
+        if (this.regNum(data.age) || this.regNum(data.height)) {
+          return wx.showToast({title: '年龄和身高不能为字符', icon: 'none'})
         }
 
         if (this.validation) {

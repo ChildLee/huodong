@@ -12,7 +12,7 @@
     </div>
 
     <div class="comment_filter panel">
-      <div>总计：{{activitys.length}}（筛选总数）</div>
+      <div>总计：{{activitys.length}}(筛选总数)</div>
       <div @click="isPopup_1">筛选</div>
     </div>
 
@@ -37,7 +37,6 @@
       </div>
     </div>
 
-
     <!--筛选弹窗-->
     <div class="popup_1" v-if="popup_1">
       <div class="popup-box">
@@ -57,15 +56,15 @@
     <!--筛选弹窗-->
 
     <!--投诉信息弹窗-->
-    <div class="popup_2" v-if="popup_2">
-      <div class="popup-box">
-        <div>
-          <div class="Complaints">投诉原因</div>
-          <div class="Complaints-info">不好玩不好玩不好玩不好玩不好玩不好玩</div>
-        </div>
-      </div>
-      <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
-    </div>
+    <!--<div class="popup_2" v-if="popup_2">-->
+    <!--<div class="popup-box">-->
+    <!--<div>-->
+    <!--<div class="Complaints">投诉原因</div>-->
+    <!--<div class="Complaints-info">不好玩不好玩不好玩不好玩不好玩不好玩</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="popup-curtain" @click="closePopup">&lt;!&ndash;幕布&ndash;&gt;</div>-->
+    <!--</div>-->
     <!--投诉信息弹窗-->
 
   </main>

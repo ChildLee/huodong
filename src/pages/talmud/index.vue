@@ -189,8 +189,8 @@
           talmudId: this.replyid,
           content: this.content
         }).then(res => {
-          console.log(res)
           if (res.data) {
+            that.content = ''
             that.closePopup()
             wx.showToast({title: '回答成功', icon: 'none'})
           }

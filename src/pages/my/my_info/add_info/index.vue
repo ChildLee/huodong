@@ -22,7 +22,7 @@
               <picker name="sex" @change="sexChange" :value="sexIndex" :range="sexBox">
                 {{sexBox[sexIndex]}}
               </picker>
-              <!--<span class="c999">不可修改</span>-->
+              <span class="c999">不可修改</span>
             </div>
           </div>
           <div class="field">
@@ -112,16 +112,29 @@
         validation: false, //表单验证默认失败
         userId: 0, //用户id
         sexIndex: 0,
-        sexBox: ['未知', '男', '女']
+        sexBox: ['男', '女']
       }
     },
     async onLoad() {
     },
     methods: {
+      reg(enter) {
+        let reg = /[a-zA-Z\d\u4e00-\u9fa5]/
+        return !reg.test(enter)
+      },
+      reg1(enter) {
+        let reg = /[a-zA-Z\d\u4e00-\u9fa5]/
+        return enter === '' ? false : !reg.test(enter)
+      },
+      regNum(enter) {
+        let reg = /[\d]/
+        return enter === '' ? false : !reg.test(enter)
+      },
       sexChange(e) {
         this.sexIndex = e.target.value
       },
       async formSubmit(e) {
+        let that = this
         let data = e.mp.detail.value
         if (data.phone && data.nick && data.currentCity && data.selfEvaluation) {
           await this.$app.api.user.checkNick({
@@ -155,12 +168,26 @@
           })
         }
 
+        if (this.reg(data.phone) || this.reg(data.nick) || this.reg(data.currentCity)
+          || this.reg(data.status) || this.reg(data.selfEvaluation)) {
+          return wx.showToast({title: '不能包含符号', icon: 'none'})
+        }
+
+        if (this.reg1(data.zodiac)
+          || this.reg1(data.professional) || this.reg1(data.constellation) || this.reg1(data.birthplace)) {
+          return wx.showToast({title: '不能包含符号', icon: 'none'})
+        }
+
+        if (this.regNum(data.age) || this.regNum(data.height)) {
+          return wx.showToast({title: '年龄和身高不能为字符', icon: 'none'})
+        }
+
         if (this.validation) {
           this.$app.api.user.addUser({
             userId: this.$app.storageStore.userStore.getters.getUserId, //用户id
             phone: data.phone, //手机
             nick: data.nick, //昵称
-            sex: data.sex, //性别
+            sex: ++this.sexIndex, //性别
             currentCity: data.currentCity, //常驻城市
             status: data.status, //婚姻状态
             selfEvaluation: data.selfEvaluation, //自评

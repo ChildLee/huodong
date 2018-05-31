@@ -85,8 +85,26 @@
       }
     },
     methods: {
+      reg(enter) {
+        let reg = /[a-zA-Z\d\u4e00-\u9fa5]/
+        return !reg.test(enter)
+      },
+      reg1(enter) {
+        let reg = /[a-zA-Z\d\u4e00-\u9fa5]/
+        return enter === '' ? false : !reg.test(enter)
+      },
+      regNum(enter) {
+        let reg = /[\d]/
+        return enter === '' ? false : !reg.test(enter)
+      },
       invite_btn() {
-        this.$app.api.activity.publishActivities({
+        if (this.reg(this.time) || this.reg(this.title) || this.reg(this.place)
+          || this.regNum(this.phone) || this.regNum(this.menPrice) || this.regNum(this.menPlaces)
+          || this.regNum(this.freePlaces) || this.regNum(this.womenPrice) || this.regNum(this.womenPlaces)) {
+          return wx.showToast({title: '请填写正确的信息', icon: 'none'})
+        }
+
+        let info = {
           id: this.$app.storageStore.userStore.getters.getUserId,
           time: this.time,
           title: this.title,
@@ -97,15 +115,32 @@
           freePlaces: this.freePlaces,
           womenPrice: this.womenPrice,
           womenPlaces: this.womenPlaces
-        }).then(res => {
-          if (res.state) {
-            return wx.showToast({title: res.message, icon: 'none'})
-          } else {
-            wx.redirectTo({
-              url: this.$app.utils.addUrlQuery('/pages/my/my_organize/invite/main', res.data)
-            })
-          }
+        }
+
+        wx.redirectTo({
+          url: this.$app.utils.addUrlQuery('/pages/my/my_organize/invite/main', {info: JSON.stringify(info)})
         })
+
+        // this.$app.api.activity.publishActivities({
+        //   id: this.$app.storageStore.userStore.getters.getUserId,
+        //   time: this.time,
+        //   title: this.title,
+        //   place: this.place,
+        //   phone: this.phone,
+        //   menPrice: this.menPrice,
+        //   menPlaces: this.menPlaces,
+        //   freePlaces: this.freePlaces,
+        //   womenPrice: this.womenPrice,
+        //   womenPlaces: this.womenPlaces
+        // }).then(res => {
+        //   if (res.state) {
+        //     return wx.showToast({title: res.message, icon: 'none'})
+        //   } else {
+        //     wx.redirectTo({
+        //       url: this.$app.utils.addUrlQuery('/pages/my/my_organize/invite/main', res.data)
+        //     })
+        //   }
+        // })
       },
       no_invite_btn() {
         this.$app.api.activity.publishActivities({
