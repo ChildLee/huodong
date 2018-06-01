@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="organize" v-for="(item,index) in list">
+    <div class="organize" v-for="(item,index) in list" :key="index">
       <div class="organize-box" @click="organize_nav(item.id)">
         <div class="organize-info border-bottom-color_white">
           <div class="organize-time">{{item.time}}</div>
@@ -28,6 +28,7 @@
         <div class="organize-name">{{item.title}}</div>
       </div>
     </div>
+
   </main>
 </template>
 
@@ -36,6 +37,7 @@
     name: 'my_organize',
     data() {
       return {
+        hostLV: 0, //主持人的等级,3级才能不邀约辅助人
         hostStatus: 0,//0不是主持人
         tab: 1,
         type: 1,//1将组织的,2已组织的
@@ -49,19 +51,25 @@
       }
     },
     async onShow() {
-      this.init(1)
+      wx.showLoading({title: '加载中'})
+      await this.init(1)
+      wx.hideLoading()
     },
     methods: {
       init(type) {
+        this.list = []
         this.$app.api.activity.myOrganizations({
           userId: this.$app.storageStore.userStore.getters.getUserId,
           type: type
         }).then(res => {
           console.log(res)
           if (res.data) {
-            this.list = JSON.parse(res.data.myOrganizations)
             this.hostStatus = res.data.hostStatus
+            this.hostLV = res.data.hostLV
+            console.log('我组织的', '主持人等级', this.hostLV)
+            console.log('我组织的', '是不是主持人', this.hostStatus, this.hostStatus ? '是主持人' : '不是主持人')
           }
+          res.data.myOrganizations ? this.list = JSON.parse(res.data.myOrganizations) : ``
         })
       },
       organize_tab(tab) {
@@ -75,7 +83,7 @@
         this.$app.nav.navigateTo('/pages/my/my_organize/organize_info/main', {id})
       },
       pushActivitie() {
-        this.$app.nav.navigateTo('/pages/my/my_organize/publish_activities/main')
+        this.$app.nav.navigateTo('/pages/my/my_organize/publish_activities/main', {hostLV: this.hostLV})
       }
     }
   }

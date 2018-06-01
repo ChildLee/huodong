@@ -4,7 +4,7 @@
       <div class="activity_search">
         <input v-model="search1" type="text" placeholder="搜索地点" @blur="search">
       </div>
-      <div class="activity_btn" @click="filter">收藏</div>
+      <div class="activity_btn" @click="filter">筛选</div>
     </div>
 
     <div class="activity_nav">
@@ -29,10 +29,10 @@
     <div class="popup" v-if="isPopup">
       <div class="popup-box">
         <div class="popup-content">
-          <div class="popup-content-desc-1">
-            <div>被邀第一次参加活动可享8折优惠</div>
-            <div>会员邀请新成员参加后可获分享折扣红包</div>
-          </div>
+          <!--<div class="popup-content-desc-1">-->
+            <!--<div>被邀第一次参加活动可享8折优惠</div>-->
+            <!--<div>会员邀请新成员参加后可获分享折扣红包</div>-->
+          <!--</div>-->
           <div class="activity_rule_box">
             <div class="activity_rule activity_rule-title">
               <div>会员星级</div>
@@ -58,39 +58,39 @@
 
 
             <!--<div class="activity_rule">-->
-              <!--<div>I</div>-->
-              <!--<div>9</div>-->
-              <!--<div>4</div>-->
-              <!--<div>1</div>-->
-              <!--<div>1</div>-->
+            <!--<div>I</div>-->
+            <!--<div>9</div>-->
+            <!--<div>4</div>-->
+            <!--<div>1</div>-->
+            <!--<div>1</div>-->
             <!--</div>-->
             <!--<div class="activity_rule">-->
-              <!--<div>II</div>-->
-              <!--<div>7</div>-->
-              <!--<div>3</div>-->
-              <!--<div>1</div>-->
-              <!--<div>1</div>-->
+            <!--<div>II</div>-->
+            <!--<div>7</div>-->
+            <!--<div>3</div>-->
+            <!--<div>1</div>-->
+            <!--<div>1</div>-->
             <!--</div>-->
             <!--<div class="activity_rule">-->
-              <!--<div>III</div>-->
-              <!--<div>5</div>-->
-              <!--<div>2</div>-->
-              <!--<div>1</div>-->
-              <!--<div>1</div>-->
+            <!--<div>III</div>-->
+            <!--<div>5</div>-->
+            <!--<div>2</div>-->
+            <!--<div>1</div>-->
+            <!--<div>1</div>-->
             <!--</div>-->
             <!--<div class="activity_rule">-->
-              <!--<div>IV</div>-->
-              <!--<div>3</div>-->
-              <!--<div>1</div>-->
-              <!--<div>1</div>-->
-              <!--<div>1</div>-->
+            <!--<div>IV</div>-->
+            <!--<div>3</div>-->
+            <!--<div>1</div>-->
+            <!--<div>1</div>-->
+            <!--<div>1</div>-->
             <!--</div>-->
             <!--<div class="activity_rule">-->
-              <!--<div>V</div>-->
-              <!--<div>1</div>-->
-              <!--<div>2</div>-->
-              <!--<div>1</div>-->
-              <!--<div>1</div>-->
+            <!--<div>V</div>-->
+            <!--<div>1</div>-->
+            <!--<div>2</div>-->
+            <!--<div>1</div>-->
+            <!--<div>1</div>-->
             <!--</div>-->
           </div>
           <!--<div class="popup-content-desc-2">-->
@@ -113,7 +113,6 @@
       <div class="popup-box">
         <div>
           <!--这里填写弹窗的信息-->
-
           {{placard}}
         </div>
       </div>
@@ -184,17 +183,21 @@
         })
       },
       filter() {
-        this.activityStatus.status = 0
-        this.init()
-        // let that = this
-        // wx.showActionSheet({
-        //   itemList: ['收藏'],
-        //   success: function (res) {
-        //     if (res.tapIndex === 0) {
-        //
-        //     }
-        //   }
-        // })
+        let that = this
+        wx.showActionSheet({
+          itemList: ['收藏', '全部'],
+          success: function (res) {
+            if (res.tapIndex === 0) {
+              that.activityStatus.status = 0
+              that.init()
+            }
+
+            if (res.tapIndex === 1) {
+              that.activityStatus.status = 1
+              that.init()
+            }
+          }
+        })
       },
       activity(id) {
         this.$app.nav.navigateTo('/pages/activity/activity_info/main', {

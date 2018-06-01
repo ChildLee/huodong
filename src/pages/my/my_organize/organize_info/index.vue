@@ -167,7 +167,7 @@
         isAssess: false, //是否显示弹窗
         activityInfo: {
           activity: {
-            status: 1,//status  活动状态 0准备发起 1已发起 2已结束
+            status: 1,//status  活动状态:0准备发起,1已发起,2已结束,3开始
             hostRevenue: 0, //主持人收入
             assistantRevenue: 0, //辅助人收入
             title: '', //标题
@@ -289,8 +289,11 @@
           }
         })
       },
-      editA() {
-        this.$app.nav.navigateTo('/pages/my/my_organize/edit_activity/main', {id: this.activityId})
+      editA() {//修改活动信息
+        let that = this
+        wx.redirectTo({
+          url: that.$app.utils.addUrlQuery('/pages/my/my_organize/edit_activity/main', {id: this.activityId})
+        })
       }
     }
   }

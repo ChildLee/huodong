@@ -10,7 +10,7 @@
     <div class="field border-cell">
       <div class="field_left">活动时间</div>
       <div class="field_right">
-        <input v-model.lazy="time" placeholder="2018-08-08 9：00"/>
+        <input v-model.lazy="time" placeholder="2014-01-01 12:00:00"/>
       </div>
     </div>
     <div class="field border-cell">
@@ -59,11 +59,18 @@
         </div>
       </div>
     </div>
-
-    <div class="publish_activities_btn">
-      <div class="btn btn_size-small btn_color-diyBlue" @click="invite_btn">确定/邀约辅助人</div>
-      <div class="btn btn_size-small btn-disabled" @click="no_invite_btn">确定/不邀约</div>
+    <div class="field border-cell">
+      <div class="field_left">内容</div>
+      <div class="field_right">
+        <textarea v-model.lazy="content" placeholder="活动目的,意义"/>
+      </div>
     </div>
+
+    <div class="publish_activities_btn mg15-b">
+      <div class="btn btn_size-small btn_color-diyBlue" @click="invite_btn">确定/邀约辅助人</div>
+      <div class="btn btn_size-small btn_color-diyBlue" @click="no_invite_btn" v-if="hostLV>=3">确定/不邀约</div>
+    </div>
+
   </main>
 </template>
 
@@ -81,33 +88,66 @@
         menPlace: '',
         freePlaces: '',//免费名额
         womenPrice: '',
-        womenPlaces: ''
+        womenPlaces: '',
+        content: '',
+        hostLV: 0 //主持人的等级,3级才能不邀约辅助人
       }
     },
+    onLoad() {
+      this.init()
+    },
     methods: {
+      init() {
+        this.hostLV = this.$mp.query.hostLV
+        console.log('发布活动界面', '主持人等级', this.hostLV)
+        this.time = ''
+        this.title = ''
+        this.place = ''
+        this.phone = ''
+        this.menPrice = ''
+        this.menPlaces = ''
+        this.freePlaces = ''
+        this.womenPrice = ''
+        this.womenPlaces = ''
+        this.content = ''
+      },
       reg(enter) {
         let reg = /[a-zA-Z\d\u4e00-\u9fa5]/
         return !reg.test(enter)
       },
-      reg1(enter) {
-        let reg = /[a-zA-Z\d\u4e00-\u9fa5]/
-        return enter === '' ? false : !reg.test(enter)
-      },
       regNum(enter) {
-        let reg = /[\d]/
-        return enter === '' ? false : !reg.test(enter)
+        let reg = /^\d+$/
+        return !reg.test(enter)
       },
       invite_btn() {
-        let r = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/
+        // let r = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/
+        // let p = /1[0-9]{10}/
+        //
+        // if (this.reg(this.title)) {
+        //   return wx.showToast({title: '请输入正确的标题', icon: 'none'})
+        // }
+        //
+        // if (!r.test(this.time)) {
+        //   return wx.showToast({title: '时间格式为:2014-01-01 12:00:00', icon: 'none'})
+        // }
+        //
+        // if (this.reg(this.place)) {
+        //   return wx.showToast({title: '请输入正确的地点', icon: 'none'})
+        // }
+        //
+        // if (!p.test(this.phone)) {
+        //   return wx.showToast({title: '请输入正确的手机号', icon: 'none'})
+        // }
 
-        if (!r.test(this.time)) {
-          return wx.showToast({title: '时间格式为:2014-01-01 12:00:00', icon: 'none'})
+        if (this.reg(this.content)) {
+          return wx.showToast({title: '请输入正确的内容', icon: 'none'})
         }
 
-        if (this.reg(this.title) || this.reg(this.place)
-          || this.regNum(this.phone) || this.regNum(this.menPrice) || this.regNum(this.menPlaces)
-          || this.regNum(this.freePlaces) || this.regNum(this.womenPrice) || this.regNum(this.womenPlaces)) {
-          return wx.showToast({title: '请填写正确的信息', icon: 'none'})
+        if (this.regNum(this.menPrice)
+          || this.regNum(this.menPlaces) || this.regNum(this.freePlaces)
+          || this.regNum(this.womenPrice) || this.regNum(this.womenPlaces)
+        ) {
+          return wx.showToast({title: '价格和数量只能为数字', icon: 'none'})
         }
 
         let info = {
@@ -120,33 +160,13 @@
           menPlaces: this.menPlaces,
           freePlaces: this.freePlaces,
           womenPrice: this.womenPrice,
-          womenPlaces: this.womenPlaces
+          womenPlaces: this.womenPlaces,
+          content: this.content
         }
 
         wx.redirectTo({
           url: this.$app.utils.addUrlQuery('/pages/my/my_organize/invite/main', {info: JSON.stringify(info)})
         })
-
-        // this.$app.api.activity.publishActivities({
-        //   id: this.$app.storageStore.userStore.getters.getUserId,
-        //   time: this.time,
-        //   title: this.title,
-        //   place: this.place,
-        //   phone: this.phone,
-        //   menPrice: this.menPrice,
-        //   menPlaces: this.menPlaces,
-        //   freePlaces: this.freePlaces,
-        //   womenPrice: this.womenPrice,
-        //   womenPlaces: this.womenPlaces
-        // }).then(res => {
-        //   if (res.state) {
-        //     return wx.showToast({title: res.message, icon: 'none'})
-        //   } else {
-        //     wx.redirectTo({
-        //       url: this.$app.utils.addUrlQuery('/pages/my/my_organize/invite/main', res.data)
-        //     })
-        //   }
-        // })
       },
       no_invite_btn() {
         this.$app.api.activity.publishActivities({
@@ -159,7 +179,8 @@
           menPlaces: this.menPlaces,
           freePlaces: this.freePlaces,
           womenPrice: this.womenPrice,
-          womenPlaces: this.womenPlaces
+          womenPlaces: this.womenPlaces,
+          content: this.content
         }).then(res => {
           if (res.data) {
             wx.redirectTo({

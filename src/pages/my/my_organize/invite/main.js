@@ -5,7 +5,7 @@ new WrapPage(App)
 
 export default {
   config: {
-    navigationBarTitleText: '邀约'
+    navigationBarTitleText: '邀约辅助人'
     // navigationBarTextStyle: '#fff',
     // navigationBarBackgroundColor: '#fff'
   }

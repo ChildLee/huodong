@@ -24,43 +24,39 @@
       <div>
         <div>
           <span>会员：</span>
-          <span v-if="userInfo.member===0"></span>
-          <span v-if="userInfo.member===1">Ⅰ级</span>
-          <span v-if="userInfo.member===2">Ⅱ级</span>
-          <span v-if="userInfo.member===3">Ⅲ级</span>
-          <span v-if="userInfo.member===4">Ⅳ级</span>
-          <span v-if="userInfo.member===5">Ⅴ级</span>
-          <span v-if="userInfo.member===6">Ⅵ级</span>
-          <span v-if="userInfo.member===7">Ⅶ级</span>
-          <span v-if="userInfo.member===8">Ⅷ级</span>
-          <span v-if="userInfo.member===9">Ⅸ级</span>
-          <span v-if="userInfo.member===10">Ⅹ级</span>
+          <span v-if="userInfo.member===0">Ⅰ级</span>
+          <span v-if="userInfo.member===1">Ⅱ级</span>
+          <span v-if="userInfo.member===2">Ⅲ级</span>
+          <span v-if="userInfo.member===3">Ⅳ级</span>
+          <span v-if="userInfo.member===4">Ⅴ级</span>
+          <span v-if="userInfo.member===5">Ⅵ级</span>
+          <span v-if="userInfo.member===6">Ⅶ级</span>
+          <span v-if="userInfo.member===7">Ⅷ级</span>
+          <span v-if="userInfo.member===8">Ⅸ级</span>
+          <span v-if="userInfo.member===9">Ⅹ级</span>
         </div>
         <div>
           <span>主持：</span>
-          <span v-if="userInfo.hostLevel===0"></span>
-          <span v-if="userInfo.hostLevel===1">初级</span>
-          <span v-if="userInfo.hostLevel===2">优秀</span>
-          <span v-if="userInfo.hostLevel===3">明星</span>
-          <span v-if="userInfo.hostLevel===4">大咖</span>
-          <span v-if="userInfo.hostLevel===5">阿神</span>
+          <span v-if="userInfo.hostLevel===0">初级</span>
+          <span v-if="userInfo.hostLevel===1">优秀</span>
+          <span v-if="userInfo.hostLevel===2">明星</span>
+          <span v-if="userInfo.hostLevel===3">大咖</span>
+          <span v-if="userInfo.hostLevel===4">阿神</span>
         </div>
         <div>
           <span>辅助：</span>
-          <span v-if="userInfo.assistantLevel===0"></span>
-          <span v-if="userInfo.assistantLevel===1">初级</span>
-          <span v-if="userInfo.assistantLevel===2">优秀</span>
-          <span v-if="userInfo.assistantLevel===3">明星</span>
-          <span v-if="userInfo.assistantLevel===4">大咖</span>
-          <span v-if="userInfo.assistantLevel===5">阿神</span>
+          <span v-if="userInfo.assistantLevel===0">初级</span>
+          <span v-if="userInfo.assistantLevel===1">优秀</span>
+          <span v-if="userInfo.assistantLevel===2">明星</span>
+          <span v-if="userInfo.assistantLevel===3">大咖</span>
+          <span v-if="userInfo.assistantLevel===4">阿神</span>
         </div>
         <div>
           <span>塔木德：</span>
-          <span v-if="userInfo.talmudLevel===0"></span>
-          <span v-if="userInfo.talmudLevel===1">初级</span>
-          <span v-if="userInfo.talmudLevel===2">优秀</span>
-          <span v-if="userInfo.talmudLevel===3">明星</span>
-          <span v-if="userInfo.talmudLevel===4">大咖</span>
+          <span v-if="userInfo.talmudLevel===0">初级</span>
+          <span v-if="userInfo.talmudLevel===1">优秀</span>
+          <span v-if="userInfo.talmudLevel===2">明星</span>
+          <span v-if="userInfo.talmudLevel===3">大咖</span>
           <span v-if="userInfo.talmudLevel===4">阿神</span>
         </div>
       </div>
@@ -214,18 +210,18 @@
       <div class="popup-box" style="top:35%;">
         <div>
           <radio-group class="transfer-box" @change="popup_sel">
-            <label class="transfer">
-              <radio :value="0"/>
-              <span>转会费</span>
-              <span>
-                <input v-model="transfer_money" class="transfer-input" type="number" placeholder="请输入金额">
-              </span>
-            </label>
+            <!--<label class="transfer">-->
+              <!--<radio :value="0"/>-->
+              <!--<span>转会费</span>-->
+              <!--<span>-->
+                <!--<input v-model="transfer_money" class="transfer-input" type="number" placeholder="请输入金额">-->
+              <!--</span>-->
+            <!--</label>-->
             <label class="transfer">
               <radio :value="1"/>
               <span>提现</span>
               <span>
-                <input v-model="withdraw" class="transfer-input" type="number" placeholder="每月25日申请">
+                <input v-model="withdraw" class="transfer-input" type="number" placeholder="每月1-5日到账">
               </span>
             </label>
           </radio-group>
@@ -410,11 +406,11 @@
             wx.showToast({title: '未知错误!', icon: 'none'})
           })
         } else if (this.transfer_sel === '1') { //提现
-          let myDate = new Date()
-          console.log(myDate.getDate())
-          if (!myDate.getDate() >= 25) {
-            return wx.showToast({title: '每月25日申请!', icon: 'none'})
-          }
+          // let myDate = new Date()
+          // console.log(myDate.getDate())
+          // if (!myDate.getDate() >= 25) {
+          //   return wx.showToast({title: '每月25日申请!', icon: 'none'})
+          // }
           let reg = /^[\d]+$/
           if (!reg.test(that.withdraw)) {
             return wx.showToast({title: '请填写数字!', icon: 'none'})

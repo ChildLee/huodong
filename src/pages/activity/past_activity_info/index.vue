@@ -203,7 +203,7 @@
       },
       //点击评价规则
       assess_rule() {
-        wx.showToast({title: '对方投诉成功，评价人取消本次参与计数', icon: 'none'})
+        wx.showToast({title: '恶意评价,对方投诉查证属实,将被公告处理', icon: 'none'})
       },
       //点击分数事件
       clickScore(score) {

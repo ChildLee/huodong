@@ -14,13 +14,14 @@
         <div class="talmud_info f f-between c999 ">
           <span class="f-none f f-y-c">
               <!--<i class="icon"-->
-                 <!--:style="item.attention?'color:red;':''"-->
-                 <!--:class="item.attention?'icon-red-heart':'icon-heart'" @click="focus(item,item.attUid,item.attention)">-->
-              <!--</i>-->
+            <!--:style="item.attention?'color:red;':''"-->
+            <!--:class="item.attention?'icon-red-heart':'icon-heart'" @click="focus(item,item.attUid,item.attention)">-->
+            <!--</i>-->
             <span class="mg5-l">{{item.nickName}}</span>
           </span>
           <span class="f-1 mg10-l small">2018-8-8 9:00</span>
-          <span style="float: right" class="small icon" @click.stop="like_btn(item.id)">&#xe6e1; {{item.likes}}</span>
+          <span style="float: right" class="small icon">&#xe6e1; {{item.likes}}</span>
+          <!--<span style="float: right" class="small icon" @click.stop="like_btn(item.id)">&#xe6e1; {{item.likes}}</span>-->
         </div>
         <div class="c555 fs14 mg5-l">{{item.content}}
         </div>

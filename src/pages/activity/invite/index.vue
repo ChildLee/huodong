@@ -1,7 +1,7 @@
 <template>
   <main>
     <!--<div class="invite-search">-->
-    <!--<input type="text" placeholder="搜索">-->
+    <!--<input type="text" placeholder="">-->
     <!--</div>-->
 
     <div class="invite-title border-bottom">

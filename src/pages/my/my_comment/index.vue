@@ -28,7 +28,7 @@
           <div class="comment_time_location">
             <div class="comment_time">{{item.time}}</div>
             <div class="comment_location">{{item.title}}</div>
-            <div class="comment_btn" @click="isPopup_2" v-if="item.complaintsStatus">投诉信息</div>
+            <!--<div class="comment_btn" @click="isPopup_2" v-if="item.complaintsStatus">投诉信息</div>-->
           </div>
           <div class="comment_text">
             <span>{{item.role===1?'(主持人)':item.role===2?'(辅助人)':''}}{{item.nickName}}：{{item.review}}</span>

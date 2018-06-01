@@ -47,18 +47,45 @@
         title: '',
         phone: '',
         place: '',
-        content: ''
+        content: '',
+        activity: {
+          'content': '2',
+          'phone': '2',
+          'place': '2',
+          'time': '2',
+          'title': '2'
+        }
       }
     },
     onLoad() {
-      this.time = ''
-      this.title = ''
-      this.phone = ''
-      this.place = ''
-      this.content = ''
-      this.activityId = this.$mp.query.id
+      this.init()
     },
     methods: {
+      init() {
+        this.time = ''
+        this.title = ''
+        this.phone = ''
+        this.place = ''
+        this.content = ''
+
+        this.activityId = this.$mp.query.id
+        console.log('活动ID', this.activityId)
+
+        this.$app.api.activity.myOrganization({
+          id: this.activityId, //活动id
+          userId: this.$app.storageStore.userStore.getters.getUserId //用户id
+        }).then(res => {
+          if (res.data.myOrganizations) {
+            let activity = JSON.parse(res.data.myOrganizations)
+            this.title = activity.title
+            this.time = activity.time
+            this.phone = activity.phone
+            this.place = activity.place
+            this.content = activity.content
+            console.log(this.activity)
+          }
+        })
+      },
       invite_btn() {
         let that = this
         this.$app.api.activity.modifyActivity({

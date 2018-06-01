@@ -3,7 +3,7 @@
     <div class="tab">
       <div class="tab-box tab-fixed">
         <div class="tab-item" :class="currentTab==1?'tab-item-selected':''" @click="switchNav(1)">
-          <div class="tab-title">已预定</div>
+          <div class="tab-title">将参加</div>
         </div>
         <div class="tab-item" :class="currentTab==2?'tab-item-selected':''" @click="switchNav(2)">
           <div class="tab-title">已参加</div>

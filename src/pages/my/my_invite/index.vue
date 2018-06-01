@@ -141,8 +141,8 @@
           sendStatus: this.currentTab,//sendStatus 1收到的  2发出的
           type: this.currentTabChild //type 1/2 参加 辅助邀请   3爱情邀请
         }).then(res => {
+          console.log(res)
           if (res.data) {
-            console.log(res)
             this.focus = JSON.parse(res.data.focus)
           }
         })
@@ -196,12 +196,20 @@
       },
       Participate(id) {
         let that = this
-        this.$app.api.activity.promiseParticipate({
-          id: id
-        }).then(res => {
-          if (res.data) {
-            wx.showToast({title: '操作成功!', icon: 'none'})
-            that.init()
+        wx.showModal({
+          title: '提示',
+          content: `确定辅助该活动?`,
+          success: function (res) {
+            if (res.confirm) {
+              that.$app.api.activity.promiseParticipate({
+                id: id
+              }).then(res => {
+                if (res.data) {
+                  wx.showToast({title: '操作成功!', icon: 'none'})
+                  that.init()
+                }
+              })
+            }
           }
         })
       },
@@ -210,6 +218,7 @@
         this.$app.api.activity.promiseAssistant({
           id: id
         }).then(res => {
+          console.log(res)
           if (res.data) {
             wx.showToast({title: '操作成功!', icon: 'none'})
             that.init()

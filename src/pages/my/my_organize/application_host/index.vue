@@ -8,9 +8,11 @@
       <span v-if="!img_2">上传身份证正面</span>
       <img v-else :src="img_2" class="card_img">
     </div>
+
     <!--<div class="card_desc">-->
     <!--<textarea class="desc"/>-->
     <!--</div>-->
+
     <div class="btn-box btn btn_color-diyBlue" @click="app_btn">申请</div>
 
     <div class="we w-80 tc">
