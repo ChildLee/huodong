@@ -24,39 +24,43 @@
       <div>
         <div>
           <span>会员：</span>
-          <span v-if="userInfo.member===0">Ⅰ级</span>
-          <span v-if="userInfo.member===1">Ⅱ级</span>
-          <span v-if="userInfo.member===2">Ⅲ级</span>
-          <span v-if="userInfo.member===3">Ⅳ级</span>
-          <span v-if="userInfo.member===4">Ⅴ级</span>
-          <span v-if="userInfo.member===5">Ⅵ级</span>
-          <span v-if="userInfo.member===6">Ⅶ级</span>
-          <span v-if="userInfo.member===7">Ⅷ级</span>
-          <span v-if="userInfo.member===8">Ⅸ级</span>
-          <span v-if="userInfo.member===9">Ⅹ级</span>
+          <span v-if="userInfo.member===0"></span>
+          <span v-if="userInfo.member===1">Ⅰ级</span>
+          <span v-if="userInfo.member===2">Ⅱ级</span>
+          <span v-if="userInfo.member===3">Ⅲ级</span>
+          <span v-if="userInfo.member===4">Ⅳ级</span>
+          <span v-if="userInfo.member===5">Ⅴ级</span>
+          <span v-if="userInfo.member===6">Ⅵ级</span>
+          <span v-if="userInfo.member===7">Ⅶ级</span>
+          <span v-if="userInfo.member===8">Ⅷ级</span>
+          <span v-if="userInfo.member===9">Ⅸ级</span>
+          <span v-if="userInfo.member===10">Ⅹ级</span>
         </div>
         <div>
           <span>主持：</span>
-          <span v-if="userInfo.hostLevel===0">初级</span>
-          <span v-if="userInfo.hostLevel===1">优秀</span>
-          <span v-if="userInfo.hostLevel===2">明星</span>
-          <span v-if="userInfo.hostLevel===3">大咖</span>
-          <span v-if="userInfo.hostLevel===4">阿神</span>
+          <span v-if="userInfo.hostLevel===0"></span>
+          <span v-if="userInfo.hostLevel===1">初级</span>
+          <span v-if="userInfo.hostLevel===2">优秀</span>
+          <span v-if="userInfo.hostLevel===3">明星</span>
+          <span v-if="userInfo.hostLevel===4">大咖</span>
+          <span v-if="userInfo.hostLevel===5">阿神</span>
         </div>
         <div>
           <span>辅助：</span>
-          <span v-if="userInfo.assistantLevel===0">初级</span>
-          <span v-if="userInfo.assistantLevel===1">优秀</span>
-          <span v-if="userInfo.assistantLevel===2">明星</span>
-          <span v-if="userInfo.assistantLevel===3">大咖</span>
-          <span v-if="userInfo.assistantLevel===4">阿神</span>
+          <span v-if="userInfo.assistantLevel===0"></span>
+          <span v-if="userInfo.assistantLevel===1">初级</span>
+          <span v-if="userInfo.assistantLevel===2">优秀</span>
+          <span v-if="userInfo.assistantLevel===3">明星</span>
+          <span v-if="userInfo.assistantLevel===4">大咖</span>
+          <span v-if="userInfo.assistantLevel===5">阿神</span>
         </div>
         <div>
           <span>塔木德：</span>
-          <span v-if="userInfo.talmudLevel===0">初级</span>
-          <span v-if="userInfo.talmudLevel===1">优秀</span>
-          <span v-if="userInfo.talmudLevel===2">明星</span>
-          <span v-if="userInfo.talmudLevel===3">大咖</span>
+          <span v-if="userInfo.talmudLevel===0"></span>
+          <span v-if="userInfo.talmudLevel===1">初级</span>
+          <span v-if="userInfo.talmudLevel===2">优秀</span>
+          <span v-if="userInfo.talmudLevel===3">明星</span>
+          <span v-if="userInfo.talmudLevel===4">大咖</span>
           <span v-if="userInfo.talmudLevel===4">阿神</span>
         </div>
       </div>

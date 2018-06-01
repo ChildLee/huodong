@@ -27,7 +27,7 @@
         <div class="comment_info">
           <div class="comment_time_location">
             <div class="comment_time">{{item.time}}</div>
-            <div class="comment_location">{{item.place}}</div>
+            <div class="comment_location">{{item.title}}</div>
             <div class="comment_btn" @click="isPopup_2" v-if="item.complaintsStatus">投诉信息</div>
           </div>
           <div class="comment_text">

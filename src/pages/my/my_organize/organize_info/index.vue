@@ -140,11 +140,14 @@
     <!--弹窗-->
 
     <div class="f-around mg15-t">
-      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="startA">开始
+      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="startA"
+           v-if="activityInfo.activity.status===1">开始
       </div>
-      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="editA">修改
+      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="editA"
+           v-if="activityInfo.activity.status===0||activityInfo.activity.status===1">修改
       </div>
-      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="stopA">结束
+      <div class="btn btn_size-small btn_color-DodgerBlue w-20 h40 br5 of f f-x-c f-y-c" @click="stopA"
+           v-if="activityInfo.activity.status===3">结束
       </div>
     </div>
 

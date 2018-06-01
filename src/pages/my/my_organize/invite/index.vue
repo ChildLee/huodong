@@ -85,7 +85,7 @@
             invitationId: id
           }).then(res => {
             if (res.data) {
-              this.$app.nav.navigateTo('/pages/my/my_organize/main')
+              wx.reLaunch({url: '/pages/my/my_organize/main'})
               wx.showToast({title: '邀约成功!', icon: 'success'})
             }
           })

@@ -5,7 +5,7 @@
       <div class="past-top-input_box">
         <input v-model="search1" class="past-top-input" type="text" placeholder="搜索地点" @blur="search">
       </div>
-      <div class="past-top-participating" @click.stop="can">已参加的</div>
+      <div class="past-top-participating" @click.stop="can">我的活动</div>
     </div>
 
     <div v-for="item in list" :key="item.id">

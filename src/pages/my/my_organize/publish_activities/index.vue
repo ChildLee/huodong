@@ -98,7 +98,13 @@
         return enter === '' ? false : !reg.test(enter)
       },
       invite_btn() {
-        if (this.reg(this.time) || this.reg(this.title) || this.reg(this.place)
+        let r = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/
+
+        if (!r.test(this.time)) {
+          return wx.showToast({title: '时间格式为:2014-01-01 12:00:00', icon: 'none'})
+        }
+
+        if (this.reg(this.title) || this.reg(this.place)
           || this.regNum(this.phone) || this.regNum(this.menPrice) || this.regNum(this.menPlaces)
           || this.regNum(this.freePlaces) || this.regNum(this.womenPrice) || this.regNum(this.womenPlaces)) {
           return wx.showToast({title: '请填写正确的信息', icon: 'none'})
