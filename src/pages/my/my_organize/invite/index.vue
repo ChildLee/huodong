@@ -18,7 +18,8 @@
         <div>{{item.nickName}}</div>
         <div>{{item.remark}}</div>
         <div>
-          <span class="btn btn_size-small btn_color-DodgerBlue br5 of" @click="invite_helper(item.attentionUserId)">邀约</span>
+          <span class="btn btn_size-small btn_color-DodgerBlue br5 of"
+                @click="invite_helper(item.attentionUserId)">邀约</span>
         </div>
       </div>
 

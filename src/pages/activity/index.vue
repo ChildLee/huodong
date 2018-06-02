@@ -30,8 +30,8 @@
       <div class="popup-box">
         <div class="popup-content">
           <!--<div class="popup-content-desc-1">-->
-            <!--<div>被邀第一次参加活动可享8折优惠</div>-->
-            <!--<div>会员邀请新成员参加后可获分享折扣红包</div>-->
+          <!--<div>被邀第一次参加活动可享8折优惠</div>-->
+          <!--<div>会员邀请新成员参加后可获分享折扣红包</div>-->
           <!--</div>-->
           <div class="activity_rule_box">
             <div class="activity_rule activity_rule-title">
@@ -151,6 +151,7 @@
       }
     },
     async onShow() {
+      wx.showLoading({title: '加载中'})
       //初始化活动信息
       this.activityStatus.status = 1
       this.activityStatus.id = this.$app.storageStore.userStore.getters.getUserId //获取用户id
@@ -162,6 +163,7 @@
         await this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
           if (res.data) {
             this.list = JSON.parse(res.data.activities)
+            wx.hideLoading()
           }
         })
       },

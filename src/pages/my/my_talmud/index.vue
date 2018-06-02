@@ -2,11 +2,11 @@
   <main>
 
     <!--<div class="talmud_top">-->
-      <!--&lt;!&ndash;<div>规则</div>&ndash;&gt;-->
-      <!--<div class="talmud_top-search">-->
-        <!--<input v-model="search1" type="text" placeholder="搜索" @blur="search"/>-->
-      <!--</div>-->
-      <!--&lt;!&ndash;<div class="btn btn_size-small" @click="same">我的同问</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;<div>规则</div>&ndash;&gt;-->
+    <!--<div class="talmud_top-search">-->
+    <!--<input v-model="search1" type="text" placeholder="搜索" @blur="search"/>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;<div class="btn btn_size-small" @click="same">我的同问</div>&ndash;&gt;-->
     <!--</div>-->
 
     <div class="mg15-lr icon">

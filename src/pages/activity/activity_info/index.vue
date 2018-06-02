@@ -45,11 +45,11 @@
             </div>
             <div>{{item.nickName}}
               <span style="color: #1D9ED7;">
-              {{item.maxLV===1?'Ⅰ':''}}
-              {{item.maxLV===2?'Ⅱ':''}}
-              {{item.maxLV===3?'Ⅲ':''}}
-              {{item.maxLV===4?'Ⅳ':''}}
-              {{item.maxLV===5?'Ⅴ':''}}
+              {{item.maxLV===0?'Ⅰ':''}}
+              {{item.maxLV===1?'Ⅱ':''}}
+              {{item.maxLV===2?'Ⅲ':''}}
+              {{item.maxLV===3?'Ⅳ':''}}
+              {{item.maxLV===4?'Ⅴ':''}}
               </span>
             </div>
           </div>
@@ -62,11 +62,11 @@
             </div>
             <div>{{item.nickName}}
               <span style="color: #1D9ED7;">
-              {{item.maxLV===1?'Ⅰ':''}}
-              {{item.maxLV===2?'Ⅱ':''}}
-              {{item.maxLV===3?'Ⅲ':''}}
-              {{item.maxLV===4?'Ⅳ':''}}
-              {{item.maxLV===5?'Ⅴ':''}}
+              {{item.maxLV===0?'Ⅰ':''}}
+              {{item.maxLV===1?'Ⅱ':''}}
+              {{item.maxLV===2?'Ⅲ':''}}
+              {{item.maxLV===3?'Ⅳ':''}}
+              {{item.maxLV===4?'Ⅴ':''}}
               </span>
             </div>
           </div>
@@ -84,11 +84,11 @@
             </div>
             <div>{{item.nickName}}
               <span style="color: #1D9ED7;">
-              {{item.maxLV===1?'Ⅰ':''}}
-              {{item.maxLV===2?'Ⅱ':''}}
-              {{item.maxLV===3?'Ⅲ':''}}
-              {{item.maxLV===4?'Ⅳ':''}}
-              {{item.maxLV===5?'Ⅴ':''}}
+              {{item.maxLV===0?'Ⅰ':''}}
+              {{item.maxLV===1?'Ⅱ':''}}
+              {{item.maxLV===2?'Ⅲ':''}}
+              {{item.maxLV===3?'Ⅳ':''}}
+              {{item.maxLV===4?'Ⅴ':''}}
               </span>
             </div>
           </div>
@@ -102,11 +102,11 @@
             </div>
             <div>{{item.nickName}}
               <span style="color: #1D9ED7;">
-              {{item.maxLV===1?'Ⅰ':''}}
-              {{item.maxLV===2?'Ⅱ':''}}
-              {{item.maxLV===3?'Ⅲ':''}}
-              {{item.maxLV===4?'Ⅳ':''}}
-              {{item.maxLV===5?'Ⅴ':''}}
+              {{item.maxLV===0?'Ⅰ':''}}
+              {{item.maxLV===1?'Ⅱ':''}}
+              {{item.maxLV===2?'Ⅲ':''}}
+              {{item.maxLV===3?'Ⅳ':''}}
+              {{item.maxLV===4?'Ⅴ':''}}
               </span>
             </div>
           </div>
@@ -123,11 +123,11 @@
               </div>
               <div>{{item.nickName}}
                 <span style="color: #1D9ED7;">
-              {{item.maxLV===1?'Ⅰ':''}}
-              {{item.maxLV===2?'Ⅱ':''}}
-              {{item.maxLV===3?'Ⅲ':''}}
-              {{item.maxLV===4?'Ⅳ':''}}
-              {{item.maxLV===5?'Ⅴ':''}}
+              {{item.maxLV===0?'Ⅰ':''}}
+              {{item.maxLV===1?'Ⅱ':''}}
+              {{item.maxLV===2?'Ⅲ':''}}
+              {{item.maxLV===3?'Ⅳ':''}}
+              {{item.maxLV===4?'Ⅴ':''}}
               </span>
               </div>
             </div>
@@ -142,11 +142,11 @@
               </div>
               <div>{{item.nickName}}
                 <span style="color: #1D9ED7;">
-              {{item.maxLV===1?'Ⅰ':''}}
-              {{item.maxLV===2?'Ⅱ':''}}
-              {{item.maxLV===3?'Ⅲ':''}}
-              {{item.maxLV===4?'Ⅳ':''}}
-              {{item.maxLV===5?'Ⅴ':''}}
+              {{item.maxLV===0?'Ⅰ':''}}
+              {{item.maxLV===1?'Ⅱ':''}}
+              {{item.maxLV===2?'Ⅲ':''}}
+              {{item.maxLV===3?'Ⅳ':''}}
+              {{item.maxLV===4?'Ⅴ':''}}
               </span>
               </div>
             </div>
@@ -236,13 +236,12 @@
         }
       }
     },
-    async onLoad() {
+    onLoad() {
+      wx.showLoading({title: '加载中'})
       this.dataStatus = this.$app.storageStore.userStore.getters.getType //获取资料填写状态
       this.activityId = this.$mp.query.id //获取活动id
       //初始化活动信息
-      await this.init()//调用初始化
-    },
-    mounted() {
+      this.init()//调用初始化
     },
     methods: {
       //初始化页面
@@ -250,7 +249,7 @@
         this.activityInfo = []
         this.activityInfo.activity = []
         this.activityInfo.userList = []
-        this.$app.api.activity.activity({
+        await this.$app.api.activity.activity({
           id: this.activityId, //活动id
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id
         }).then(res => {
@@ -259,13 +258,14 @@
           this.activityInfo.userList = JSON.parse(res.data.userList)
         })
 
-        this.$app.api.user.userCenter({
+        await this.$app.api.user.userCenter({
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {
           console.log(res.data)
           if (res.data) {
             this.user = JSON.parse(res.data.user)
           }
+          wx.hideLoading()
         })
       },
       goData() {
@@ -285,7 +285,6 @@
             wx.showToast({title: '收藏成功!', icon: 'none'})
           }
         }) : this.goData()
-
       },
       //邀约
       invitation() {
@@ -324,6 +323,10 @@
       }
     },
     onShareAppMessage() {
+      return {
+        title: '竹芝林',
+        path: '/pages/activity/main'
+      }
     }
   }
 </script>

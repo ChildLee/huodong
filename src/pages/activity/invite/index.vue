@@ -1,8 +1,10 @@
 <template>
   <main>
-    <!--<div class="invite-search">-->
-    <!--<input type="text" placeholder="">-->
-    <!--</div>-->
+    <div class="activity_top" style="background: white">
+      <div class="activity_search">
+        <input v-model="searchInvite" type="text" placeholder="搜索关注人" @blur="search">
+      </div>
+    </div>
 
     <div class="invite-title border-bottom">
       <div>关注人</div>
@@ -14,9 +16,10 @@
 
       <div class="invite-list border-bottom">
         <div>{{item.nickName}}</div>
-        <div>{{item.remark?remark:''}}</div>
+        <div>{{item.remark}}</div>
         <div>
-          <span class="btn btn_size-small btn_color-DodgerBlue br5 of" @click="invite_helper(item.id)">邀约</span>
+          <span class="btn btn_size-small btn_color-DodgerBlue br5 of"
+                @click="invite_helper(item.attentionUserId)">邀约</span>
         </div>
       </div>
 
@@ -30,33 +33,29 @@
     name: 'activity_invite',
     data() {
       return {
+        searchInvite: '',
         activityId: '21',//活动id
         addStatus: 'true',//是否添加成功
         hostStatus: '0',//能不能不要辅助人0不能
         userId: '4',//用户id
-        list: [{
-          id: 7,
-          nickName: '名',
-          remark: null,
-          sex: 1,
-          time: '2018-5-5 20:19:15'
-        }]
+        list: [{'attentionUserId': 6, 'id': 104, 'nickName': '66666666', 'remark': '后台', 'sex': 2}]
       }
     },
     async onLoad() {
+      wx.showLoading({title: '加载中'})
       this.activityId = this.$mp.query.id
       await this.init()
     },
     methods: {
       async init() {
+        this.list = []
         this.$app.api.user.myFocus({
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {
           if (res.data) {
             this.list = JSON.parse(res.data.focus)
-          } else {
-            this.list = []
           }
+          wx.hideLoading()
         })
       },
       invite_helper(id) {
@@ -70,6 +69,18 @@
           if (res.data) {
             that.$app.nav.navigateTo('/pages/activity/activity_info/main', {id: that.activityId})
             wx.showToast({title: '邀约成功!', icon: 'success'})
+          }
+        })
+      },
+      search() {
+        this.list = []
+        this.$app.api.user.myFocus({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          condition: this.searchInvite
+        }).then(res => {
+          console.log(res)
+          if (res.data) {
+            this.list = JSON.parse(res.data.focus)
           }
         })
       }
@@ -122,6 +133,26 @@
     ._div {
       flex: 1;
       text-align center
+    }
+  }
+
+  .activity_top {
+    display flex;
+    justify-content space-between;
+    align-items center;
+    padding: 15px;
+
+    .activity_search {
+      flex 1;
+
+      input {
+        border: 1px solid #ccc
+        font-size 14px;
+      }
+    }
+    .activity_btn {
+      margin-left 15px;
+      font-size 14px;
     }
   }
 </style>

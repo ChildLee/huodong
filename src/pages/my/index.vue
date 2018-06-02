@@ -211,11 +211,11 @@
         <div>
           <radio-group class="transfer-box" @change="popup_sel">
             <!--<label class="transfer">-->
-              <!--<radio :value="0"/>-->
-              <!--<span>转会费</span>-->
-              <!--<span>-->
-                <!--<input v-model="transfer_money" class="transfer-input" type="number" placeholder="请输入金额">-->
-              <!--</span>-->
+            <!--<radio :value="0"/>-->
+            <!--<span>转会费</span>-->
+            <!--<span>-->
+            <!--<input v-model="transfer_money" class="transfer-input" type="number" placeholder="请输入金额">-->
+            <!--</span>-->
             <!--</label>-->
             <label class="transfer">
               <radio :value="1"/>
