@@ -16,7 +16,7 @@
 
       <div class="invite-list border-bottom">
         <div>{{item.nickName}}</div>
-        <div>{{item.remark}}</div>
+        <div>{{item.remark?item.remark:''}}</div>
         <div>
           <span class="btn btn_size-small btn_color-DodgerBlue br5 of"
                 @click="invite_helper(item.attentionUserId)">邀约</span>
@@ -83,9 +83,11 @@
             invitationId: id
           }).then(res => {
             if (res.data) {
-              wx.reLaunch({url: '/pages/my/my_organize/main'})
+              wx.reLaunch({url: '/pages/my/main'})
               wx.showToast({title: '邀约成功!', icon: 'success'})
             }
+          }).catch(res => {
+            wx.showToast({title: '活动信息里面有未知符号!', icon: 'success'})
           })
         })
       },

@@ -26,29 +26,29 @@
     </div>
 
     <div class="invite-box" v-for="(item,index) in focus" :key="index"
-         v-if="item.status!==3&&currentTab===2&&currentTabChild===1">
+         v-if="item.status===0&&currentTab===2&&currentTabChild===1">
       <!--发出活动邀约-->
-      <div class="my_invite">
+      <div class="my_invite" @click="nav_activity(item.activityId)">
         <div class="invite-info">已邀约
           <span class="invite-info_color">{{item.nickName}}</span>与您一起参加
           <span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.
         </div>
-        <div class="invite-msg">留言:{{item.title}}
-          <span style="float: right;color: #555;" @click="undo(item.id)">撤销</span>
-        </div>
+        <!--<div class="invite-msg f f-x-e">-->
+          <!--<div @click="undo(item.id)">撤销</div>-->
+        <!--</div>-->
       </div>
     </div>
 
     <div class="invite-box" v-for="(item,index) in focus" :key="index"
-         v-if="item.status!==3&&currentTab===2&&currentTabChild===2">
+         v-if="item.status===0&&currentTab===2&&currentTabChild===2">
       <!--发出辅助邀约-->
       <div class="my_invite">
         <div class="invite-info">已邀约
           <span class="invite-info_color">{{item.nickName}}</span>作为辅助人与您一起主持
           <span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.
         </div>
-        <div class="invite-msg">留言:{{item.title}}
-          <span style="float: right;color: #555;" @click="undo(item.id)">撤销</span>
+        <div class="invite-msg f f-x-e">
+          <div @click="undofu(item.id)">撤销</div>
         </div>
       </div>
     </div>
@@ -59,10 +59,9 @@
       <div class="my_invite">
         <div class="invite-info">已邀约
           <span class="invite-info_color">{{item.nickName}}</span>与您一起进入准备恋爱阶段
-          <!--<span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.-->
         </div>
-        <div class="invite-msg">留言:{{item.title}}
-          <span style="float: right;color: #555;" @click="undoL(item.id)">撤销</span>
+        <div class="invite-msg f f-x-e">
+          <div @click="undoL(item.id)">撤销</div>
         </div>
       </div>
     </div>
@@ -70,14 +69,15 @@
     <div>
       <!--收到活动邀约-->
       <div class="invite-help border-bottom_line" v-for="(item,index) in focus" :key="index"
-           v-if="item.status===0&&currentTab===1&&currentTabChild===1">
+           v-if="item.status===0&&currentTab===1&&currentTabChild===1" @click="nav_activity(item.activityId)">
         <div class="invite-help-info">
           <span class="invite-info_color">{{item.nickName}}</span>邀约您与TA一起参加
           <span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.
         </div>
-        <div class="invite-help-btn">
-          <div class="btn btn_size-small btn_color-diyBlue mg10-t" @click="Participate(item.id)">好呀</div>
-        </div>
+        <!--<div class="invite-help-btn">-->
+          <!--<div></div>-->
+          <!--<div class="btn btn_size-small btn_color-diyBlue mg10-t" @click="Participate(item.id)">好呀</div>-->
+        <!--</div>-->
       </div>
     </div>
 
@@ -90,7 +90,7 @@
           <span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.
         </div>
         <div class="invite-help-btn">
-          <div class="btn btn_size-small btn_color-diyBlue mg10-t" @click="Assistant(item.id)">好呀</div>
+          <div class="btn btn_size-small btn_color-diyBlue mg10-t" @click.stop="Assistant(item.id)">好呀</div>
         </div>
       </div>
     </div>
@@ -157,11 +157,32 @@
         this.currentTabChild = tab
         this.init()
       },
+      nav_activity(id) {
+        this.$app.nav.navigateTo('/pages/activity/activity_info/main', {id})
+      },
       undo(id) {
         let that = this
         wx.showModal({
           title: '',
           content: '撤销邀约时，退款并扣50%手续费，对方拒绝或20天内未回复的，退款并扣15%手续费。',
+          success: function (res) {
+            if (res.confirm) {
+              that.$app.api.activity.undoInvitation({
+                id: id
+              }).then(res => {
+                if (res.data) {
+                  that.init()
+                }
+              })
+            }
+          }
+        })
+      },
+      undofu(id) {
+        let that = this
+        wx.showModal({
+          title: '',
+          content: '确定撤销?',
           success: function (res) {
             if (res.confirm) {
               that.$app.api.activity.undoInvitation({
@@ -198,7 +219,7 @@
         let that = this
         wx.showModal({
           title: '提示',
-          content: `确定辅助该活动?`,
+          content: `确定参加该活动?`,
           success: function (res) {
             if (res.confirm) {
               that.$app.api.activity.promiseParticipate({
@@ -215,13 +236,21 @@
       },
       Assistant(id) {
         let that = this
-        this.$app.api.activity.promiseAssistant({
-          id: id
-        }).then(res => {
-          console.log(res)
-          if (res.data) {
-            wx.showToast({title: '操作成功!', icon: 'none'})
-            that.init()
+        wx.showModal({
+          title: '提示',
+          content: `确定辅助该活动?`,
+          success: function (res) {
+            if (res.confirm) {
+              this.$app.api.activity.promiseParticipate({
+                id: id
+              }).then(res => {
+                console.log(res)
+                if (res.data) {
+                  wx.showToast({title: '操作成功!', icon: 'none'})
+                  that.init()
+                }
+              })
+            }
           }
         })
       },
@@ -264,8 +293,7 @@
 
       .invite-msg {
         font-size 14px;
-        color: #999;
-        text-indent 2em;
+        color: #555;
       }
     }
   }

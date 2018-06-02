@@ -86,7 +86,44 @@
           }
         })
       },
+      reg(enter) {
+        let reg = /[a-zA-Z\d\u4e00-\u9fa5]/
+        return !reg.test(enter)
+      },
+      regNum(enter) {
+        let reg = /^\d+$/
+        return !reg.test(enter)
+      },
       invite_btn() {
+        let r = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/
+        let p = /1[0-9]{10}/
+
+        if (this.reg(this.title)) {
+          return wx.showToast({title: '请输入正确的标题', icon: 'none'})
+        }
+
+        if (!r.test(this.time)) {
+          return wx.showToast({title: '时间格式为:2014-01-01 12:00:00', icon: 'none'})
+        }
+
+        let day = new Date()
+        let day1 = new Date(this.time)
+        if (day - day1 > 0) {
+          return wx.showToast({title: '时间不能小于当前时间', icon: 'none'})
+        }
+
+        if (this.reg(this.place)) {
+          return wx.showToast({title: '请输入正确的地点', icon: 'none'})
+        }
+
+        if (!p.test(this.phone)) {
+          return wx.showToast({title: '请输入正确的手机号', icon: 'none'})
+        }
+
+        if (this.reg(this.content)) {
+          return wx.showToast({title: '请输入正确的内容', icon: 'none'})
+        }
+
         let that = this
         this.$app.api.activity.modifyActivity({
           id: that.activityId,

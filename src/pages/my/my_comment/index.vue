@@ -103,6 +103,7 @@
     },
     methods: {
       async init(param) {
+        this.activitys=[]
         this.$app.api.activity.myComment({
           status: param.status,
           userId: this.$app.storageStore.userStore.getters.getUserId,

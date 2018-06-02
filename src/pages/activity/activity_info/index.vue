@@ -237,7 +237,7 @@
       }
     },
     onLoad() {
-      wx.showLoading({title: '加载中'})
+      wx.showLoading({title: '数据加载中'})
       this.dataStatus = this.$app.storageStore.userStore.getters.getType //获取资料填写状态
       this.activityId = this.$mp.query.id //获取活动id
       //初始化活动信息
@@ -299,6 +299,7 @@
       },
       //参加
       participate() {
+        console.log(this.dataStatus)
         if (!this.dataStatus) {
           return this.goData()
         }
@@ -312,6 +313,7 @@
         this.isPay = false
       },
       payBtn() {
+        let that = this
         this.$app.api.activity.joinActivity({
           userId: this.$app.storageStore.userStore.getters.getUserId,
           activityId: this.activityId
@@ -319,10 +321,11 @@
           console.log(res)
           if (res.data) {
             wx.showToast({title: '参加成功!', icon: 'none'})
-            this.closePopup()
+            that.init()
           } else {
             wx.showToast({title: '参加失败,余额不足或已参加该活动', icon: 'none'})
           }
+          this.closePopup()
         })
       }
     },

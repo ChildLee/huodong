@@ -163,8 +163,8 @@
         await this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
           if (res.data) {
             this.list = JSON.parse(res.data.activities)
-            wx.hideLoading()
           }
+          wx.hideLoading()
         })
       },
       closePopup() {

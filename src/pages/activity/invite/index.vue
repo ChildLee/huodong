@@ -16,7 +16,7 @@
 
       <div class="invite-list border-bottom">
         <div>{{item.nickName}}</div>
-        <div>{{item.remark}}</div>
+        <div>{{item.remark?item.remark:''}}</div>
         <div>
           <span class="btn btn_size-small btn_color-DodgerBlue br5 of"
                 @click="invite_helper(item.attentionUserId)">邀约</span>
@@ -59,7 +59,6 @@
         })
       },
       invite_helper(id) {
-        wx.showLoading({title: '邀约中'})
         let that = this
         this.$app.api.activity.addInvitation({
           activityId: this.activityId,
@@ -70,8 +69,9 @@
           console.log(res)
           if (res.data) {
             that.$app.nav.navigateTo('/pages/activity/activity_info/main', {id: that.activityId})
-            wx.showToast({title: '邀约成功!', icon: 'success'})
-            wx.hideLoading()
+            wx.showToast({title: '邀约成功!', icon: 'none'})
+          } else {
+            wx.showToast({title: '邀约失败,对方已参加或未知错误!', icon: 'none'})
           }
         })
       },

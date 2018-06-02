@@ -41,12 +41,11 @@
     },
     methods: {
       init(tab) {
+        this.list = []
         this.$app.api.activity.myActivities({
           userId: this.$app.storageStore.userStore.getters.getUserId,
           status: tab
         }).then(res => {
-          console.log(res)
-          this.list = []
           if (res.data) {
             this.list = JSON.parse(res.data.activitys)
             this.cancelA = JSON.parse(res.data.cancelActivity)

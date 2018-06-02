@@ -52,7 +52,7 @@
     },
     async onShow() {
       wx.showLoading({title: '加载中'})
-      await this.init(1)
+      await this.init(this.tab)
       wx.hideLoading()
     },
     methods: {

@@ -15,33 +15,33 @@
     </div>
     <div class="field border-cell">
       <div class="field_left">活动地点</div>
-      <div class="field_right">
+      <div class="field_right" >
         <input v-model.lazy="place" placeholder="深圳 高新园 TCL大厦 1101 室"/>
       </div>
     </div>
     <div class="field border-cell">
       <div class="field_left">电话号码</div>
       <div class="field_right">
-        <input v-model.lazy="phone" placeholder="联系方式"/>
+        <input type="number" v-model.lazy="phone" placeholder="联系方式"/>
       </div>
     </div>
     <div class="field border-cell">
       <div class="field_left">会员免费名额</div>
       <div class="field_right">
-        <input v-model.lazy="freePlaces" placeholder="10"/>
+        <input type="number" v-model.lazy="freePlaces" placeholder="10"/>
       </div>
     </div>
     <div class="maxAndPrice border-cell">
       <div class="field">
         <div class="field_left">男生数量上限</div>
         <div class="field_right">
-          <input v-model.lazy="menPlaces" placeholder="30"/>
+          <input type="number" v-model.lazy="menPlaces" placeholder="30"/>
         </div>
       </div>
       <div class="field">
         <div class="field_left">价格</div>
         <div class="field_right">
-          <input v-model.lazy="menPrice" placeholder="50"/>
+          <input type="number" v-model.lazy="menPrice" placeholder="50"/>
         </div>
       </div>
     </div>
@@ -49,20 +49,20 @@
       <div class="field">
         <div class="field_left">女生数量上限</div>
         <div class="field_right">
-          <input v-model.lazy="womenPlaces" placeholder="30"/>
+          <input type="number" v-model.lazy="womenPlaces" placeholder="30"/>
         </div>
       </div>
       <div class="field">
         <div class="field_left">价格</div>
         <div class="field_right">
-          <input v-model.lazy="womenPrice" placeholder="50"/>
+          <input type="number" v-model.lazy="womenPrice" placeholder="50"/>
         </div>
       </div>
     </div>
     <div class="field border-cell">
       <div class="field_left">内容</div>
       <div class="field_right">
-        <textarea v-model.lazy="content" placeholder="活动目的,意义"/>
+        <textarea v-model="content" placeholder="活动目的,意义"/>
       </div>
     </div>
 
@@ -131,6 +131,12 @@
         //   return wx.showToast({title: '时间格式为:2014-01-01 12:00:00', icon: 'none'})
         // }
         //
+        // let day = new Date()
+        // let day1 = new Date(this.time)
+        // if (day - day1 > 0) {
+        //   return wx.showToast({title: '时间不能小于当前时间', icon: 'none'})
+        // }
+        //
         // if (this.reg(this.place)) {
         //   return wx.showToast({title: '请输入正确的地点', icon: 'none'})
         // }
@@ -138,17 +144,17 @@
         // if (!p.test(this.phone)) {
         //   return wx.showToast({title: '请输入正确的手机号', icon: 'none'})
         // }
-
-        if (this.reg(this.content)) {
-          return wx.showToast({title: '请输入正确的内容', icon: 'none'})
-        }
-
-        if (this.regNum(this.menPrice)
-          || this.regNum(this.menPlaces) || this.regNum(this.freePlaces)
-          || this.regNum(this.womenPrice) || this.regNum(this.womenPlaces)
-        ) {
-          return wx.showToast({title: '价格和数量只能为数字', icon: 'none'})
-        }
+        //
+        // if (this.reg(this.content)) {
+        //   return wx.showToast({title: '请输入正确的内容', icon: 'none'})
+        // }
+        //
+        // if (this.regNum(this.menPrice)
+        //   || this.regNum(this.menPlaces) || this.regNum(this.freePlaces)
+        //   || this.regNum(this.womenPrice) || this.regNum(this.womenPlaces)
+        // ) {
+        //   return wx.showToast({title: '价格和数量只能为数字', icon: 'none'})
+        // }
 
         let info = {
           id: this.$app.storageStore.userStore.getters.getUserId,

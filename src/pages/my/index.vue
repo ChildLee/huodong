@@ -24,16 +24,17 @@
       <div>
         <div>
           <span>会员：</span>
-          <span v-if="userInfo.member===0">Ⅰ级</span>
-          <span v-if="userInfo.member===1">Ⅱ级</span>
-          <span v-if="userInfo.member===2">Ⅲ级</span>
-          <span v-if="userInfo.member===3">Ⅳ级</span>
-          <span v-if="userInfo.member===4">Ⅴ级</span>
-          <span v-if="userInfo.member===5">Ⅵ级</span>
-          <span v-if="userInfo.member===6">Ⅶ级</span>
-          <span v-if="userInfo.member===7">Ⅷ级</span>
-          <span v-if="userInfo.member===8">Ⅸ级</span>
-          <span v-if="userInfo.member===9">Ⅹ级</span>
+          <span v-if="userInfo.star===0">0级</span>
+          <span v-if="userInfo.star===1">Ⅰ级</span>
+          <span v-if="userInfo.star===2">Ⅱ级</span>
+          <span v-if="userInfo.star===3">Ⅲ级</span>
+          <span v-if="userInfo.star===4">Ⅳ级</span>
+          <span v-if="userInfo.star===5">Ⅴ级</span>
+          <span v-if="userInfo.star===6">Ⅵ级</span>
+          <span v-if="userInfo.star===7">Ⅶ级</span>
+          <span v-if="userInfo.star===8">Ⅷ级</span>
+          <span v-if="userInfo.star===9">Ⅸ级</span>
+          <span v-if="userInfo.star===10">Ⅹ级</span>
         </div>
         <div>
           <span>主持：</span>
@@ -67,14 +68,14 @@
         </div>
         <div>
           <span>评价参与度：</span>
-          <span>0</span>
+          <span>{{userInfo.reviewNumber}}</span>
         </div>
         <div>
           <span>评价平均分：</span>
-          <span>0</span>
+          <span>{{userInfo.reviewAverage}}</span>
         </div>
         <div>
-          <span>塔木德次数：</span>
+          <span>塔木德分数：</span>
           <span>{{userInfo.talmudNumber}}</span>
         </div>
       </div>
@@ -89,11 +90,11 @@
         </div>
         <div>
           <span>建议奖：</span>
-          <span>0</span>
+          <span>{{userInfo.suggest}}</span>
         </div>
         <div>
           <span>特殊贡献奖：</span>
-          <span>0</span>
+          <span>{{userInfo.specialContribution}}</span>
         </div>
       </div>
     </div>
@@ -235,14 +236,44 @@
     <!--转账弹窗-->
 
     <!--充值-->
+    <!--<div class="popup-3" v-if="isPopup2">-->
+    <!--<div class="popup-box">-->
+    <!--<div>-->
+    <!--<div class="transfer">-->
+    <!--<span>充值</span>-->
+    <!--<span>-->
+    <!--<input v-model="recharge1" class="transfer-input1" type="number" placeholder="请输入金额">-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--<div class="transfer-btn-box border-top">-->
+    <!--<span class="transfer-btn btn btn_size-small" @click="btn_recharge">确定</span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="popup-curtain" @click="closePopup">&lt;!&ndash;幕布&ndash;&gt;</div>-->
+    <!--</div>-->
+
+    <!--转账弹窗-->
     <div class="popup-3" v-if="isPopup2">
-      <div class="popup-box">
+      <div class="popup-box" style="top:35%;">
         <div>
-          <div class="transfer">
-            <span>充值</span>
-            <span>
-                <input v-model="recharge1" class="transfer-input1" type="number" placeholder="请输入金额">
+          <div style="width:50%;margin: 0 auto;">
+            <radio-group class="transfer-box" @change="popup_pay">
+              <label class="transfer fs14">
+                <radio :value="0"/>
+                <span>充值</span>
+                <span class="c">
+                500元
               </span>
+              </label>
+              <label class="transfer fs14">
+                <radio :value="1"/>
+                <span>充值</span>
+                <span class="c">
+                1000元
+              </span>
+              </label>
+            </radio-group>
           </div>
           <div class="transfer-btn-box border-top">
             <span class="transfer-btn btn btn_size-small" @click="btn_recharge">确定</span>
@@ -251,7 +282,7 @@
       </div>
       <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
     </div>
-    <!--弹窗-->
+    <!--转账弹窗-->
   </main>
 </template>
 
@@ -286,7 +317,9 @@
         transfer_money: '', //转账金额
         withdraw: '', //提现金额
         transfer_sel: 0, //选择转账还是提现
+        transfer_pay: 0, //充值500还是1000
         userInfo: {
+          reviewAverage: 0,
           avatatUrl: '',
           assistantLevel: 0, //辅助人等级
           assistantNumber: 0, //辅助次数
@@ -308,8 +341,7 @@
         },
         isPopup: false,
         isPopup2: false,
-        isTransfer: false,
-        recharge1: ''
+        isTransfer: false
       }
     },
     watch: {
@@ -329,6 +361,7 @@
       await this.$app.api.user.userCenter({
         userId: this.$app.storageStore.userStore.getters.getUserId
       }).then(res => {
+        console.log(res)
         this.userInfo = JSON.parse(res.data.user)
         wx.hideLoading()
       })
@@ -370,24 +403,32 @@
       popup_sel(e) {
         this.transfer_sel = e.target.value
       },
-      btn_recharge() {
-        let reg = /^[\d]+$/
-        if (!reg.test(this.recharge1)) {
-          return wx.showToast({title: '请填写数字!', icon: 'none'})
-        }
-        this.$app.api.money.recharge({
-          userId: this.$app.storageStore.userStore.getters.getUserId,
-          money: this.recharge1
-        }).then(res => {
-          if (res.data) {
-            // wx.showToast({title: '', icon: 'none'})
-            this.closePopup()
-            this.$app.nav.navigateTo('/pages/activity/pay/main')
-          }
-        })
+      popup_pay(e) {
+        this.transfer_pay = e.target.value
       },
       recharge() {
+        this.transfer_pay = ''
         this.isPopup2 = true
+      },
+      btn_recharge() {
+        if (!this.transfer_pay) {
+          return wx.showToast({title: '请选择充值金额', icon: 'none'})
+        }
+        wx.showLoading({title: '请稍后'})
+        let money = 500
+        this.transfer_pay === '1' ? money = 1000 : ``
+
+        this.$app.api.money.recharge({
+          userId: this.$app.storageStore.userStore.getters.getUserId,
+          money: money
+        }).then(res => {
+          if (res.data) {
+            this.closePopup()
+            this.$app.nav.navigateTo('/pages/activity/pay/main')
+            wx.showToast({title: '账单已提交,请扫码充值', icon: 'none'})
+          }
+          wx.hideLoading()
+        })
       },
       transfer_btn() {
         let that = this
@@ -408,11 +449,7 @@
             wx.showToast({title: '未知错误!', icon: 'none'})
           })
         } else if (this.transfer_sel === '1') { //提现
-          // let myDate = new Date()
-          // console.log(myDate.getDate())
-          // if (!myDate.getDate() >= 25) {
-          //   return wx.showToast({title: '每月25日申请!', icon: 'none'})
-          // }
+
           let reg = /^[\d]+$/
           if (!reg.test(that.withdraw)) {
             return wx.showToast({title: '请填写数字!', icon: 'none'})
@@ -424,6 +461,7 @@
             mode: this.transfer_sel
           }).then(res => {
             this.isTransfer = false
+            console.log(res)
             wx.showToast({title: '提现成功!', icon: 'none'})
           }).catch(err => {
             wx.showToast({title: '未知错误!', icon: 'none'})
@@ -724,8 +762,8 @@
       background-color white;
       position: fixed;
       top: 30%;
-      left: 10%;
-      width 80%;
+      left: 20%;
+      width 60%;
       z-index: 3;
       transition: all 2s;
 

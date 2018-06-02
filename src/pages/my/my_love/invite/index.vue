@@ -14,7 +14,7 @@
 
       <div class="invite-list border-bottom">
         <div>{{item.nickName}}</div>
-        <div>{{item.remark?remark:''}}</div>
+        <div>{{item.remark?item.remark:''}}</div>
         <div>
           <span class="btn btn_size-small btn_color-DodgerBlue br5 of" @click="invite_helper(item.id)">邀约</span>
         </div>
