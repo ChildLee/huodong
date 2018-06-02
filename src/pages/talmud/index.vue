@@ -99,7 +99,8 @@
         }]
       }
     },
-    async onLoad() {
+    async onShow() {
+      wx.showLoading({title: '加载中'})
       //判断资料填了没有
       this.$app.storageStore.userStore.getters.getType ? `` : wx.redirectTo({url: '/pages/my/my_info/add_info/main?id=1'})
       await this.init(1)
@@ -114,6 +115,7 @@
           if (res.data) {
             this.list = JSON.parse(res.data.myTalmuds)
           }
+          wx.hideLoading()
         })
       },
       closePopup() {

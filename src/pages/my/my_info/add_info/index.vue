@@ -134,6 +134,7 @@
         this.sexIndex = e.target.value
       },
       async formSubmit(e) {
+        wx.showLoading({title: '资料保存中'})
         let that = this
         let data = e.mp.detail.value
         if (data.phone && data.nick && data.currentCity && data.selfEvaluation) {
@@ -149,18 +150,18 @@
                 duration: 2000
               })
             } else if (res.data) {
-              this.validation = true
+              that.validation = true
             } else {
               wx.showToast({
                 title: '昵称已存在',
                 icon: 'none',
                 duration: 2000
               })
-              this.validation = false
+              that.validation = false
             }
           })
         } else {
-          this.validation = false
+          that.validation = false
           wx.showToast({
             title: '必填信息为空',
             icon: 'none',
@@ -208,6 +209,7 @@
               this.$app.storageStore.userStore.dispatch('userStatus').then(res => {
                 wx.reLaunch({url: '/pages/activity/main'})
                 wx.showToast({title: '资料保存成功!', icon: 'success'})
+                wx.hideLoading()
               })
             }
           })

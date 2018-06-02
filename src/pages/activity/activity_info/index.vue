@@ -261,7 +261,6 @@
         await this.$app.api.user.userCenter({
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {
-          console.log(res.data)
           if (res.data) {
             this.user = JSON.parse(res.data.user)
           }
@@ -276,7 +275,10 @@
       },
       //收藏按钮
       collection() {
-        this.dataStatus ? this.$app.api.activity.collect({
+        if (!this.dataStatus) {
+          return this.goData()
+        }
+        this.$app.api.activity.collect({
           status: 0,
           userId: this.$app.storageStore.userStore.getters.getUserId,
           id: this.activityId
@@ -284,15 +286,16 @@
           if (res.data) {
             wx.showToast({title: '收藏成功!', icon: 'none'})
           }
-        }) : this.goData()
+        })
       },
       //邀约
       invitation() {
-        this.dataStatus ? `` : this.goData()
+        if (!this.dataStatus) {
+          return this.goData()
+        }
         this.activityInfo.activity.surplusStatus ? wx.showToast({
           title: '活动人数已满!', icon: 'none'
         }) : this.$app.nav.navigateTo('/pages/activity/invite/main', {id: this.activityId})
-
       },
       //参加
       participate() {
@@ -313,11 +316,12 @@
           userId: this.$app.storageStore.userStore.getters.getUserId,
           activityId: this.activityId
         }).then(res => {
+          console.log(res)
           if (res.data) {
             wx.showToast({title: '参加成功!', icon: 'none'})
             this.closePopup()
           } else {
-            this.navigateTo('/pages/activity/pay/main')
+            wx.showToast({title: '参加失败,余额不足或已参加该活动', icon: 'none'})
           }
         })
       }

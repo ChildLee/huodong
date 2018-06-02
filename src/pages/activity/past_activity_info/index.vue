@@ -216,8 +216,11 @@
           attentionUserId: id,
           status: !attention
         }).then(res => {
+          console.log(res)
           if (res.data) {
             item.attention = !item.attention
+          } else {
+            wx.showToast({title: '关注失败,关注自己或关注次数已用完', icon: 'none'})
           }
         })
       },

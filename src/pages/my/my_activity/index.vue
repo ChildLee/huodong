@@ -16,9 +16,8 @@
         <div class="activity_info border_line">
           <div class="activity_info_time">{{item.time}}</div>
           <div class="activity_info_location">{{item.place}}</div>
-          <div class="btn btn_size-mini btn_color-DodgerBlue"
-               @click.stop="cancelActivity(item.id)">
-            取消活动
+          <div class="c" @click.stop="cancelActivity(item.id)">
+            取消
           </div>
         </div>
         <div class="activity_text">{{item.title}}</div>
@@ -32,14 +31,8 @@
     name: 'my_activity',
     data() {
       return {
-        list: [{
-          id: 1,
-          place: '地点1',
-          status: 2,
-          time: '2018-5-13 17:19:40',
-          title: '标题1'
-        }],
-        deduction: 50, // 取消活动扣取比例
+        cancelA: 0,//取消活动扣取比例
+        list: [{'id': 46, 'place': '1', 'status': 1, 'time': '1', 'title': '1'}],
         currentTab: 1 // tab当下标
       }
     },
@@ -52,9 +45,11 @@
           userId: this.$app.storageStore.userStore.getters.getUserId,
           status: tab
         }).then(res => {
+          console.log(res)
           this.list = []
           if (res.data) {
             this.list = JSON.parse(res.data.activitys)
+            this.cancelA = JSON.parse(res.data.cancelActivity)
           }
         })
       },
@@ -64,19 +59,26 @@
         this.init(tab)
       },
       go_activity_info(id) {
-        this.$app.nav.navigateTo('/pages/activity/past_activity_info/main', {id})
+        console.log(id)
+        if (this.currentTab === 1) {
+          this.$app.nav.navigateTo('/pages/activity/activity_info/main', {id})
+        } else if (this.currentTab === 2) {
+          this.$app.nav.navigateTo('/pages/activity/past_activity_info/main', {id})
+        }
       },
       cancelActivity(id) {
+        console.log(id)
         let that = this
         wx.showModal({
           title: '提示',
-          content: `活动24小时以外取退全款，活动24小时以内取消扣取${this.deduction}%的名额费用`,
+          content: `活动24小时以外取退全款，活动24小时以内取消扣取${this.cancelA}%的名额费用`,
           success: function (res) {
             if (res.confirm) {
               that.$app.api.activity.quitActivity({
                 userId: that.$app.storageStore.userStore.getters.getUserId,
                 activityId: id
               }).then(res => {
+                console.log(res)
                 if (res.data) {
                   that.init(that.currentTab)
                 }

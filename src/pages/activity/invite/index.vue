@@ -59,6 +59,7 @@
         })
       },
       invite_helper(id) {
+        wx.showLoading({title: '邀约中'})
         let that = this
         this.$app.api.activity.addInvitation({
           activityId: this.activityId,
@@ -66,9 +67,11 @@
           userId: this.$app.storageStore.userStore.getters.getUserId,
           invitationId: id
         }).then(res => {
+          console.log(res)
           if (res.data) {
             that.$app.nav.navigateTo('/pages/activity/activity_info/main', {id: that.activityId})
             wx.showToast({title: '邀约成功!', icon: 'success'})
+            wx.hideLoading()
           }
         })
       },

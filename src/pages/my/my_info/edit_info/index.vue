@@ -163,6 +163,7 @@
         this.userInfo.status = e.target.value
       },
       async formSubmit(e) {
+        wx.showLoading({title: '资料修改中'})
         let data = e.mp.detail.value
         if (data.phone && data.nick && data.currentCity && data.selfEvaluation) {
           await this.$app.api.user.checkNick({
@@ -237,6 +238,7 @@
               this.$app.storageStore.userStore.dispatch('userStatus').then(res => {
                 wx.navigateBack()
                 wx.showToast({title: '资料修改成功!', icon: 'success'})
+                wx.hideLoading()
               })
             }
           })

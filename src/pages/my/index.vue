@@ -322,6 +322,7 @@
       }
     },
     async onShow() {
+      wx.showLoading({title: '加载中'})
       //判断资料填了没有
       this.$app.storageStore.userStore.getters.getType ? `` : wx.redirectTo({url: '/pages/my/my_info/add_info/main'})
       //初始化个人中心
@@ -329,6 +330,7 @@
         userId: this.$app.storageStore.userStore.getters.getUserId
       }).then(res => {
         this.userInfo = JSON.parse(res.data.user)
+        wx.hideLoading()
       })
       if (this.userInfo.status === 0) {
         this.love = '单身'
