@@ -34,7 +34,7 @@
           <span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.
         </div>
         <!--<div class="invite-msg f f-x-e">-->
-          <!--<div @click="undo(item.id)">撤销</div>-->
+        <!--<div @click="undo(item.id)">撤销</div>-->
         <!--</div>-->
       </div>
     </div>
@@ -75,8 +75,8 @@
           <span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.
         </div>
         <!--<div class="invite-help-btn">-->
-          <!--<div></div>-->
-          <!--<div class="btn btn_size-small btn_color-diyBlue mg10-t" @click="Participate(item.id)">好呀</div>-->
+        <!--<div></div>-->
+        <!--<div class="btn btn_size-small btn_color-diyBlue mg10-t" @click="Participate(item.id)">好呀</div>-->
         <!--</div>-->
       </div>
     </div>
@@ -111,6 +111,21 @@
       </div>
     </div>
 
+    <!--弹窗-->
+    <div class="popup" v-if="isPay2">
+      <div class="popup-box">
+        <div class="pay-box">
+          <div class="pay-price">支付费用{{promiseLove}}元
+          </div>
+          <!--<div class="pay-balance">会费剩余100元</div>-->
+          <div class="pay-btn border-top" @click="invite_love">确定</div>
+        </div>
+      </div>
+      <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
+    </div>
+    <!--弹窗-->
+
+
   </main>
 </template>
 
@@ -119,6 +134,10 @@
     name: 'my_invite',
     data() {
       return {
+        cancelLove: 0,//取消爱情邀约比例
+        timeout: 0,//超过20天扣费比例
+        invite_love_id: 0,
+        isPay2: false,
         focus: [{
           'nickName': 'cs名',
           'place': '2',
@@ -127,7 +146,9 @@
           'title': '1'
         }],
         currentTab: 2,//sendStatus 1收到的  2发出的
-        currentTabChild: 1////type 1/2 参加 辅助邀请   3爱情邀请
+        currentTabChild: 1,////type 1/2 参加 辅助邀请   3爱情邀请
+        promiseLove: 0, // promiseLove 答应爱情价格
+        love: 0 //love  邀请爱情价格
       }
     },
     async onLoad() {
@@ -143,9 +164,22 @@
         }).then(res => {
           console.log(res)
           if (res.data) {
+            this.cancelLove = res.data.cancelLove
+            this.timeout = res.data.timeout
             this.focus = JSON.parse(res.data.focus)
           }
         })
+
+        this.$app.api.love.priceChecking().then(res => {
+          console.log(res.data)
+          if (res.data) {
+            this.love = res.data.love
+            this.promiseLove = res.data.promiseLove
+          }
+        })
+      },
+      closePopup() {
+        this.isPay2 = false
       },
       switchNav(tab) {
         if (this.currentTab === tab) return false
@@ -200,7 +234,7 @@
         let that = this
         wx.showModal({
           title: '',
-          content: '撤销邀约时，退款并扣50%手续费，对方拒绝或20天内未回复的，退款并扣15%手续费。',
+          content: `撤销邀约时，退款并扣${this.cancelLove}手续费，对方拒绝或20天内未回复的，退款并扣${this.timeout}%手续费。`,
           success: function (res) {
             if (res.confirm) {
               that.$app.api.activity.undoLove({
@@ -255,16 +289,34 @@
         })
       },
       Love(id, status) {
+        this.invite_love_id = id
+        if (status === 0) {
+          this.isPay2 = true
+          return
+        }
         let that = this
         this.$app.api.activity.promiseLove({
           id: id,
-          status: status
+          status: 1
         }).then(res => {
           if (res.data) {
             wx.showToast({title: '操作成功!', icon: 'none'})
             that.init()
           }
         })
+      },
+      invite_love() {
+        let that = this
+        this.$app.api.activity.promiseLove({
+          id: this.invite_love_id,
+          status: 0
+        }).then(res => {
+          if (res.data) {
+            wx.showToast({title: '恋爱成功!', icon: 'none'})
+            that.init()
+          }
+        })
+        this.closePopup()
       }
     }
   }
@@ -330,6 +382,57 @@
     .invite-love-btn {
       display flex
       justify-content space-around;
+    }
+  }
+
+  /* 弹窗 */
+  .popup {
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
+      top: 30%;
+      left: 15%;
+      width 70%;
+      z-index: 3;
+      transition: all 2s;
+
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position fixed;
+      top: 0;
+      left 0;
+      width 100%;
+      height 100%;
+      z-index 2;
+    }
+  }
+
+  .pay-box {
+
+    .pay-price {
+      text-align center;
+      padding: 30px 0;
+      font-size 16px;
+    }
+
+    .pay-balance {
+      font-size 14px;
+      color: #999;
+      text-align right;
+    }
+
+    .pay-btn {
+      text-align center
+      padding-top 10px;
+      color: #1388BA;
     }
   }
 </style>

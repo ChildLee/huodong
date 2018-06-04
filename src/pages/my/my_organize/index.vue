@@ -47,7 +47,8 @@
           status: 0,//0准备发起 1已发起 2已结束,3开始
           time: '',
           title: ''
-        }]
+        }],
+        aloneHost: 0 //达到这个等级可以不邀约辅助人
       }
     },
     async onShow() {
@@ -66,6 +67,7 @@
           if (res.data) {
             this.hostStatus = res.data.hostStatus
             this.hostLV = res.data.hostLV
+            this.aloneHost = res.data.aloneHost
             console.log('我组织的', '主持人等级', this.hostLV)
             console.log('我组织的', '是不是主持人', this.hostStatus, this.hostStatus ? '是主持人' : '不是主持人')
           }
@@ -83,7 +85,10 @@
         this.$app.nav.navigateTo('/pages/my/my_organize/organize_info/main', {id})
       },
       pushActivitie() {
-        this.$app.nav.navigateTo('/pages/my/my_organize/publish_activities/main', {hostLV: this.hostLV})
+        this.$app.nav.navigateTo('/pages/my/my_organize/publish_activities/main', {
+          hostLV: this.hostLV,
+          aloneHost: this.aloneHost
+        })
       }
     }
   }

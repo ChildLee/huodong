@@ -89,11 +89,11 @@
           <span>{{userInfo.assistantNumber}}</span>
         </div>
         <div>
-          <span>建议奖：</span>
+          <span>奖罚：</span>
           <span>{{userInfo.suggest}}</span>
         </div>
         <div>
-          <span>特殊贡献奖：</span>
+          <span>重大奖罚：</span>
           <span>{{userInfo.specialContribution}}</span>
         </div>
       </div>

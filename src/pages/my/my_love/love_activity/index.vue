@@ -6,7 +6,7 @@
       </div>
     </div>
 
-    <div class="prompt">您与{{userInfo.nick}}在{{determine?determine:''}}-{{stop?stop:'至今'}}期间尝试交往</div>
+    <div class="prompt">您与{{userInfo.nick}}在{{determine?determine:''}}-{{stop?stop:'至今'}}尝试交往</div>
 
     <!--弹窗显示信件-->
     <div class="popup_1" v-if="isPopup">
@@ -60,6 +60,7 @@
           userId: this.$app.storageStore.userStore.getters.getUserId,
           id: this.$mp.query.id
         }).then(res => {
+          console.log(res.data)
           if (res.data) {
             this.activitys = JSON.parse(res.data.activitys)
             this.loveUserId = res.data.loveUserId

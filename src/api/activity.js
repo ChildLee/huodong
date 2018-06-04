@@ -92,5 +92,9 @@ export default {
   //参加活动
   joinActivity(param) {
     return wx.httpRequest.httpJsonPost('/user/joinActivity', param)
+  },
+  //不邀约辅助人
+  separateHosting(param) {
+    return wx.httpRequest.httpJsonPost('/user/separateHosting', param)
   }
 }

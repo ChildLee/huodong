@@ -11,14 +11,14 @@
 
     <div class="mg15-lr icon">
 
-      <div class="pd15 mg10-b bg-eee br10" v-for="(item,index) in myTalmuds" :key="index" @click="talmudInfo(item.id)">
+      <div class="pd15 mg10-b bg-eee br10" v-for="(item,index) in myTalmuds" :key="index" @click="talmudInfo(item.taId)">
         <div class="fs16 c111 f-between">
           <div>{{item.title}}</div>
           <div>&#xe645;{{item.sameQuestion}}</div>
         </div>
         <div class="small c999 mg5-b f-between">
           <div>标签：{{item.tag}}</div>
-          <div class="fs12 ls c999">&#xe6e1;{{item.likes}}</div>
+          <div class="fs12 c999">&#xe6e1;{{item.likes}}</div>
         </div>
         <div style="float: right" class="fs14 c555" @click.stop="del_ta(item.id)">删除</div>
 
@@ -66,12 +66,21 @@
       },
       del_ta(id) {
         let that = this
-        this.$app.api.talmuds.deleteReply({
-          id: id
-        }).then(res => {
-          if (res.data) {
-            that.init()
-            wx.showToast({title: '删除成功!', icon: 'none'})
+        wx.showModal({
+          title: '提示',
+          content: `确定删除?`,
+          success: function (res) {
+            console.log(res)
+            if (res.confirm) {
+              that.$app.api.talmuds.deleteReply({
+                id: id
+              }).then(res => {
+                if (res.data) {
+                  that.init()
+                  wx.showToast({title: '删除成功!', icon: 'none'})
+                }
+              })
+            }
           }
         })
       }

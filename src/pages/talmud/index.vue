@@ -5,7 +5,7 @@
       <div class="talmud_top-search">
         <input v-model="search1" type="text" placeholder="搜索" @blur="search"/>
       </div>
-      <div class="btn btn_size-small" @click="same">我的同问</div>
+      <div class="btn btn_size-small" @click="filter1">筛选</div>
     </div>
 
     <div class="tab tab-box">
@@ -45,7 +45,7 @@
           </div>
           <div>标签</div>
           <div>
-            <input v-model.lazy="quest_tag" class="quest_input" type="text">
+            <input v-model="quest_tag" class="quest_input" type="text">
           </div>
           <div class="quest_send" @click="quest_send">发送</div>
         </div>
@@ -135,17 +135,6 @@
         this.tab = tab
         this.init(tab)
       },
-      same() {
-        this.list = []
-        this.$app.api.talmuds.talmuds({
-          userId: this.$app.storageStore.userStore.getters.getUserId,
-          status: this.tab //1散问 2整理
-        }).then(res => {
-          if (res.data) {
-            this.list = JSON.parse(res.data.myTalmuds)
-          }
-        })
-      },
       addSame(item, id) {
         this.$app.api.talmuds.addSameQuestion({
           userId: this.$app.storageStore.userStore.getters.getUserId,
@@ -207,6 +196,29 @@
         }).then(res => {
           if (res.data) {
             this.list = JSON.parse(res.data.myTalmuds)
+          }
+        })
+      },
+      filter1() {
+        this.list = []
+        let that = this
+        wx.showActionSheet({
+          itemList: ['我的同问', '全部'],
+          success: function (res) {
+            if (res.tapIndex === 0) {
+              that.list = []
+              that.$app.api.talmuds.talmuds({
+                userId: that.$app.storageStore.userStore.getters.getUserId,
+                status: that.tab
+              }).then(res => {
+                if (res.data) {
+                  that.list = JSON.parse(res.data.myTalmuds)
+                }
+              })
+            }
+            if (res.tapIndex === 1) {
+              that.init(that.tab)
+            }
           }
         })
       }

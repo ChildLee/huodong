@@ -64,9 +64,11 @@
     },
     methods: {
       async init() {
+        this.loves = []
         this.$app.api.love.myLoves({
           userId: this.$app.storageStore.userStore.getters.getUserId
         }).then(res => {
+          console.log(res.data)
           if (res.data) {
             this.status = res.data.status
             this.loves = JSON.parse(res.data.loves)
@@ -93,11 +95,11 @@
         this.$app.api.love.breakUp({
           id: this.loves[0].id
         }).then(res => {
+          console.log(res.data)
           if (res.data) {
-            that.init()
             wx.showToast({title: '异路成功!', icon: 'none'})
+            that.init()
           }
-          console.log(res)
         })
       }
     }
@@ -141,10 +143,6 @@
   .love_info {
     font-size 14px;
     padding: 15px;
-
-    ._div {
-      line-height: 40px;
-    }
   }
 
   .love_msg-title {

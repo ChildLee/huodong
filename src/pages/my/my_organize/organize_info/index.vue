@@ -272,20 +272,24 @@
         }
       },
       startA() {
+        let that = this
         this.$app.api.activity.startActivity({
           activityId: this.activityId
         }).then(res => {
           if (res.data) {
             wx.showToast({title: '活动开始!', icon: 'none'})
+            that.init()
           }
         })
       },
       stopA() {
+        let that = this
         this.$app.api.activity.stopActivity({
           activityId: this.activityId
         }).then(res => {
           if (res.data) {
             wx.showToast({title: '活动结束!', icon: 'none'})
+            that.init()
           }
         })
       },
