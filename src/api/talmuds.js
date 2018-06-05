@@ -32,5 +32,9 @@ export default {
   //删除塔木德回答
   deleteReply(param) {
     return wx.httpRequest.httpJsonPost('/user/deleteReply', param)
+  },
+  //删除塔木德回答
+  tag(param) {
+    return wx.httpRequest.httpJsonPost('/user/tag', param)
   }
 }

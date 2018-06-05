@@ -49,6 +49,7 @@
                 <span>恋爱</span>
               </label>
             </radio-group>
+            <div class="c999 mg15-lr mg5-tb">若接到不实投诉查正，给予公告处理</div>
           </div>
         </div>
         <div class="field border-bottom">

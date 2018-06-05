@@ -1,7 +1,7 @@
 <template>
   <main style="height: 100%;">
     <div class="talmud_top">
-      <!--<div>规则</div>-->
+      <div class="btn btn_size-small" @click="tagPrompt">标签提示</div>
       <div class="talmud_top-search">
         <input v-model="search1" type="text" placeholder="搜索" @blur="search"/>
       </div>
@@ -67,6 +67,18 @@
     </div>
     <!--弹窗-->
 
+
+    <!--标签提示-->
+    <div class="popup-5" v-if="isPopup5">
+      <div class="popup-box">
+        <div>
+          {{tag}}
+        </div>
+      </div>
+      <div class="popup-curtain" @click="closePopup"><!--幕布--></div>
+    </div>
+    <!--弹窗-->
+
   </main>
   <!--弹窗-->
 </template>
@@ -76,6 +88,8 @@
     name: 'talmud',
     data() {
       return {
+        tag: '',
+        isPopup5: false,
         search1: '',
         replyid: 0,
         content: '',
@@ -118,9 +132,18 @@
           wx.hideLoading()
         })
       },
+      tagPrompt() {
+        this.isPopup5 = true
+        this.$app.api.talmuds.tag().then(res => {
+          if (res.data) {
+            this.tag = res.data.tag
+          }
+        })
+      },
       closePopup() {
         this.isPopup = false
         this.isPopup1 = false
+        this.isPopup5 = false
       },
       popup() {
         if (this.member === 0) {
@@ -389,5 +412,36 @@
       z-index 2;
     }
   }
+
+  /* 弹窗 */
+  .popup-5 {
+    .popup-box {
+      padding: 15px;
+      box-sizing border-box;
+      border-radius 10px;
+      background-color white;
+      position: fixed;
+      top: 30%;
+      left: 10%;
+      width 80%;
+      z-index: 3;
+      transition: all 2s;
+
+      .popup-msg {
+        font-size 14px;
+      }
+    }
+
+    .popup-curtain {
+      background-color rgba(0, 0, 0, .5)
+      position fixed;
+      top: 0;
+      left 0;
+      width 100%;
+      height 100%;
+      z-index 2;
+    }
+  }
+
 </style>
 
