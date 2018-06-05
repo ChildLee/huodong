@@ -424,7 +424,7 @@
         }).then(res => {
           if (res.data) {
             this.closePopup()
-            this.$app.nav.navigateTo('/pages/activity/pay/main')
+            this.$app.nav.navigateTo('/pages/activity/pay/main', {type: this.transfer_pay})
             wx.showToast({title: '账单已提交,请扫码充值', icon: 'none'})
           }
           wx.hideLoading()

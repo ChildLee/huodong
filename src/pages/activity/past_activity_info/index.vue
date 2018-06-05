@@ -249,7 +249,11 @@
             review: this.review,
             score: this.assess_score
           }).then(res => {
-            res.state ? wx.showToast({title: res.message, icon: 'none'}) : wx.showToast({title: '评价成功!', icon: 'none'})
+            if (res.data) {
+              wx.showToast({title: '评价成功!', icon: 'none'})
+            } else {
+              wx.showToast({title: res.message, icon: 'none'})
+            }
           }).then(() => {
             this.isAssess = false
           })

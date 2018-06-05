@@ -1,7 +1,8 @@
 <template>
   <main>
     <div style="text-align: center;margin-top: 15%;">
-      <img src="/static/img/pay.png" mode="widthFix" style="width: 50%;">
+      <img v-if="type==='0'" src="/static/img/pay.png" mode="widthFix" style="width: 50%;">
+      <img v-if="type==='1'" src="/static/img/pay1.png" mode="widthFix" style="width: 50%;">
     </div>
     <div class="prompt-box">
       <div class="prompt-1">请截屏后用微信识别本二维码进行支付</div>
@@ -16,7 +17,15 @@
 
 <script>
   export default {
-    name: 'pay'
+    name: 'pay',
+    data() {
+      return {
+        type: 0
+      }
+    },
+    onShow() {
+      this.type = this.$mp.query.type
+    }
   }
 </script>
 

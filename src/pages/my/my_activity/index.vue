@@ -16,7 +16,7 @@
         <div class="activity_info border_line">
           <div class="activity_info_time">{{item.time}}</div>
           <div class="activity_info_location">{{item.place}}</div>
-          <div class="c" @click.stop="cancelActivity(item.id)">
+          <div class="c" @click.stop="cancelActivity(item.id)" v-if="currentTab===1">
             取消
           </div>
         </div>
