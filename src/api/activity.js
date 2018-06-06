@@ -96,5 +96,9 @@ export default {
   //不邀约辅助人
   separateHosting(param) {
     return wx.httpRequest.httpJsonPost('/user/separateHosting', param)
+  },
+  //
+  commentRules(param) {
+    return wx.httpRequest.httpJsonPost('/user/commentRules', param)
   }
 }

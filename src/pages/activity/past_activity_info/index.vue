@@ -203,7 +203,10 @@
       },
       //点击评价规则
       assess_rule() {
-        wx.showToast({title: '恶意评价,对方投诉查证属实,将被公告处理', icon: 'none'})
+        this.$app.api.activity.commentRules().then(res => {
+          wx.showToast({title: `参评主+${res.commentRules}参，主、辅互评,恶意虚评，查实公告处理`, icon: 'none'})
+        })
+
       },
       //点击分数事件
       clickScore(score) {

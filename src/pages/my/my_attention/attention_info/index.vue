@@ -157,7 +157,7 @@
         this.$app.nav.navigateTo('/pages/my/my_attention/comment/main', {id: this.user.id})
       },
       ta_talmud() {
-        this.$app.nav.navigateTo('/pages/my/my_talmud/main', {id: this.user.id})
+        this.$app.nav.navigateTo('/pages/my/my_attention/talmud/main', {id: this.user.id})
       }
     }
   }

@@ -23,8 +23,7 @@
           <!--<span style="float: right" class="small icon">&#xe6e1; {{item.likes}}</span>-->
           <span style="float: right" class="small icon" @click.stop="like_btn(item.id)">&#xe6e1; {{item.likes}}</span>
         </div>
-        <div class="c555 fs14 mg5-l">{{item.content}}
-        </div>
+        <div class="c555 fs14 mg5-l">{{item.content}}</div>
       </div>
     </div>
 
