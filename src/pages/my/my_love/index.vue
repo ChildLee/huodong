@@ -12,7 +12,7 @@
 
     <div class="love_info">
       <div class="border-bottom-white" v-for="item in loves" @click="love_info(item.id)" :key="item.id">
-        {{item.determine}}您与{{item.nick}}进入准备恋爱阶段。
+        {{item.determine}}您与{{item.nick}}的爱情信息。
       </div>
     </div>
 
@@ -30,6 +30,7 @@
           <div>规则：</div>
           <div>感情是郑重严谨的，请双方缴费确定</div>
           <div>在交往中如需帮助，加客服微信可获得专业辅助</div>
+          <div>无论邀约了多少人，一个答应后，其他邀约都会消失。注意！！！邀约费用不退，慎重恋爱邀约</div>
         </div>
       </div>
       <div class="popup-curtain" @click="closePopup"></div>
@@ -92,13 +93,21 @@
       },
       breakUp() {
         let that = this
-        this.$app.api.love.breakUp({
-          id: this.loves[0].id
-        }).then(res => {
-          console.log(res.data)
-          if (res.data) {
-            wx.showToast({title: '异路成功!', icon: 'none'})
-            that.init()
+        wx.showModal({
+          title: '提示',
+          content: `确定异路?`,
+          success: function (res) {
+            if (res.confirm) {
+              that.$app.api.love.breakUp({
+                id: that.loves[0].id
+              }).then(res => {
+                console.log(res.data)
+                if (res.data) {
+                  wx.showToast({title: '异路成功!', icon: 'none'})
+                  that.init()
+                }
+              })
+            }
           }
         })
       }

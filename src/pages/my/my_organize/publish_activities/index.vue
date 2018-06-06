@@ -62,7 +62,7 @@
     <div class="field border-cell">
       <div class="field_left">内容</div>
       <div class="field_right">
-        <textarea v-model="content" placeholder="活动目的,意义"/>
+        <textarea v-model="content" placeholder="活动时长、内容、目的、意义"/>
       </div>
     </div>
 

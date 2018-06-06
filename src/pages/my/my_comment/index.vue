@@ -31,7 +31,10 @@
             <!--<div class="comment_btn" @click="isPopup_2" v-if="item.complaintsStatus">投诉信息</div>-->
           </div>
           <div class="comment_text">
-            <span>{{item.role===1?'(主持人)':item.role===2?'(辅助人)':''}}{{item.nickName}}：{{item.review}}</span>
+            <span>
+              {{item.role===1?'(参与者)':item.role===2?'(主持人)':item.role===3?'(辅助人)':''}}
+              {{item.nickName}}：{{item.review}}
+            </span>
           </div>
         </div>
       </div>
@@ -41,9 +44,9 @@
     <div class="popup_1" v-if="popup_1">
       <div class="popup-box">
         <div class="filter_box">
-          <div @click="filter_comment(false,1)" class="border-bottom_line">主持人</div>
-          <div @click="filter_comment(false,2)" class="border-bottom_line">辅助人</div>
-          <div @click="filter_comment(false,3)" class="border-bottom_line">参与人</div>
+          <div @click="filter_comment(false,1)" class="border-bottom_line">参与人</div>
+          <div @click="filter_comment(false,2)" class="border-bottom_line">主持人</div>
+          <div @click="filter_comment(false,3)" class="border-bottom_line">辅助人</div>
           <div @click="filter_comment(5)" class="border-bottom_line">5分</div>
           <div @click="filter_comment(4)" class="border-bottom_line">4分</div>
           <div @click="filter_comment(3)" class="border-bottom_line">3分</div>
@@ -91,7 +94,7 @@
           nickName: 'cs名', //昵称
           place: '地点4',//地点
           review: '这个是我给出的评价1',//评论内容
-          role: 1, //角色
+          role: 1, //角色  //角色 1参与者 2主持人 3辅助人
           score: 5, //得分
           time: '2018-04-24 17:25:46',//时间
           title: '标题4'
@@ -103,7 +106,7 @@
     },
     methods: {
       async init(param) {
-        this.activitys=[]
+        this.activitys = []
         this.$app.api.activity.myComment({
           status: param.status,
           userId: this.$app.storageStore.userStore.getters.getUserId,

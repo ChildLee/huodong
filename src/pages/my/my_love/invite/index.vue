@@ -99,7 +99,7 @@
         }).then(res => {
           console.log(res.data)
           if (res.data) {
-            this.$app.nav.navigateTo('/pages/my/my_love/main')
+            wx.reLaunch({url: '/pages/my/main'})
             wx.showToast({title: '邀约成功!', icon: 'none'})
           } else {
             wx.showToast({title: '邀约失败!不能邀约同性或余额不足!', icon: 'none'})

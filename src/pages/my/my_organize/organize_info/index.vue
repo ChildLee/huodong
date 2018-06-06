@@ -46,7 +46,7 @@
             <!--<span v-else>&#xe613;</span>-->
             <!--</div>-->
             <div @click="assess(item)">{{item.nickName}}</div>
-            <div class="price_color">￥{{item.price}}</div>
+            <div class="price_color">￥{{activityInfo.activity.hostRevenue}}</div>
           </div>
         </div>
         <div>
@@ -56,7 +56,7 @@
             <!--<span v-else>&#xe613;</span>-->
             <!--</div>-->
             <div @click="assess(item)">{{item.nickName}}</div>
-            <div class="price_color">￥{{item.price}}</div>
+            <div class="price_color">￥{{activityInfo.activity.hostRevenue}}</div>
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@
             <!--<span v-else>&#xe613;</span>-->
             <!--</div>-->
             <div @click="assess(item)">{{item.nickName}}</div>
-            <div class="price_color">￥{{item.price}}</div>
+            <div class="price_color">￥{{activityInfo.activity.assistantRevenue}}</div>
           </div>
         </div>
         <div>
@@ -80,7 +80,7 @@
             <!--<span v-else>&#xe613;</span>-->
             <!--</div>-->
             <div @click="assess(item)">{{item.nickName}}</div>
-            <div class="price_color">￥{{item.price}}</div>
+            <div class="price_color">￥{{activityInfo.activity.assistantRevenue}}</div>
           </div>
         </div>
       </div>
@@ -180,6 +180,7 @@
             freePlaces: 0 //免费名额
           },
           userList: [{
+            price: 0,
             id: 0,
             nickName: '', //用户名
             maxLV: 0, //

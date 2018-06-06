@@ -266,6 +266,8 @@
                 500元
               </span>
               </label>
+              <div class="fs14 c999">免费活动{{userInfo.attentionLV2}}次</div>
+              <div></div>
               <label class="transfer fs14">
                 <radio :value="1"/>
                 <span>充值</span>
@@ -273,6 +275,7 @@
                 1000元
               </span>
               </label>
+              <div class="fs14 c999 mg10-b">免费活动{{userInfo.attentionLV2}}次</div>
             </radio-group>
           </div>
           <div class="transfer-btn-box border-top">
@@ -319,6 +322,8 @@
         transfer_sel: 0, //选择转账还是提现
         transfer_pay: 0, //充值500还是1000
         userInfo: {
+          attentionLV2: 500,
+          attentionLV3: 1000,
           reviewAverage: 0,
           avatatUrl: '',
           assistantLevel: 0, //辅助人等级

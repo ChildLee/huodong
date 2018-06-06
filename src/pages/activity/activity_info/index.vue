@@ -193,25 +193,28 @@
     </div>
     <!--弹窗-->
 
-    <div class="footer_line"></div>
-    <div class="footer">
-      <div @click="collection">
-        <span class="icon">&#xe607;</span>
-        <span>收藏</span>
-      </div>
-      <button class="btn-share" open-type="share">
-        <span class="icon">&#xe642;</span>
-        <span>分享</span>
-      </button>
-      <div @click="invitation">
-        <span class="icon">&#xe7af;</span>
-        <span>邀约</span>
-      </div>
-      <div @click="participate">
-        <span class="icon">&#xe60a;</span>
-        <span>参加</span>
+    <div v-if="activityInfo.activity.status!==2">
+      <div class="footer_line"></div>
+      <div class="footer">
+        <div @click="collection">
+          <span class="icon">&#xe607;</span>
+          <span>收藏</span>
+        </div>
+        <button class="btn-share" open-type="share">
+          <span class="icon">&#xe642;</span>
+          <span>分享</span>
+        </button>
+        <div @click="invitation">
+          <span class="icon">&#xe7af;</span>
+          <span>邀约</span>
+        </div>
+        <div @click="participate">
+          <span class="icon">&#xe60a;</span>
+          <span>参加</span>
+        </div>
       </div>
     </div>
+
   </main>
 </template>
 
@@ -232,6 +235,7 @@
         isAssess: false, //是否显示弹窗
         activityInfo: {
           activity: {
+            status: 2,
             hostRevenue: 0, //主持人收入
             assistantRevenue: 0, //辅助人收入
             title: '', //标题
@@ -573,6 +577,6 @@
   }
 
   .info_height {
-    min-height: 60px;
+    min-height: 70px;
   }
 </style>

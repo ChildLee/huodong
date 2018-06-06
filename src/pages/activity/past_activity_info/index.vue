@@ -482,6 +482,6 @@
   }
 
   .info_height {
-    min-height: 60px;
+    min-height: 70px;
   }
 </style>

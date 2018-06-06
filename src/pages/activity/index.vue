@@ -18,9 +18,9 @@
         <div class="activity_list" :class="item.surplusStatus===0?'':'bg-d8'" @click="activity(item.id)">
           <div class="activity_list_info">
             <div>{{item.time}}</div>
-            <div class="activity_list_info-address">{{item.title}}</div>
+            <div class="activity_list_info-address">{{item.place}}</div>
           </div>
-          <div class="activity_list_info-content">{{item.place}}</div>
+          <div class="activity_list_info-content">{{item.title}}</div>
         </div>
       </div>
     </div>
