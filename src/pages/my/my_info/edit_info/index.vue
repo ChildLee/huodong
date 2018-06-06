@@ -112,6 +112,7 @@
     name: 'index',
     data() {
       return {
+        submit: true,
         userInfo: {
           phone: '', //手机
           nick: '', //昵称
@@ -129,7 +130,8 @@
         sexBox: ['男', '女']
       }
     },
-    async onLoad() {
+    async onShow() {
+      this.submit = true
       await this.init()
     },
     methods: {
@@ -165,6 +167,12 @@
         this.userInfo.status = e.target.value
       },
       async formSubmit(e) {
+        if (this.submit) {
+          this.submit = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
+
         wx.showLoading({title: '资料修改中'})
         let data = e.mp.detail.value
         if (data.phone && data.nick && data.currentCity && data.selfEvaluation) {

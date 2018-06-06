@@ -88,6 +88,8 @@
     name: 'talmud',
     data() {
       return {
+        submit: true,
+        submit1: true,
         tag: '',
         isPopup5: false,
         search1: '',
@@ -114,10 +116,11 @@
       }
     },
     async onShow() {
+      this.submit = true
       wx.showLoading({title: '加载中'})
       //判断资料填了没有
       this.$app.storageStore.userStore.getters.getType ? `` : wx.redirectTo({url: '/pages/my/my_info/add_info/main?id=1'})
-      await this.init(1)
+      await this.init(this.tab)
       this.member = this.$app.storageStore.userStore.getters.getMember
     },
     methods: {
@@ -171,6 +174,12 @@
         })
       },
       quest_send() {
+        if (this.submit) {
+          this.submit = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
+
         this.list = []
         this.$app.api.talmuds.addTalmud({
           userId: this.$app.storageStore.userStore.getters.getUserId,
@@ -197,6 +206,12 @@
         this.replyid = id
       },
       Reply1() {
+        if (this.submit1) {
+          this.submit1 = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
+
         let that = this
         this.$app.api.talmuds.addReply({
           userId: this.$app.storageStore.userStore.getters.getUserId,

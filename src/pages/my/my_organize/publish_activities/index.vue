@@ -79,6 +79,7 @@
     name: 'publish_activities',
     data() {
       return {
+        submit: true,
         id: '',
         time: '',
         title: '',
@@ -94,7 +95,8 @@
         aloneHost: 0 //达到这个等级可以不邀约辅助人
       }
     },
-    onLoad() {
+    onShow() {
+      this.submit = true
       this.init()
     },
     methods: {
@@ -180,6 +182,11 @@
         })
       },
       no_invite_btn() {
+        if (this.submit) {
+          this.submit = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
 
         let r = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/
         let p = /1[0-9]{10}/

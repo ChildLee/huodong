@@ -33,6 +33,7 @@
     name: 'activity_invite',
     data() {
       return {
+        submit: true,
         searchInvite: '',
         activityId: '21',//活动id
         addStatus: 'true',//是否添加成功
@@ -42,7 +43,8 @@
         info: {}
       }
     },
-    async onLoad() {
+    async onShow() {
+      this.submit = true
       if (this.$mp.query.info) {
         let info = JSON.parse(this.$mp.query.info)
         console.log(info)
@@ -63,6 +65,12 @@
         })
       },
       async invite_helper(id) {
+        if (this.submit) {
+          this.submit = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
+
         let that = this
         this.$app.api.activity.publishActivities(that.info).then(res => {
           /**

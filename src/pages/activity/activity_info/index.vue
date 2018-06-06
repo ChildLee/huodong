@@ -50,6 +50,10 @@
               {{item.maxLV===2?'Ⅲ':''}}
               {{item.maxLV===3?'Ⅳ':''}}
               {{item.maxLV===4?'Ⅴ':''}}
+              {{item.maxLV===5?'Ⅵ':''}}
+              {{item.maxLV===6?'Ⅶ':''}}
+              {{item.maxLV===7?'Ⅷ':''}}
+              {{item.maxLV===8?'Ⅸ':''}}
               </span>
             </div>
           </div>
@@ -62,11 +66,15 @@
             </div>
             <div>{{item.nickName}}
               <span style="color: #1D9ED7;">
-              {{item.maxLV===0?'Ⅰ':''}}
+                {{item.maxLV===0?'Ⅰ':''}}
               {{item.maxLV===1?'Ⅱ':''}}
               {{item.maxLV===2?'Ⅲ':''}}
               {{item.maxLV===3?'Ⅳ':''}}
               {{item.maxLV===4?'Ⅴ':''}}
+              {{item.maxLV===5?'Ⅵ':''}}
+              {{item.maxLV===6?'Ⅶ':''}}
+              {{item.maxLV===7?'Ⅷ':''}}
+              {{item.maxLV===8?'Ⅸ':''}}
               </span>
             </div>
           </div>
@@ -84,11 +92,15 @@
             </div>
             <div>{{item.nickName}}
               <span style="color: #1D9ED7;">
-              {{item.maxLV===0?'Ⅰ':''}}
+                {{item.maxLV===0?'Ⅰ':''}}
               {{item.maxLV===1?'Ⅱ':''}}
               {{item.maxLV===2?'Ⅲ':''}}
               {{item.maxLV===3?'Ⅳ':''}}
               {{item.maxLV===4?'Ⅴ':''}}
+              {{item.maxLV===5?'Ⅵ':''}}
+              {{item.maxLV===6?'Ⅶ':''}}
+              {{item.maxLV===7?'Ⅷ':''}}
+              {{item.maxLV===8?'Ⅸ':''}}
               </span>
             </div>
           </div>
@@ -102,11 +114,15 @@
             </div>
             <div>{{item.nickName}}
               <span style="color: #1D9ED7;">
-              {{item.maxLV===0?'Ⅰ':''}}
+               {{item.maxLV===0?'Ⅰ':''}}
               {{item.maxLV===1?'Ⅱ':''}}
               {{item.maxLV===2?'Ⅲ':''}}
               {{item.maxLV===3?'Ⅳ':''}}
               {{item.maxLV===4?'Ⅴ':''}}
+              {{item.maxLV===5?'Ⅵ':''}}
+              {{item.maxLV===6?'Ⅶ':''}}
+              {{item.maxLV===7?'Ⅷ':''}}
+              {{item.maxLV===8?'Ⅸ':''}}
               </span>
             </div>
           </div>
@@ -115,7 +131,7 @@
       <div class="active_staff">
         <div>参与人</div>
         <div class="participate">
-          <div v-for="(item,index) in activityInfo.userList" v-if="item.role===1" :key="item.id">
+          <div class="info_height" v-for="(item,index) in activityInfo.userList" v-if="item.role===1" :key="item.id">
             <div class="operate" v-if="item.sex===1">
               <div class="operate-attention">
                 <span v-if="item.attention" style="color:red;">&#xe755;</span>
@@ -123,18 +139,22 @@
               </div>
               <div>{{item.nickName}}
                 <span style="color: #1D9ED7;">
-              {{item.maxLV===0?'Ⅰ':''}}
+               {{item.maxLV===0?'Ⅰ':''}}
               {{item.maxLV===1?'Ⅱ':''}}
               {{item.maxLV===2?'Ⅲ':''}}
               {{item.maxLV===3?'Ⅳ':''}}
               {{item.maxLV===4?'Ⅴ':''}}
+              {{item.maxLV===5?'Ⅵ':''}}
+              {{item.maxLV===6?'Ⅶ':''}}
+              {{item.maxLV===7?'Ⅷ':''}}
+              {{item.maxLV===8?'Ⅸ':''}}
               </span>
               </div>
             </div>
           </div>
         </div>
         <div class="participate">
-          <div v-for="item in activityInfo.userList" v-if="item.role===1" :key="item.id">
+          <div class="info_height" v-for="item in activityInfo.userList" v-if="item.role===1" :key="item.id">
             <div class="operate" v-if="item.sex===2">
               <div class="operate-attention">
                 <span v-if="item.attention" style="color:red;">&#xe755;</span>
@@ -142,11 +162,15 @@
               </div>
               <div>{{item.nickName}}
                 <span style="color: #1D9ED7;">
-              {{item.maxLV===0?'Ⅰ':''}}
+                {{item.maxLV===0?'Ⅰ':''}}
               {{item.maxLV===1?'Ⅱ':''}}
               {{item.maxLV===2?'Ⅲ':''}}
               {{item.maxLV===3?'Ⅳ':''}}
               {{item.maxLV===4?'Ⅴ':''}}
+              {{item.maxLV===5?'Ⅵ':''}}
+              {{item.maxLV===6?'Ⅶ':''}}
+              {{item.maxLV===7?'Ⅷ':''}}
+              {{item.maxLV===8?'Ⅸ':''}}
               </span>
               </div>
             </div>
@@ -196,6 +220,7 @@
     name: 'activity_info',
     data() {
       return {
+        submit: true,
         user: '',
         isPay: false, //支付弹窗
         activityId: 0, //活动Id
@@ -236,7 +261,8 @@
         }
       }
     },
-    onLoad() {
+    onShow() {
+      this.submit = true
       wx.showLoading({title: '数据加载中'})
       this.dataStatus = this.$app.storageStore.userStore.getters.getType //获取资料填写状态
       this.activityId = this.$mp.query.id //获取活动id
@@ -299,7 +325,13 @@
       },
       //参加
       participate() {
-        console.log(this.dataStatus)
+        if (this.submit) {
+          this.submit = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
+
+
         if (!this.dataStatus) {
           return this.goData()
         }
@@ -538,5 +570,9 @@
     &::after {
       border: none;
     }
+  }
+
+  .info_height {
+    min-height: 60px;
   }
 </style>

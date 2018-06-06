@@ -33,6 +33,7 @@
     name: 'activity_invite',
     data() {
       return {
+        submit: true,
         searchInvite: '',
         activityId: '21',//活动id
         addStatus: 'true',//是否添加成功
@@ -41,7 +42,8 @@
         list: [{'attentionUserId': 6, 'id': 104, 'nickName': '66666666', 'remark': '后台', 'sex': 2}]
       }
     },
-    async onLoad() {
+    async onShow() {
+      this.submit = true
       wx.showLoading({title: '加载中'})
       this.activityId = this.$mp.query.id
       await this.init()
@@ -59,6 +61,12 @@
         })
       },
       invite_helper(id) {
+        if (this.submit) {
+          this.submit = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
+
         let that = this
         this.$app.api.activity.addInvitation({
           activityId: this.activityId,

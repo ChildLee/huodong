@@ -275,7 +275,7 @@
           content: `确定辅助该活动?`,
           success: function (res) {
             if (res.confirm) {
-              this.$app.api.activity.promiseParticipate({
+              that.$app.api.activity.promiseAssistant({
                 id: id
               }).then(res => {
                 console.log(res)

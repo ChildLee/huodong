@@ -110,13 +110,15 @@
     name: 'index',
     data() {
       return {
+        submit: true,
         validation: false, //表单验证默认失败
         userId: 0, //用户id
         sexIndex: 0,
         sexBox: ['男', '女']
       }
     },
-    async onLoad() {
+    async onShow() {
+      this.submit = true
     },
     methods: {
       reg(enter) {
@@ -135,6 +137,12 @@
         this.sexIndex = e.target.value
       },
       async formSubmit(e) {
+        if (this.submit) {
+          this.submit = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
+
         wx.showLoading({title: '资料保存中'})
         let that = this
         let data = e.mp.detail.value

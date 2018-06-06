@@ -48,7 +48,7 @@
             <label class="attention-1">
               <radio :value="1"/>
               <span>￥50</span>
-              <span class="a-more">更多关注20人/年</span>
+              <span class="a-more">更多关注20人</span>
             </label>
             <!--<label class="attention-2">-->
             <!--<radio :value="2"/>-->

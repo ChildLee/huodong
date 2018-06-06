@@ -12,9 +12,9 @@
     <div class="popup_1" v-if="isPopup">
       <div class="popup-box">
         <div class="love_msg">
-          <div class="love_msg-1">我给二丫的信</div>
+          <div class="love_msg-1">我给{{userInfo.nick}}的信</div>
           <div class="love_msg-2">{{issueReviews?issueReviews:'稍等'}}</div>
-          <div class="love_msg-1">二丫给我的信</div>
+          <div class="love_msg-1">{{userInfo.nick}}给我的信</div>
           <div class="love_msg-2">{{receivedReviews?receivedReviews:'稍等'}}</div>
         </div>
       </div>
