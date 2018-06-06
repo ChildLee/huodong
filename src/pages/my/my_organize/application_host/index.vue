@@ -16,7 +16,7 @@
     <div class="btn-box btn btn_color-diyBlue" @click="app_btn">申请</div>
 
     <div class="we w-80 tc">
-      <img class="w-60" mode="widthFix" src="/static/img/we.jpg">
+      <img class="w-60" mode="widthFix" src="/static/img/we.png">
       <div class="c999">添加客服微信并提交申请书</div>
     </div>
 
