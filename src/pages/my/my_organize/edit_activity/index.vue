@@ -4,25 +4,25 @@
     <div class="field border-cell">
       <div class="field_left">活动名称</div>
       <div class="field_right">
-        <input v-model.lazy="title" placeholder="16字以内 英文一个字母算一个字"/>
+        <input v-model="title" placeholder="16字以内 英文一个字母算一个字"/>
       </div>
     </div>
     <div class="field border-cell">
       <div class="field_left">活动时间</div>
       <div class="field_right">
-        <input v-model.lazy="time" placeholder="2018-08-08 9：00"/>
+        <input v-model="time" placeholder="2018-08-08 9：00"/>
       </div>
     </div>
     <div class="field border-cell">
       <div class="field_left">活动地点</div>
       <div class="field_right">
-        <input v-model.lazy="place" placeholder="深圳 高新园 TCL大厦 1101 室"/>
+        <input v-model="place" placeholder="深圳 高新园 TCL大厦 1101 室"/>
       </div>
     </div>
     <div class="field border-cell">
       <div class="field_left">电话号码</div>
       <div class="field_right">
-        <input v-model.lazy="phone" placeholder="联系方式"/>
+        <input v-model="phone" placeholder="联系方式"/>
       </div>
     </div>
 

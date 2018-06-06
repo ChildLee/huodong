@@ -135,7 +135,7 @@
         }
 
         if (!r.test(this.time)) {
-          return wx.showToast({title: '时间格式为:2014-01-01 12:00:00', icon: 'none'})
+          return wx.showToast({title: '时间格式为:2019-01-01 12:00:00', icon: 'none'})
         }
 
         let day = new Date()
@@ -196,7 +196,7 @@
         }
 
         if (!r.test(this.time)) {
-          return wx.showToast({title: '时间格式为:2014-01-01 12:00:00', icon: 'none'})
+          return wx.showToast({title: '时间格式为:2019-01-01 12:00:00', icon: 'none'})
         }
 
         let day = new Date()

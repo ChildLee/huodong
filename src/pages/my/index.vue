@@ -9,8 +9,8 @@
             <span>{{userInfo.nick}}</span>
           </div>
           <div class="my-info-box-text-sex">
-            <span class="icon" v-if="userInfo.sex">&#xe665;</span>
-            <span class="icon" v-else>&#xe643;</span>
+            <span class="icon" v-if="userInfo.sex===1">&#xe665;</span>
+            <span class="icon" v-if="userInfo.sex===2">&#xe643;</span>
           </div>
           <div class="my-info-box-text-marriage">{{love}}</div>
         </div>
@@ -266,7 +266,7 @@
                 500元
               </span>
               </label>
-              <div class="fs14 c999">免费活动{{userInfo.attentionLV2}}次</div>
+              <div class="fs14 c999">免费活动{{attentionLV2}}次</div>
               <div></div>
               <label class="transfer fs14">
                 <radio :value="1"/>
@@ -275,7 +275,7 @@
                 1000元
               </span>
               </label>
-              <div class="fs14 c999 mg10-b">免费活动{{userInfo.attentionLV2}}次</div>
+              <div class="fs14 c999 mg10-b">免费活动{{attentionLV3}}次</div>
             </radio-group>
           </div>
           <div class="transfer-btn-box border-top">
@@ -299,6 +299,8 @@
     },
     data() {
       return {
+        attentionLV2: 500,
+        attentionLV3: 1000,
         roles: {
           assistantLV1: 35,
           assistantLV2: 85,
@@ -322,8 +324,6 @@
         transfer_sel: 0, //选择转账还是提现
         transfer_pay: 0, //充值500还是1000
         userInfo: {
-          attentionLV2: 500,
-          attentionLV3: 1000,
           reviewAverage: 0,
           avatatUrl: '',
           assistantLevel: 0, //辅助人等级
@@ -366,8 +366,9 @@
       await this.$app.api.user.userCenter({
         userId: this.$app.storageStore.userStore.getters.getUserId
       }).then(res => {
-        console.log(res)
         this.userInfo = JSON.parse(res.data.user)
+        this.attentionLV2 = res.data.attentionLV2
+        this.attentionLV3 = res.data.attentionLV3
         wx.hideLoading()
       })
       if (this.userInfo.status === 0) {

@@ -17,7 +17,7 @@ export default {
   breakUp(param) {
     return wx.httpRequest.httpJsonPost('/user/breakUp', param)
   },
-  //异路
+  //
   priceChecking(param) {
     return wx.httpRequest.httpJsonPost('/user/priceChecking', param)
   }

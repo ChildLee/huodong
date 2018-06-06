@@ -134,6 +134,9 @@
     name: 'my_invite',
     data() {
       return {
+        submit2: true,
+        submit1: true,
+        submit: true,
         cancelLove: 0,//取消爱情邀约比例
         timeout: 0,//超过20天扣费比例
         invite_love_id: 0,
@@ -151,12 +154,16 @@
         love: 0 //love  邀请爱情价格
       }
     },
-    async onLoad() {
+    async onShow() {
+      this.submit = true
+      this.submit1 = true
       await this.init()
     },
     methods: {
       init() {
         this.focus = []
+        this.love = 0
+        this.promiseLove = 0
         this.$app.api.activity.invite({
           userId: this.$app.storageStore.userStore.getters.getUserId,
           sendStatus: this.currentTab,//sendStatus 1收到的  2发出的
@@ -234,7 +241,7 @@
         let that = this
         wx.showModal({
           title: '',
-          content: `撤销邀约时，退款并扣${this.cancelLove}手续费，对方拒绝或20天内未回复的，退款并扣${this.timeout}%手续费。`,
+          content: `撤销邀约时，退款并扣${this.cancelLove}%手续费，对方拒绝或20天内未回复的，退款并扣${this.timeout}%手续费。`,
           success: function (res) {
             if (res.confirm) {
               that.$app.api.activity.undoLove({
@@ -269,6 +276,13 @@
         })
       },
       Assistant(id) {
+        if (this.submit2) {
+          this.submit2 = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
+
+
         let that = this
         wx.showModal({
           title: '提示',
@@ -289,6 +303,12 @@
         })
       },
       Love(id, status) {
+        if (this.submit) {
+          this.submit = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
+
         this.invite_love_id = id
         if (status === 0) {
           this.isPay2 = true

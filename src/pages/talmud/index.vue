@@ -177,7 +177,7 @@
         })
       },
       quest_send() {
-           this.list = []
+        this.list = []
         this.$app.api.talmuds.addTalmud({
           userId: this.$app.storageStore.userStore.getters.getUserId,
           content: this.quest_text,

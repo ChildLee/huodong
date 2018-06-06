@@ -11,7 +11,8 @@
 
     <div class="mg15-lr icon">
 
-      <div class="pd15 mg10-b bg-eee br10" v-for="(item,index) in myTalmuds" :key="index" @click="talmudInfo(item.taId)">
+      <div class="pd15 mg10-b bg-eee br10" v-for="(item,index) in myTalmuds" :key="index"
+           @click="talmudInfo(item.taId)">
         <div class="fs16 c111 f-between">
           <div>{{item.title}}</div>
           <div>&#xe645;{{item.sameQuestion}}</div>
@@ -89,7 +90,7 @@
 </script>
 
 <style lang="stylus">
-  @import "../../../stylus/common.styl"
+  @import "../../../../stylus/common.styl"
 
   .talmud_top {
     padding: 15px;
