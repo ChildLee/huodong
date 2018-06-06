@@ -22,7 +22,7 @@
 
     <div class="we w-80 tc">
       <img class="w-60" mode="widthFix" src="/static/img/we.png">
-      <div class="c999">请识别二维码添加客服微信</div>
+      <div class="c999">请截屏后用微信识别二维码添加客服微信</div>
     </div>
   </main>
 </template>

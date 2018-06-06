@@ -17,7 +17,7 @@
 
     <div class="we w-80 tc">
       <img class="w-60" mode="widthFix" src="/static/img/we.png">
-      <div class="c999">添加客服微信并提交申请书</div>
+      <div class="c999">请截屏后用微信识别添加客服微信并提交申请书</div>
     </div>
 
   </main>
