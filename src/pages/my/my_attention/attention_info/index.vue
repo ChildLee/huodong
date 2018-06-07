@@ -142,6 +142,8 @@
           this.userInfo = JSON.parse(res.data.user)
         })
 
+        console.log(this.user.status)
+
         if (this.user.status === 0) {
           this.love = '单身'
         } else if (this.user.status === 3) {

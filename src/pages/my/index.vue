@@ -9,14 +9,14 @@
             <span>{{userInfo.nick}}</span>
           </div>
           <div class="my-info-box-text-sex">
-            <span class="icon" v-if="userInfo.sex===1">&#xe665;</span>
-            <span class="icon" v-if="userInfo.sex===2">&#xe643;</span>
+            <span class="icon" v-if="userInfo.sex===1">&#xe643;</span><!--男-->
+            <span class="icon" v-if="userInfo.sex===2">&#xe665;</span>
           </div>
           <div class="my-info-box-text-marriage">{{love}}</div>
         </div>
       </div>
       <div class="button-box">
-        <button class="button" open-type="getUserInfo" @getuserinfo="getUserInfo">更新信息</button>
+        <button class="button" open-type="getUserInfo" @getuserinfo="getUserInfo">同步微信头像</button>
       </div>
     </div>
 
@@ -278,6 +278,7 @@
               <div class="fs14 c999 mg10-b">免费活动{{attentionLV3}}次</div>
             </radio-group>
           </div>
+          <div class="fs12 c999">会员只参加免费活动,两年后可退全款</div>
           <div class="transfer-btn-box border-top">
             <span class="transfer-btn btn btn_size-small" @click="btn_recharge">确定</span>
           </div>
@@ -371,6 +372,9 @@
         this.attentionLV3 = res.data.attentionLV3
         wx.hideLoading()
       })
+
+      console.log(this.userInfo.status)
+
       if (this.userInfo.status === 0) {
         this.love = '单身'
       } else if (this.userInfo.status === 3) {
@@ -491,7 +495,7 @@
     border-radius 20px;
     margin 0 auto;
     margin-top 10px;
-    width 60px;
+    width 85px;
   }
 
   .button {

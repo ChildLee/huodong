@@ -6,15 +6,15 @@
       </div>
     </div>
 
-    <div class="prompt">您与{{userInfo.nick}}在{{determine?determine:''}}-{{stop?stop:'至今'}}尝试交往</div>
+    <div class="prompt">您与{{nick}}在{{determine?determine:''}}-{{stop?stop:'至今'}}尝试交往</div>
 
     <!--弹窗显示信件-->
     <div class="popup_1" v-if="isPopup">
       <div class="popup-box">
         <div class="love_msg">
-          <div class="love_msg-1">我给{{userInfo.nick}}的信</div>
+          <div class="love_msg-1">我给{{nick}}的信</div>
           <div class="love_msg-2">{{issueReviews?issueReviews:'稍等'}}</div>
-          <div class="love_msg-1">{{userInfo.nick}}给我的信</div>
+          <div class="love_msg-1">{{nick}}给我的信</div>
           <div class="love_msg-2">{{receivedReviews?receivedReviews:'稍等'}}</div>
         </div>
       </div>
@@ -29,6 +29,7 @@
     name: 'love_activity',
     data() {
       return {
+        nick: '',
         isPopup: false,
         activitys: [{
           time: '',
@@ -67,6 +68,7 @@
             this.determine = res.data.determine
             this.status = res.data.status
             this.stop = res.data.stop
+            this.nick = res.data.nick
           }
           return res.data
         }).then(res => {
@@ -90,6 +92,7 @@
           loveUserId: this.loveUserId,
           activityId: id
         }).then(res => {
+          console.log(res)
           this.issueReviews = res.data.issueReviews
           this.receivedReviews = res.data.receivedReviews
         })

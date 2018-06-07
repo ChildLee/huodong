@@ -12,7 +12,7 @@
 
     <div class="love_info">
       <div class="border-bottom-white" v-for="item in loves" @click="love_info(item.id)" :key="item.id">
-        {{item.determine}}您与{{item.nick}}的爱情信息。
+        {{item.determine}}起您与{{item.nick}}的爱情信息。
       </div>
     </div>
 

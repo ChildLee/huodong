@@ -106,11 +106,10 @@
   }
 
   .organize {
-    padding: 15px;
+    padding: 5px 15px;
 
     .organize-box {
       padding: 15px;
-      margin-bottom 15px;
       border-radius 10px;
       background-color rgba(0, 0, 0, .08);
 

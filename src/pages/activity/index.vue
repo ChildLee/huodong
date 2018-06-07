@@ -38,7 +38,7 @@
               <div>会员星级</div>
               <div>参与折扣</div>
               <div>推荐异性</div>
-              <div>推荐异性</div>
+              <div>推荐同性</div>
               <div>推荐更多</div>
             </div>
 
@@ -160,6 +160,14 @@
     methods: {
       async init() {
         this.list = []
+        /**
+         activitys 活动列表
+         type  必填  0近期活动 1往期活动
+         status  必填  0显示收藏 1全部
+         title  选填  输入搜索内容
+         id 选填 显示收藏的得传用户id
+         page 选填 分页
+         **/
         await this.$app.api.activity.getActivitys(this.activityStatus).then(res => {
           if (res.data) {
             this.list = JSON.parse(res.data.activities)

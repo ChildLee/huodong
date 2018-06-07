@@ -282,7 +282,6 @@
           return wx.showToast({title: '请不要重复提交', icon: 'none'})
         }
 
-
         let that = this
         wx.showModal({
           title: '提示',

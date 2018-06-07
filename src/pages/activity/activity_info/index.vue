@@ -224,6 +224,7 @@
     data() {
       return {
         submit: true,
+        submit2: true,
         user: '',
         isPay: false, //支付弹窗
         activityId: 0, //活动Id
@@ -267,6 +268,7 @@
     },
     onShow() {
       this.submit = true
+      this.submit2 = true
       wx.showLoading({title: '数据加载中'})
       this.dataStatus = this.$app.storageStore.userStore.getters.getType //获取资料填写状态
       this.activityId = this.$mp.query.id //获取活动id
@@ -305,6 +307,12 @@
       },
       //收藏按钮
       collection() {
+        if (this.submit2) {
+          this.submit2 = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
+
         if (!this.dataStatus) {
           return this.goData()
         }

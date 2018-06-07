@@ -141,6 +141,7 @@
     name: 'index',
     data() {
       return {
+        role: 0,//自己的角色
         activityId: 0, //活动Id
         assessId: 0, //被评价人的id
         assessRole: 0, //被评价人的角色
@@ -197,6 +198,7 @@
           userId: this.$app.storageStore.userStore.getters.getUserId //用户id
         }).then(res => {
           this.activityInfo = res.data
+          this.role = res.data.role
           this.activityInfo.activity = JSON.parse(res.data.activity)
           this.activityInfo.userList = JSON.parse(res.data.userList)
         })
@@ -250,17 +252,17 @@
             activityId: this.activityId,
             reviewUserId: this.assessId,
             review: this.review,
-            score: this.assess_score
+            score: this.assess_score,
+            reviewRole: this.role
           }).then(res => {
             if (res.data) {
               wx.showToast({title: '评价成功!', icon: 'none'})
             } else {
               wx.showToast({title: res.message, icon: 'none'})
             }
-          }).then(() => {
-            this.isAssess = false
           })
         }
+        this.isAssess = false
       }
     }
   }
