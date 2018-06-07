@@ -61,7 +61,12 @@
         this.init(tab)
       },
       go_activity_info(id) {
-        this.$app.nav.navigateTo('/pages/activity/past_activity_info/main', {id})
+        if (this.currentTab === 1) {
+          this.$app.nav.navigateTo('/pages/activity/activity_info/main', {id})
+        }
+        if (this.currentTab === 2) {
+          this.$app.nav.navigateTo('/pages/activity/past_activity_info/main', {id})
+        }
       },
       cancelActivity() {
 

@@ -219,7 +219,6 @@
       search() {
         this.list = []
         this.$app.api.talmuds.talmuds({
-          userId: this.$app.storageStore.userStore.getters.getUserId,
           title: this.search1,
           status: this.tab //1散问 2整理
         }).then(res => {
