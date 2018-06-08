@@ -86,7 +86,7 @@
       <div class="invite-help border-bottom_line" v-for="(item,index) in focus" :key="index"
            v-if="item.status===0&&currentTab===1&&currentTabChild===2">
         <div class="invite-help-info">
-          <span class="invite-info_color">{{item.nickName}}</span>邀约您与TA一起辅助
+          <span class="invite-info_color">{{item.nickName}}</span>邀约您与TA一起主持
           <span class="invite-info_color">{{item.time}}{{item.place}}</span>活动.
         </div>
         <div class="invite-help-btn">
@@ -98,9 +98,9 @@
     <div class="invite-love" v-for="(item,index) in focus" :key="index"
          v-if="item.status===0&&currentTab===1&&currentTabChild===3">
       <!--收到爱情邀约-->
-      <div class="invite-love-info">已邀约
+      <div class="invite-love-info">
         <span class="invite-info_color">
-          {{item.nickName}}</span>与您一起进入准备恋爱阶段。
+          {{item.nickName}}</span>已邀约您与TA一起进入准备恋爱阶段。
       </div>
       <!--<div class="invite-love-time">距您有效回复还剩-->
       <!--<span class="invite-info_color">15</span>天-->

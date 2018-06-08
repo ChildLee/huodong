@@ -7,11 +7,11 @@
           爱的邀约
         </div>
       </div>
-      <div class="love_top-3" @click="popup">恋爱规则</div>
+      <div class="love_top-3 c666" @click="popup">恋爱规则</div>
     </div>
 
     <div class="love_info">
-      <div class="border-bottom-white" v-for="item in loves" @click="love_info(item.id)" :key="item.id">
+      <div class="border-bottom-white c666" v-for="item in loves" @click="love_info(item.id)" :key="item.id">
         {{item.determine}}起您与{{item.nick}}的爱情信息。
       </div>
     </div>
@@ -26,7 +26,7 @@
     <!--弹窗-->
     <div class="popup" v-if="isPopup">
       <div class="popup-box">
-        <div class="popup-msg">
+        <div class="popup-msg c666">
           <div>规则：</div>
           <div>感情是郑重严谨的，请双方缴费确定</div>
           <div>在交往中如需帮助，加客服微信可获得专业辅助</div>
