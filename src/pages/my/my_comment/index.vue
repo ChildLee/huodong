@@ -32,7 +32,7 @@
           </div>
           <div class="comment_text">
             <span>
-              {{item.role===1?'(参与者)':item.role===2?'(主持人)':item.role===3?'(辅助人)':''}}
+              {{item.role===1?'(参与人)':item.role===2?'(主持人)':item.role===3?'(辅助人)':''}}
               {{item.nickName}}：{{item.review}}
             </span>
           </div>
