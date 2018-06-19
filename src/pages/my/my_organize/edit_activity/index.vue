@@ -27,7 +27,7 @@
     </div>
 
     <div class="w h100">
-      <textarea v-model="content" class="w h panel panel-no_top bg-f8 pd15-lr pd5-tb" placeholder="内容"></textarea>
+      <textarea v-model="content" maxlength="-1"  class="w h panel panel-no_top bg-f8 pd15-lr pd5-tb" placeholder="内容"></textarea>
     </div>
 
     <div class="publish_activities_btn">
