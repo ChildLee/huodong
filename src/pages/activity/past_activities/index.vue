@@ -12,7 +12,7 @@
       <div class="container">
         <div class="activity_list" @click="activity(item.id)">
           <div class="activity_list_info">
-            <div>{{item.time}}</div>
+            <div class="activity_list_info-date">{{item.time}}</div>
             <div class="activity_list_info-address">{{item.place}}</div>
           </div>
           <div class="activity_list_info-content">{{item.title}}</div>
@@ -155,7 +155,9 @@
       display flex;
       color: #999;
       font-size 14px;
-
+      .activity_list_info-date{
+        flex none
+      }
       .activity_list_info-address {
         margin-left 10px;
       }

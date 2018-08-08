@@ -162,7 +162,11 @@
         ) {
           return wx.showToast({title: '价格和数量只能为数字', icon: 'none'})
         }
-
+        if (this.submit) {
+          this.submit = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
         let info = {
           id: this.$app.storageStore.userStore.getters.getUserId,
           time: this.time,
@@ -182,12 +186,6 @@
         })
       },
       no_invite_btn() {
-        if (this.submit) {
-          this.submit = false
-        } else {
-          return wx.showToast({title: '请不要重复提交', icon: 'none'})
-        }
-
         let r = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/
         let p = /1[0-9]{10}/
 
@@ -223,7 +221,11 @@
         ) {
           return wx.showToast({title: '价格和数量只能为数字', icon: 'none'})
         }
-
+        if (this.submit) {
+          this.submit = false
+        } else {
+          return wx.showToast({title: '请不要重复提交', icon: 'none'})
+        }
         this.$app.api.activity.publishActivities({
           id: this.$app.storageStore.userStore.getters.getUserId,
           time: this.time,

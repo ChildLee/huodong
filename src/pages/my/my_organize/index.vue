@@ -51,6 +51,9 @@
         aloneHost: 0 //达到这个等级可以不邀约辅助人
       }
     },
+    onLoad(e) {
+      console.log(e)
+    },
     async onShow() {
       wx.showLoading({title: '加载中'})
       await this.init(this.tab)
@@ -119,23 +122,19 @@
         padding-bottom: 5px;
         font-size 14px;
         color: #999
-
         .organize-time {
           flex none;
         }
-
         .organize-address {
           width 0;
           flex 1
           margin-left 10px;
         }
-
         .organize-status {
           flex none;
           color: Darkorange;
         }
       }
-
       .organize-name {
         margin-top 5px;
         font-size 14px;

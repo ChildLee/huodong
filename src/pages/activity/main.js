@@ -12,7 +12,7 @@ new WrapPage(App, store)
 
 export default {
   config: {
-    navigationBarTitleText: '竹芝林-温暖为你'
+    navigationBarTitleText: '竹芝林-爱的信仰和信用'
     // navigationBarTextStyle: '#fff',
     // navigationBarBackgroundColor: '#fff'
   }

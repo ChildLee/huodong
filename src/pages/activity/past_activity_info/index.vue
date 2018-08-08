@@ -83,8 +83,8 @@
       <div class="active_staff">
         <div>参与人</div>
         <div class="participate">
-          <div class="info_height" v-for="item in activityInfo.userList" v-if="item.role===1" :key="item.id">
-            <div class="operate" v-if="item.sex===1">
+          <div class="info_height" v-for="item in activityInfo.userList" v-if="item.role===1&&item.sex===1" :key="item.id">
+            <div class="operate">
               <div class="operate-attention" @click="focus(item,item.id,item.attention)">
                 <span v-if="item.attention" style="color:red;">&#xe755;</span>
                 <span v-else>&#xe613;</span>
@@ -94,8 +94,8 @@
           </div>
         </div>
         <div class="participate">
-          <div class="info_height" v-for="item in activityInfo.userList" v-if="item.role===1" :key="item.id">
-            <div class="operate" v-if="item.sex===2">
+          <div class="info_height" v-for="item in activityInfo.userList" v-if="item.role===1&&item.sex===2" :key="item.id">
+            <div class="operate">
               <div class="operate-attention" @click="focus(item,item.id,item.attention)">
                 <span v-if="item.attention" style="color:red;">&#xe755;</span>
                 <span v-else>&#xe613;</span>

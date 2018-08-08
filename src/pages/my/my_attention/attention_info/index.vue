@@ -107,6 +107,10 @@
       <wx-cell arrow text="Ta的评价"></wx-cell>
     </div>
 
+    <div class="panel" @click="ta_attention">
+      <wx-cell arrow text="Ta组织的"></wx-cell>
+    </div>
+
     <div class="panel" @click="ta_talmud">
       <wx-cell arrow text="Ta的塔木德"></wx-cell>
     </div>
@@ -203,6 +207,9 @@
       },
       ta_talmud() {
         this.$app.nav.navigateTo('/pages/my/my_attention/talmud/main', {id: this.user.id})
+      },
+      ta_attention() {
+        this.$app.nav.navigateTo('/pages/my/my_organize/main', {id: this.user.id})
       }
     }
   }
